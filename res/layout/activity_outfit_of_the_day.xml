@@ -3,63 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageButton
-        android:id="@+id/imageButton3"
+    <ImageView
+        android:id="@+id/imageViewAnh1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButton2"
-        android:layout_centerHorizontal="true"
-        android:src="@android:drawable/alert_dark_frame" />
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="74dp"
+        android:rotation="90"
+        android:src="@drawable/polo_blue_solid" />
+
+    <ImageView
+        android:id="@+id/imageViewAnh2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageViewAnh1"
+        android:layout_marginTop="22dp"
+        android:rotation="90"
+        android:src="@drawable/jeans_blue_solid" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButton3"
-        android:layout_centerHorizontal="true"
-        android:src="@android:drawable/alert_light_frame" />
-
-    <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButton4"
-        android:layout_centerHorizontal="true"
-        android:src="@android:drawable/alert_dark_frame" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/imageButton3"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/imageViewAnh1"
         android:src="@drawable/abc_ic_ab_back_holo_light" />
 
     <ImageButton
-        android:id="@+id/imageButton7"
+        android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/imageButton6"
-        android:src="@drawable/abc_ic_ab_back_holo_light" 
-        android:rotation="180"/>
+        android:layout_below="@+id/imageViewAnh1"
+        android:rotation="180"
+        android:src="@drawable/abc_ic_ab_back_holo_light" />
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/imageButton1"
-        android:layout_centerHorizontal="true"
-        android:src="@android:drawable/alert_light_frame" />
-
-    <ImageButton
-        android:id="@+id/imageButton1"
+    <Button
+        android:id="@+id/wear"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@+id/imageButton3"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:src="@android:drawable/alert_dark_frame" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="29dp"
+        android:layout_marginLeft="24dp"
+        android:text="Wear" />
+
+    <Button
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/wear"
+        android:layout_alignBottom="@+id/wear"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"
+        android:text="Home" />
 
 </RelativeLayout>
