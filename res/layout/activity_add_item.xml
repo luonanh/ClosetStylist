@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/add_item_value_description"
-                android:onClick="addAudioClicked"
+                android:onClick="addPhotoClicked"
                 android:text="@string/add_item_value_image_link" />
 
             <TextView
