@@ -4,5 +4,27 @@
     <string name="app_name">ClosetStylist</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+    <!-- Add Item Strings -->
+    <string name="add_item_label_name">Name</string>
+    <string name="add_item_value_name_default_value">polo1</string>
+    <string name="add_item_label_description">Description</string>
+    <string name="add_item_value_description_default_value">Description</string>
+    <string name="add_item_label_image_link">ImageLink:</string>
+    <string name="add_item_value_image_link">Add Image</string>
+    <string name="add_item_label_edit_image">Edit Image</string>
+    <string name="add_item_label_color">Color</string>
+    <string name="add_item_label_temp_min">Temperature Min(F)</string>
+    <string name="add_item_label_temp_max">Temperature Max(F)</string>
+    <string name="add_item_label_category">Category</string>
+    <string name="add_item_label_brand">Brand</string>
+    <string name="add_item_label_material">Material</string>
+    
+    
+    <string name="add_item_register">Register</string>
+    <string name="add_item_reset">Reset</string>
+    <string name="add_item_discard">Discard</string>
+    
+    <!-- Edit Item Strings -->
 
 </resources>
