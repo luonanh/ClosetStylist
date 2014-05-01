@@ -28,9 +28,9 @@
     <string name="add_item_label_material">Material</string>
     
     
-    <string name="add_item_register">Register</string>
-    <string name="add_item_reset">Reset</string>
-    <string name="add_item_discard">Discard</string>
+    <string name="add_item_btn_register">Register</string>
+    <string name="add_item_btn_reset">Reset</string>
+    <string name="add_item_btn_discard">Discard</string>
     
     <!-- Edit Item Strings -->
 

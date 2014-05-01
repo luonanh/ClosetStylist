@@ -13,6 +13,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class AddItemActivity extends Activity {
@@ -22,9 +25,13 @@ public class AddItemActivity extends Activity {
 	
 	static final int CAMERA_PIC_REQUEST = 1;
 	
-	private Uri imagePath;
-	TextView imageLocation;
+	private Uri imagePath = null;
+	TextView imageLocation = null;
 	Uri imagePathFinal = null;
+	Button buttonReset = null;
+	Button buttonRegister = null;
+	EditText name = null;
+	EditText description = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,25 @@ public class AddItemActivity extends Activity {
 		setContentView(R.layout.activity_add_item);
 		imageLocation = (TextView) findViewById(
 				R.id.add_item_value_image_location);
+		name = (EditText) findViewById(R.id.add_item_value_name);
+		description = (EditText) findViewById(R.id.add_item_value_description);
+		
+		buttonReset = (Button) findViewById(R.id.add_item_btn_reset);
+		buttonReset.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				name.setText("");// ALDBG why somebody does ("" + "") instead of just ("")
+				description.setText("");
+			}			
+		});
+		
+		buttonRegister = (Button) findViewById(R.id.add_item_btn_register);
+		buttonRegister.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// Save this to database or something
+			}
+		});
 	}
 	
 	/**
