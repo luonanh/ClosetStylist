@@ -4,6 +4,13 @@
     <string name="app_name">ClosetStylist</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Login Strings -->
+    <string name="login_label_username">User Name</string>
+    <string name="login_label_password">Password</string>
+    <string name="login_btn_login">Login</string>
+    <string name="login_value_username_default_value">anh</string>
+    <string name="login_value_password_default_value">****</string>
     
     <!-- Add Item Strings -->
     <string name="add_item_label_name">Name</string>

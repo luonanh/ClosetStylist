@@ -5,10 +5,16 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
-    
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- THIS IS THE ADD ITEM ACTIVITY -->
+        <activity android:name="com.example.closetstylist.AddItemActivity" >
+        </activity>
+        
     </application>
 
 </manifest>
