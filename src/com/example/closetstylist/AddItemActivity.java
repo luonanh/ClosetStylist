@@ -30,6 +30,7 @@ public class AddItemActivity extends Activity {
 	Uri imagePathFinal = null;
 	Button buttonReset = null;
 	Button buttonRegister = null;
+	Button buttonDiscard = null;
 	EditText name = null;
 	EditText description = null;
 	
@@ -58,6 +59,15 @@ public class AddItemActivity extends Activity {
 			public void onClick(View v) {
 				// Save this to database or something
 			}
+		});
+		
+		buttonDiscard = (Button) findViewById(R.id.add_item_btn_discard);
+		buttonDiscard.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish(); // go back to previous activity
+			}
+			
 		});
 	}
 	
