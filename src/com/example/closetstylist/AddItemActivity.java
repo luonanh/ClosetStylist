@@ -17,7 +17,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddItemActivity extends Activity {
 	private final static String LOG_TAG = AddItemActivity.class.getCanonicalName();
@@ -34,6 +36,8 @@ public class AddItemActivity extends Activity {
 	Button buttonDiscard = null;
 	EditText name = null;
 	EditText description = null;
+	ImageView image = null;
+	Button buttonAddImage = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class AddItemActivity extends Activity {
 				R.id.add_item_value_image_location);
 		name = (EditText) findViewById(R.id.add_item_value_name);
 		description = (EditText) findViewById(R.id.add_item_value_description);
+		image = (ImageView) findViewById(R.id.add_item_image);
 		
 		buttonReset = (Button) findViewById(R.id.add_item_btn_reset);
 		buttonReset.setOnClickListener(new OnClickListener() {
@@ -70,6 +75,22 @@ public class AddItemActivity extends Activity {
 				finish(); // go back to previous activity
 			}
 			
+		});
+		
+		buttonAddImage = (Button) findViewById(R.id.add_item_value_image_link);
+		buttonAddImage.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (Environment.MEDIA_MOUNTED.equals(Environment
+						.getExternalStorageState())) {
+					launchCameraIntent();
+				} else {
+					Toast.makeText(getApplicationContext(), 
+							R.string.add_item_message_no_external_storage, 
+							Toast.LENGTH_SHORT)
+							.show();	
+				}
+			}
 		});
 	}
 	
@@ -101,13 +122,6 @@ public class AddItemActivity extends Activity {
 				Log.d(LOG_TAG, "Cannot find file " + imagePath.toString());
 			}
 		}
-	}
-	
-	/**
-	 * Method to be called when Photo Clicked button is pressed.
-	 */
-	public void addPhotoClicked(View aView) {
-		launchCameraIntent();
 	}
 
 	private void launchCameraIntent() {
@@ -186,6 +200,7 @@ public class AddItemActivity extends Activity {
 				// Image captured and saved to fileUri specified in the Intent
 				imagePathFinal = imagePath;
 				imageLocation.setText(imagePathFinal.toString());
+				image.setImageURI(imagePathFinal);
 			} else if (resultCode == AddItemActivity.RESULT_CANCELED) {
 				// User cancelled the image capture
 			} else {

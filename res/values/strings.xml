@@ -32,6 +32,8 @@
     <string name="add_item_btn_reset">Reset</string>
     <string name="add_item_btn_discard">Discard</string>
     
+    <string name="add_item_message_no_external_storage">No SD card is found</string>
+    
     <!-- Edit Item Strings -->
 
 </resources>
