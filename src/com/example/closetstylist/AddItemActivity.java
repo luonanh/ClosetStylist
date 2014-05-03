@@ -1,6 +1,7 @@
 package com.example.closetstylist;
 
 import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -65,10 +66,41 @@ public class AddItemActivity extends Activity {
 		buttonDiscard.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				deleteImageOnSd();
 				finish(); // go back to previous activity
 			}
 			
 		});
+	}
+	
+	/*
+	 * Delete the image that was taken AND stored on SD card. 
+	 */
+	private void deleteImageOnSd() {
+		if (null != imagePath) { // only delete if the image was taken
+			Log.d(LOG_TAG, "Search for " + imagePath.toString());
+			// File file = new File(imagePath.toString()) ALDBG doesn't work,
+			// don't know detail
+			File file = new File(URI.create(imagePath.toString()));
+			if (file.exists()) { // only delete if the image was stored on SD
+									// card
+				Log.d(LOG_TAG, imagePath.toString() + " exists");
+				/*
+				 * ALDBG follows stackoverFlow but doesn't work
+				 * sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+				 * Uri.parse(imagePath.toString())));
+				 */
+				if (file.delete()) {
+					Log.d(LOG_TAG,
+							"Successfully to delete file "
+									+ imagePath.toString());
+				} else {
+					Log.d(LOG_TAG, "Fail delete file " + imagePath.toString());
+				}
+			} else {
+				Log.d(LOG_TAG, "Cannot find file " + imagePath.toString());
+			}
+		}
 	}
 	
 	/**
@@ -164,3 +196,4 @@ public class AddItemActivity extends Activity {
 
 
 }
+
