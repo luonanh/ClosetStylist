@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,12 +39,16 @@ public class AddItemActivity extends Activity {
 	EditText description = null;
 	ImageView image = null;
 	Button buttonAddImage = null;
+	Context context = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_item);
+		
+		context = getApplicationContext();
+		
 		imageLocation = (TextView) findViewById(
 				R.id.add_item_value_image_location);
 		name = (EditText) findViewById(R.id.add_item_value_name);
@@ -63,7 +68,43 @@ public class AddItemActivity extends Activity {
 		buttonRegister.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Save this to database or something
+				/*
+				 * Make sure all the required fields are filled in 
+				 */
+				
+				// image field
+				if (null == imagePath) {
+					Toast.makeText(context, 
+							R.string.add_item_message_no_image, 
+							Toast.LENGTH_SHORT)
+							.show();					
+				}
+				
+				// Try to check name field here, MUST change to color afterwards
+				if ((null == name.getText().toString()) || (name.getText().toString().isEmpty())) {
+					Toast.makeText(context, 
+							R.string.add_item_message_no_color, 
+							Toast.LENGTH_SHORT)
+							.show();					
+				}
+				
+				// Check tempMin
+				
+				// Check tempMax
+				
+				// Check category
+				
+				/*
+				 * Create a new ItemData instance.
+				 * Hard code color, tempMin, tempMax, category for now
+				 */
+				new ItemData.ItemDataBuilder(imagePath.toString(), "red", 10, 25, "top").build();
+				
+				/*
+				 * Save this newly added item to database
+				 */
+				
+
 			}
 		});
 		
@@ -85,7 +126,7 @@ public class AddItemActivity extends Activity {
 						.getExternalStorageState())) {
 					launchCameraIntent();
 				} else {
-					Toast.makeText(getApplicationContext(), 
+					Toast.makeText(context, 
 							R.string.add_item_message_no_external_storage, 
 							Toast.LENGTH_SHORT)
 							.show();	

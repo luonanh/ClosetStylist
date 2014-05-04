@@ -33,6 +33,8 @@
     <string name="add_item_btn_discard">Discard</string>
     
     <string name="add_item_message_no_external_storage">No SD card is found</string>
+    <string name="add_item_message_no_image">Please take a picture of this item</string>
+    <string name="add_item_message_no_color">Please choose a color for this item</string>
     
     <!-- Edit Item Strings -->
 
