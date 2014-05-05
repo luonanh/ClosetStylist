@@ -33,6 +33,9 @@
         <!-- THIS IS THE ADD ITEM ACTIVITY -->
         <activity android:name="com.example.closetstylist.AddItemActivity" >
         </activity>
+        <!-- THIS IS THE MY CLOSET ACTIVITY -->
+        <activity android:name="com.example.closetstylist.MyClosetActivity" >
+        </activity>
         
     </application>
 

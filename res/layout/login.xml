@@ -56,4 +56,13 @@
         <requestFocus />
     </EditText>
 
+    <Button
+        android:id="@+id/main_btn_my_closet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_btn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="MyCloset" />
+
 </RelativeLayout>

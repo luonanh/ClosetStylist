@@ -30,6 +30,18 @@ public class MainActivity extends ActionBarActivity {
 				startActivity(i1);
 			}
 		});
+		
+		Button myClosetBtn = (Button) findViewById(R.id.main_btn_my_closet);
+		myClosetBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i2 = new Intent(MainActivity.this, MyClosetActivity.class);
+				startActivity(i2);
+				
+			}
+			
+		});
 
 	}
 
