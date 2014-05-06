@@ -37,5 +37,10 @@
     <string name="add_item_message_no_color">Please choose a color for this item</string>
     
     <!-- Edit Item Strings -->
+    
+    
+    <!-- My Closet Strings -->
+    <string name="my_closet_btn_add_item">AddItem</string>
+    <string name="my_closet_btn_back">Back</string>
 
 </resources>
