@@ -1,11 +1,14 @@
 package com.example.closetstylist;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /*
  * Make this a little bit different from Builder Pattern described in 
  * http://www.javacodegeeks.com/2013/01/the-builder-pattern-in-practice.html
  * to have get and set for all fields in ItemData.
  */
-public class ItemData {
+public class ItemData implements Parcelable {
 	private String name; // optional
 	private String description; // optional
 	private String imageLink; // required
@@ -132,20 +135,24 @@ public class ItemData {
 			this.category = "";
 		}
 
-		public void name(String name) {
+		public ItemDataBuilder name(String name) {
 			this.name = name;
+			return this;
 		}
 
-		public void description(String description) {
+		public ItemDataBuilder description(String description) {
 			this.description = description;
+			return this;
 		}
 
-		public void age(double age) {
+		public ItemDataBuilder age(double age) {
 			this.age = age;
+			return this;
 		}
 
-		public void material(String material) {
+		public ItemDataBuilder material(String material) {
 			this.material = material;
+			return this;
 		}
 		
 		public ItemData build() {
@@ -155,6 +162,58 @@ public class ItemData {
 			}
 			return itemData;
 		}
+	}
+	
+	/*
+	 * Parcelling part 
+	 */
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(name);
+		dest.writeString(description);
+		dest.writeString(imageLink);
+		dest.writeString(color);
+		dest.writeInt(tempMin);
+		dest.writeInt(tempMax);
+		dest.writeString(category);
+		dest.writeDouble(age);
+		dest.writeString(material);
+	}
+	
+	/*
+	 * Unparcelling part, ported from iRemember/StoryData 
+	 */
+	public static final Parcelable.Creator<ItemData> CREATOR = new Parcelable.Creator<ItemData>() {
+
+		@Override
+		public ItemData createFromParcel(Parcel source) {
+			return new ItemData(source);
+		}
+
+		@Override
+		public ItemData[] newArray(int size) {
+			return new ItemData[size];
+		}
+		
+	};
+	
+	private ItemData(Parcel source) {
+		name = source.readString();
+		description = source.readString();
+		imageLink = source.readString();
+		color = source.readString();
+		tempMin = source.readInt();
+		tempMax = source.readInt();
+		category = source.readString();
+		age = source.readDouble();
+		material = source.readString();
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.example.closetstylist;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,17 +12,6 @@ public class ItemDatabaseHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "closetStylist.db";
 	private static final String TABLE_NAME = "itemData_db";
-	
-	static final String ITEMDATA_COLUMN_ID = "_id";
-	static final String ITEMDATA_COLUMN_NAME = "name";
-	static final String ITEMDATA_COLUMN_DESCRIPTION = "description";
-	static final String ITEMDATA_COLUMN_IMAGE_LINK = "imageLink";
-	static final String ITEMDATA_COLUMN_COLOR = "color";	
-	static final String ITEMDATA_COLUMN_TEMPERATUTRE_MIN = "TempMin";
-	static final String ITEMDATA_COLUMN_TEMPERATUTRE_MAX = "TempMax";
-	static final String ITEMDATA_COLUMN_CATEGORY = "category";
-	static final String ITEMDATA_COLUMN_AGE = "age";
-	static final String ITEMDATA_COLUMN_MATERIAL = "material";
 	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);
 	private SQLiteDatabase database;
@@ -34,15 +25,15 @@ public class ItemDatabaseHelper {
 	
 	public void saveRecord(ItemData item) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(ITEMDATA_COLUMN_NAME, item.getName());
-		contentValues.put(ITEMDATA_COLUMN_DESCRIPTION, item.getDescription());
-		contentValues.put(ITEMDATA_COLUMN_IMAGE_LINK, item.getImageLink());
-		contentValues.put(ITEMDATA_COLUMN_COLOR, item.getColor());
-		contentValues.put(ITEMDATA_COLUMN_TEMPERATUTRE_MIN, item.getTempMin());
-		contentValues.put(ITEMDATA_COLUMN_TEMPERATUTRE_MAX, item.getTempMax());
-		contentValues.put(ITEMDATA_COLUMN_CATEGORY, item.getDescription());
-		contentValues.put(ITEMDATA_COLUMN_AGE, item.getAge());
-		contentValues.put(ITEMDATA_COLUMN_MATERIAL, item.getMaterial());
+		contentValues.put(Schema.Item.Cols.NAME, item.getName());
+		contentValues.put(Schema.Item.Cols.DESCRIPTION, item.getDescription());
+		contentValues.put(Schema.Item.Cols.IMAGE_LINK, item.getImageLink());
+		contentValues.put(Schema.Item.Cols.COLOR, item.getColor());
+		contentValues.put(Schema.Item.Cols.TEMPERATUTRE_MIN, item.getTempMin());
+		contentValues.put(Schema.Item.Cols.TEMPERATUTRE_MAX, item.getTempMax());
+		contentValues.put(Schema.Item.Cols.CATEGORY, item.getCategory());
+		contentValues.put(Schema.Item.Cols.AGE, item.getAge());
+		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
 		database.insert(TABLE_NAME, null, contentValues);
 	}
 	
@@ -50,6 +41,48 @@ public class ItemDatabaseHelper {
 		return database.rawQuery(
 				"SELECT * FROM " + TABLE_NAME, 
 				null);
+	}
+	
+	/*
+	 * Get all of the ItemData from the passed in cursor.
+	 */
+	public static ArrayList<ItemData> getItemDataArrayListFromCursor(
+			Cursor cursor) {
+		ArrayList<ItemData> rValue = new ArrayList<ItemData>();
+		if (cursor != null) {
+			if (cursor.moveToFirst()) {
+				do {
+					rValue.add(getItemDataFromCursor(cursor));
+				} while (cursor.moveToNext() == true);
+			}
+		}
+		return rValue;
+
+	}
+	
+	/*
+	 * Get the first ItemData from the passed in cursor.
+	 */
+	public static ItemData getItemDataFromCursor(Cursor cursor) {
+		String name = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.NAME));
+		String description = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.DESCRIPTION));
+		String imageLink = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.IMAGE_LINK));
+		String color = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.COLOR));
+		int tempMin = cursor.getInt(cursor.getColumnIndex(Schema.Item.Cols.TEMPERATUTRE_MIN));
+		int tempMax = cursor.getInt(cursor.getColumnIndex(Schema.Item.Cols.TEMPERATUTRE_MAX));
+		String category = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.CATEGORY));
+		double age = cursor.getDouble(cursor.getColumnIndex(Schema.Item.Cols.AGE));
+		String material = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.MATERIAL));
+		/*
+		 * 		public ItemDataBuilder(String imageLink, String color, int tempMin, 
+				int tempMax, String category) {
+		 */
+		return new ItemData.ItemDataBuilder(imageLink, color, tempMin, tempMax, category)
+			.age(age)
+			.description(description)
+			.material(material)
+			.name(name)
+			.build();
 	}
 	
 	private class ItemDataOpenHelper extends SQLiteOpenHelper {
@@ -60,16 +93,16 @@ public class ItemDatabaseHelper {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_NAME + "("
-					+ ITEMDATA_COLUMN_ID + " INTEGER PRIMARY KEY, "
-					+ ITEMDATA_COLUMN_NAME + " TEXT, "
-					+ ITEMDATA_COLUMN_DESCRIPTION + " TEXT, "
-					+ ITEMDATA_COLUMN_IMAGE_LINK + " TEXT, "
-					+ ITEMDATA_COLUMN_COLOR + " TEXT, "
-					+ ITEMDATA_COLUMN_TEMPERATUTRE_MIN + " INTEGER, "
-					+ ITEMDATA_COLUMN_TEMPERATUTRE_MAX + " INTEGER, "
-					+ ITEMDATA_COLUMN_CATEGORY + " TEXT, "
-					+ ITEMDATA_COLUMN_AGE + " REAL, "
-					+ ITEMDATA_COLUMN_MATERIAL + " TEXT)");
+					+ Schema.Item.Cols.ID + " INTEGER PRIMARY KEY, "
+					+ Schema.Item.Cols.NAME + " TEXT, "
+					+ Schema.Item.Cols.DESCRIPTION + " TEXT, "
+					+ Schema.Item.Cols.IMAGE_LINK + " TEXT, "
+					+ Schema.Item.Cols.COLOR + " TEXT, "
+					+ Schema.Item.Cols.TEMPERATUTRE_MIN + " INTEGER, "
+					+ Schema.Item.Cols.TEMPERATUTRE_MAX + " INTEGER, "
+					+ Schema.Item.Cols.CATEGORY + " TEXT, "
+					+ Schema.Item.Cols.AGE + " REAL, "
+					+ Schema.Item.Cols.MATERIAL + " TEXT)");
 			
 		}
 

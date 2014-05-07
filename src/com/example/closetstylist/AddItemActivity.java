@@ -77,7 +77,8 @@ public class AddItemActivity extends Activity {
 					Toast.makeText(context, 
 							R.string.add_item_message_no_image, 
 							Toast.LENGTH_SHORT)
-							.show();					
+							.show();
+					return;
 				}
 				
 				// Try to check name field here, MUST change to color afterwards
