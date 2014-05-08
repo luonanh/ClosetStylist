@@ -3,6 +3,8 @@ package com.example.closetstylist;
 import java.io.File;
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -16,9 +18,11 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +44,18 @@ public class AddItemActivity extends Activity {
 	ImageView image = null;
 	Button buttonAddImage = null;
 	Context context = null;
+	Spinner color = null;
+	Spinner tempMin = null;
+	Spinner tempMax = null;
+	Spinner category = null;
+	Spinner brand = null;
+	Spinner age = null;
+	Spinner material = null;
+	ArrayList<String> temperatureArray = new ArrayList<String>();//new ArrayList<String>(Arrays.asList("10", "11", "12"));
+	ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("dress", "jacket", "jeans", "shirt", "short", "t-shirt"));
+	ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike"));
+	ArrayList<String> ageArray = new ArrayList<String>();
+	ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("wool", "cotton", "nylon"));
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +71,65 @@ public class AddItemActivity extends Activity {
 		description = (EditText) findViewById(R.id.add_item_value_description);
 		image = (ImageView) findViewById(R.id.add_item_image);
 		
+		color = (Spinner) findViewById(R.id.add_item_spinner_color);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<CharSequence> colorAdapter = ArrayAdapter.createFromResource(this,
+		        R.array.add_item_spinner_color, R.layout.color_dropdown_item);
+		// Apply the adapter to the spinner
+		color.setAdapter(colorAdapter);
+		
+		// initialize temperature array for tempMin and tempMax spinner
+		for (int i=-30; i<=120; i++) {
+			temperatureArray.add(String.valueOf(i));
+		}
+		
+		tempMin = (Spinner) findViewById(R.id.add_item_spinner_temp_min);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> tempMinAdapter = new ArrayAdapter<String>(this,
+		        R.layout.temperature_dropdown_item, temperatureArray);
+		// Apply the adapter to the spinner
+		tempMin.setAdapter(tempMinAdapter);
+		
+		tempMax = (Spinner) findViewById(R.id.add_item_spinner_temp_max);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> tempMaxAdapter = new ArrayAdapter<String>(this,
+		        R.layout.temperature_dropdown_item, temperatureArray);
+		// Apply the adapter to the spinner
+		tempMax.setAdapter(tempMaxAdapter);
+
+		category = (Spinner) findViewById(R.id.add_item_spinner_category);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
+		        R.layout.temperature_dropdown_item, categoryArray);
+		// Apply the adapter to the spinner
+		category.setAdapter(categoryAdapter);
+		
+		brand = (Spinner) findViewById(R.id.add_item_spinner_brand);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> brandAdapter = new ArrayAdapter<String>(this,
+		        R.layout.temperature_dropdown_item, brandArray);
+		// Apply the adapter to the spinner
+		brand.setAdapter(brandAdapter);
+
+		// initialize temperature array for tempMin and tempMax spinner
+		for (int i=0; i<=20; i++) {
+			ageArray.add(String.valueOf(i));
+		}
+		age = (Spinner) findViewById(R.id.add_item_spinner_age);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> ageAdapter = new ArrayAdapter<String>(this,
+		        R.layout.temperature_dropdown_item, ageArray);
+		// Apply the adapter to the spinner
+		age.setAdapter(ageAdapter);
+		
+
+		material = (Spinner) findViewById(R.id.add_item_spinner_material);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> materialAdapter = new ArrayAdapter<String>(this,
+		        R.layout.temperature_dropdown_item, materialArray);
+		// Apply the adapter to the spinner
+		material.setAdapter(materialAdapter);
+
 		buttonReset = (Button) findViewById(R.id.add_item_btn_reset);
 		buttonReset.setOnClickListener(new OnClickListener() {
 			@Override

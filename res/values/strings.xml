@@ -21,6 +21,7 @@
     <string name="add_item_value_image_link">Add Image</string>
     <string name="add_item_label_edit_image">Edit Image</string>
     <string name="add_item_label_color">Color</string>
+    <string name="add_item_label_age">Age</string>
     <string name="add_item_label_temp_min">Temperature Min(F)</string>
     <string name="add_item_label_temp_max">Temperature Max(F)</string>
     <string name="add_item_label_category">Category</string>
@@ -35,6 +36,20 @@
     <string name="add_item_message_no_external_storage">No SD card is found</string>
     <string name="add_item_message_no_image">Please take a picture of this item</string>
     <string name="add_item_message_no_color">Please choose a color for this item</string>
+    
+    <string-array name="add_item_spinner_color">
+        <item>black</item>
+        <item>blue</item>
+        <item>brown</item>
+        <item>gray</item>
+        <item>green</item>
+        <item>orange</item>
+        <item>pink</item>
+        <item>purple</item>
+        <item>red</item>
+        <item>white</item>
+        <item>yellow</item>
+    </string-array>
     
     <!-- Edit Item Strings -->
     
