@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 public class AddItemActivity extends Activity {
 	private final static String LOG_TAG = AddItemActivity.class.getCanonicalName();
+	private ItemDatabaseHelper itemDatabaseHelper;
 	
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	
@@ -64,6 +65,7 @@ public class AddItemActivity extends Activity {
 		setContentView(R.layout.activity_add_item);
 		
 		context = getApplicationContext();
+		itemDatabaseHelper = new ItemDatabaseHelper(this);
 		
 		imageLocation = (TextView) findViewById(
 				R.id.add_item_value_image_location);
@@ -156,31 +158,46 @@ public class AddItemActivity extends Activity {
 					return;
 				}
 				
-				// Try to check name field here, MUST change to color afterwards
-				if ((null == name.getText().toString()) || (name.getText().toString().isEmpty())) {
-					Toast.makeText(context, 
-							R.string.add_item_message_no_color, 
-							Toast.LENGTH_SHORT)
-							.show();					
-				}
-				
-				// Check tempMin
-				
-				// Check tempMax
-				
-				// Check category
-				
 				/*
 				 * Create a new ItemData instance.
 				 * Hard code color, tempMin, tempMax, category for now
 				 */
-				new ItemData.ItemDataBuilder(imagePath.toString(), "red", 10, 25, "top").build();
+				ItemData.ItemDataBuilder itemDataBuilder = new ItemData.ItemDataBuilder(
+						imagePath.toString(), 
+						color.getSelectedItem().toString(), 
+						Integer.valueOf(tempMin.getSelectedItem().toString()), 
+						Integer.valueOf(tempMax.getSelectedItem().toString()), 
+						category.getSelectedItem().toString())
+						.brand(brand.getSelectedItem().toString())
+						.age(Double.valueOf(age.getSelectedItem().toString()))
+						.material(material.getSelectedItem().toString());
+						//.build();
 				
+				if (!name.getText().toString().isEmpty()) {
+					itemDataBuilder.name(name.getText().toString());
+				}
+				
+				if (!description.getText().toString().isEmpty()) {
+					itemDataBuilder.description(description.getText().toString());
+				}
+
+				/* 
+				 * brand, age, material are not optional anymore because they are spinner
+				 * will change later if convert them from Spinner to EditText
+				 *
+				if (!material.getSelectedItem().toString().isEmpty()) {
+					itemDataBuilder.material(material.getSelectedItem().toString());
+				}
+				 */
+
 				/*
 				 * Save this newly added item to database
 				 */
+				ItemData itemData = itemDataBuilder.build();
+				itemDatabaseHelper.saveRecord(itemData);
 				
-
+				// return to previous activity
+				finish();
 			}
 		});
 		

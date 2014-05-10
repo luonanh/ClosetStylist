@@ -60,6 +60,10 @@ public class ItemDatabaseHelper {
 
 	}
 	
+	void deleteMyCloset() {
+		mContext.deleteDatabase(TABLE_NAME);
+	}
+	
 	/*
 	 * Get the first ItemData from the passed in cursor.
 	 */

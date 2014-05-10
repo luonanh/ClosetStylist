@@ -3,6 +3,7 @@ package com.example.closetstylist;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,6 +40,19 @@ public class MainActivity extends ActionBarActivity {
 				Intent i2 = new Intent(MainActivity.this, MyClosetActivity.class);
 				startActivity(i2);
 				
+			}
+			
+		});
+		
+		Button clearMyClosetBtn = (Button) findViewById(R.id.main_btn_clear_my_closet);
+		Context context = this;
+		clearMyClosetBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ItemDatabaseHelper itemDatabaseHelper = 
+						new ItemDatabaseHelper(MainActivity.this);
+				itemDatabaseHelper.deleteMyCloset();				
 			}
 			
 		});

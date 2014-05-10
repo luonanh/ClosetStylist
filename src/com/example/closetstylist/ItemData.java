@@ -16,6 +16,7 @@ public class ItemData implements Parcelable {
 	private int tempMin; // required
 	private int tempMax; // required
 	private String category; // required
+	private String brand; // optional
 	private double age; // optional
 	private String material; // optional
 	
@@ -90,6 +91,14 @@ public class ItemData implements Parcelable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
 	public double getAge() {
 		return age;
@@ -115,6 +124,7 @@ public class ItemData implements Parcelable {
 		private final int tempMin; // required
 		private final int tempMax; // required
 		private final String category; // required
+		private String brand; // optional
 		private double age = 0; // optional
 		private String material = ""; // optional
 		
@@ -142,6 +152,11 @@ public class ItemData implements Parcelable {
 
 		public ItemDataBuilder description(String description) {
 			this.description = description;
+			return this;
+		}
+		
+		public ItemDataBuilder brand(String brand) {
+			this.brand = brand;
 			return this;
 		}
 
