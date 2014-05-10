@@ -9,6 +9,8 @@ import android.os.Parcelable;
  * to have get and set for all fields in ItemData.
  */
 public class ItemData implements Parcelable {
+	public static final String INTENT = "ItemDataIntent";
+	
 	private String name; // optional
 	private String description; // optional
 	private String imageLink; // required
@@ -32,6 +34,7 @@ public class ItemData implements Parcelable {
 		this.tempMin = builder.tempMin;
 		this.tempMax = builder.tempMax;
 		this.category = builder.category;
+		this.brand = builder.brand;
 		this.age = builder.age;
 		this.material = builder.material;
 	}
@@ -198,6 +201,7 @@ public class ItemData implements Parcelable {
 		dest.writeInt(tempMin);
 		dest.writeInt(tempMax);
 		dest.writeString(category);
+		dest.writeString(brand);
 		dest.writeDouble(age);
 		dest.writeString(material);
 	}
@@ -227,6 +231,7 @@ public class ItemData implements Parcelable {
 		tempMin = source.readInt();
 		tempMax = source.readInt();
 		category = source.readString();
+		brand = source.readString();
 		age = source.readDouble();
 		material = source.readString();
 	}

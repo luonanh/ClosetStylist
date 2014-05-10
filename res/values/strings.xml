@@ -35,6 +35,7 @@
     
     <string name="add_item_message_no_external_storage">No SD card is found</string>
     <string name="add_item_message_no_image">Please take a picture of this item</string>
+    <string name="add_item_message_tempMax_smaller_tempMin">Maximum temperature must be higher than minimum temperature</string>
     <string name="add_item_message_no_color">Please choose a color for this item</string>
     
     <string-array name="add_item_spinner_color">
@@ -57,5 +58,11 @@
     <!-- My Closet Strings -->
     <string name="my_closet_btn_add_item">AddItem</string>
     <string name="my_closet_btn_back">Back</string>
+    
+    <!-- My Closet Item View Strings -->
+    <string name="my_closet_item_view_label_name">Name: </string>
+    <string name="my_closet_item_view_value_no_name">No Name</string>
+    <string name="my_closet_item_view_label_description">Description</string>
+    <string name="my_closet_item_view_value_no_description">No Description</string>
 
 </resources>

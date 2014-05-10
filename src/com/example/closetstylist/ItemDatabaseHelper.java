@@ -32,12 +32,13 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.TEMPERATUTRE_MIN, item.getTempMin());
 		contentValues.put(Schema.Item.Cols.TEMPERATUTRE_MAX, item.getTempMax());
 		contentValues.put(Schema.Item.Cols.CATEGORY, item.getCategory());
+		contentValues.put(Schema.Item.Cols.BRAND, item.getBrand());
 		contentValues.put(Schema.Item.Cols.AGE, item.getAge());
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
 		database.insert(TABLE_NAME, null, contentValues);
 	}
 	
-	public Cursor getAllTimeRecords() {
+	public Cursor getAllItemRecords() {
 		return database.rawQuery(
 				"SELECT * FROM " + TABLE_NAME, 
 				null);
@@ -75,6 +76,7 @@ public class ItemDatabaseHelper {
 		int tempMin = cursor.getInt(cursor.getColumnIndex(Schema.Item.Cols.TEMPERATUTRE_MIN));
 		int tempMax = cursor.getInt(cursor.getColumnIndex(Schema.Item.Cols.TEMPERATUTRE_MAX));
 		String category = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.CATEGORY));
+		String brand = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.BRAND));
 		double age = cursor.getDouble(cursor.getColumnIndex(Schema.Item.Cols.AGE));
 		String material = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.MATERIAL));
 		/*
@@ -86,6 +88,7 @@ public class ItemDatabaseHelper {
 			.description(description)
 			.material(material)
 			.name(name)
+			.brand(brand)
 			.build();
 	}
 	
@@ -105,6 +108,7 @@ public class ItemDatabaseHelper {
 					+ Schema.Item.Cols.TEMPERATUTRE_MIN + " INTEGER, "
 					+ Schema.Item.Cols.TEMPERATUTRE_MAX + " INTEGER, "
 					+ Schema.Item.Cols.CATEGORY + " TEXT, "
+					+ Schema.Item.Cols.BRAND + " TEXT, "
 					+ Schema.Item.Cols.AGE + " REAL, "
 					+ Schema.Item.Cols.MATERIAL + " TEXT)");
 			

@@ -5,6 +5,7 @@ public class Schema {
 		public static class Cols {
 			public static final String ID = "_id";
 			public static final String NAME = "name";
+			public static final String BRAND = "brand";
 			public static final String DESCRIPTION = "description";
 			public static final String IMAGE_LINK = "imageLink";
 			public static final String COLOR = "color";	

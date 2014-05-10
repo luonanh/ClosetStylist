@@ -91,6 +91,7 @@ public class AddItemActivity extends Activity {
 		        R.layout.temperature_dropdown_item, temperatureArray);
 		// Apply the adapter to the spinner
 		tempMin.setAdapter(tempMinAdapter);
+		tempMin.setSelection(80);
 		
 		tempMax = (Spinner) findViewById(R.id.add_item_spinner_temp_max);
 		// Create an ArrayAdapter using the string array and a default spinner layout
@@ -98,6 +99,7 @@ public class AddItemActivity extends Activity {
 		        R.layout.temperature_dropdown_item, temperatureArray);
 		// Apply the adapter to the spinner
 		tempMax.setAdapter(tempMaxAdapter);
+		tempMax.setSelection(120);
 
 		category = (Spinner) findViewById(R.id.add_item_spinner_category);
 		// Create an ArrayAdapter using the string array and a default spinner layout
@@ -146,16 +148,26 @@ public class AddItemActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				/*
-				 * Make sure all the required fields are filled in 
+				 * Make sure all the required fields are valid 
 				 */
 				
-				// image field
+				// image field cannot be null
 				if (null == imagePath) {
 					Toast.makeText(context, 
 							R.string.add_item_message_no_image, 
 							Toast.LENGTH_SHORT)
 							.show();
 					return;
+				}
+				
+				// tempMax >= tempMin
+				if (Integer.valueOf(tempMax.getSelectedItem().toString()) 
+						< Integer.valueOf(tempMin.getSelectedItem().toString())) {
+					Toast.makeText(context, 
+							R.string.add_item_message_tempMax_smaller_tempMin, 
+							Toast.LENGTH_SHORT)
+							.show();
+					return;					
 				}
 				
 				/*
@@ -171,7 +183,6 @@ public class AddItemActivity extends Activity {
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
 						.material(material.getSelectedItem().toString());
-						//.build();
 				
 				if (!name.getText().toString().isEmpty()) {
 					itemDataBuilder.name(name.getText().toString());
@@ -191,12 +202,16 @@ public class AddItemActivity extends Activity {
 				 */
 
 				/*
-				 * Save this newly added item to database
+				 * Create a new intent containing an ItemData with all the 
+				 * information and send it back to MyCloset activity. 
 				 */
-				ItemData itemData = itemDataBuilder.build();
-				itemDatabaseHelper.saveRecord(itemData);
+				Intent i1 = new Intent();
+				i1.putExtra(ItemData.INTENT, itemDataBuilder.build());
 				
-				// return to previous activity
+				// Set Activity's result with result code RESULT_OK
+				setResult(Activity.RESULT_OK, i1);
+				
+				// Finish the Activity
 				finish();
 			}
 		});

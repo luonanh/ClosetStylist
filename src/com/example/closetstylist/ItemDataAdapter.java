@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ItemDataAdapter extends CursorAdapter {
+	Context context = null;
 	
 	public ItemDataAdapter(Context context, Cursor cursor) {
 		super(context, cursor);
+		context = context;
 	}
 
 	@Override
@@ -31,18 +33,20 @@ public class ItemDataAdapter extends CursorAdapter {
 		// Populate name field
 		TextView name = (TextView) view.findViewById(R.id.closet_value_name);
 		if (itemData.getName().isEmpty()) {
-			name.setText(name.getText() + " No Name");
+			name.setText(context.getString(R.string.my_closet_item_view_value_no_name));
 		} else {
-			name.setText(name.getText() + itemData.getName());
+			name.setText(context.getString(R.string.my_closet_item_view_label_name) 
+					+ itemData.getName());
 			
 		}
 		
 		// Populate description field
 		TextView description = (TextView) view.findViewById(R.id.closet_value_description);
 		if (itemData.getDescription().isEmpty()) {
-			description.setText(description.getText() + " No Description");
+			description.setText(context.getString(R.string.my_closet_item_view_value_no_description));
 		} else {
-			description.setText(description.getText() + itemData.getDescription());
+			description.setText(context.getString(R.string.my_closet_item_view_label_description) 
+					+ itemData.getDescription());
 		}
 		
 		// Populate image
