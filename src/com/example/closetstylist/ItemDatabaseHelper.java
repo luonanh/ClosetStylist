@@ -7,11 +7,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.RemoteException;
 
 public class ItemDatabaseHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "closetStylist.db";
 	private static final String TABLE_NAME = "itemData_db";
+	private static final String WHERE_CLAUSE = Schema.Item.Cols.ID + " = ? ";
 	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);
 	private SQLiteDatabase database;
@@ -37,7 +39,12 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
 		database.insert(TABLE_NAME, null, contentValues);
 	}
-	
+
+	public void deleteRecord(ItemData item) {
+		String[] whereArgs = { String.valueOf(item.getId()) };
+		database.delete(TABLE_NAME, WHERE_CLAUSE, whereArgs);
+	}
+
 	public Cursor getAllItemRecords() {
 		return database.rawQuery(
 				"SELECT * FROM " + TABLE_NAME, 
@@ -69,6 +76,8 @@ public class ItemDatabaseHelper {
 	 * Get the first ItemData from the passed in cursor.
 	 */
 	public static ItemData getItemDataFromCursor(Cursor cursor) {
+		long rowID = cursor.getLong(cursor
+				.getColumnIndex(Schema.Item.Cols.ID));
 		String name = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.NAME));
 		String description = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.DESCRIPTION));
 		String imageLink = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.IMAGE_LINK));
@@ -84,7 +93,8 @@ public class ItemDatabaseHelper {
 				int tempMax, String category) {
 		 */
 		return new ItemData.ItemDataBuilder(imageLink, color, tempMin, tempMax, category)
-			.age(age)
+			.id(rowID)	
+			.age(age)			
 			.description(description)
 			.material(material)
 			.name(name)

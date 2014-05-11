@@ -10,7 +10,9 @@ import android.os.Parcelable;
  */
 public class ItemData implements Parcelable {
 	public static final String INTENT = "ItemDataIntent";
+	public static final long INVALID_ID = -1;
 	
+	private long id; // once added to database, this field will be populated
 	private String name; // optional
 	private String description; // optional
 	private String imageLink; // required
@@ -27,6 +29,7 @@ public class ItemData implements Parcelable {
 	 * return new ItemData.ItemDataBuilder(...).name().description().age().material()
 	 */
 	private ItemData(ItemDataBuilder builder) {
+		this.id = builder.id;
 		this.name = builder.name;
 		this.description = builder.description;
 		this.imageLink = builder.imageLink;
@@ -37,6 +40,14 @@ public class ItemData implements Parcelable {
 		this.brand = builder.brand;
 		this.age = builder.age;
 		this.material = builder.material;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -129,6 +140,7 @@ public class ItemData implements Parcelable {
 	}
 
 	public static class ItemDataBuilder {
+		private long id; // once added to database, this field will be populated
 		private String name = ""; // optional
 		private String description = ""; // optional
 		private final String imageLink; // required
@@ -147,6 +159,7 @@ public class ItemData implements Parcelable {
 			this.tempMin = tempMin;
 			this.tempMax = tempMax;
 			this.category = category;
+			this.id = INVALID_ID; // default in case of insertion, there's no valid id yet
 		}
 		
 		public ItemDataBuilder() {
@@ -182,6 +195,11 @@ public class ItemData implements Parcelable {
 			return this;
 		}
 		
+		public ItemDataBuilder id(long id) {
+			this.id = id;
+			return this;
+		}
+		
 		public ItemData build() {
 			ItemData itemData = new ItemData(this);
 			if (age > 50) {
@@ -203,6 +221,7 @@ public class ItemData implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(id);
 		dest.writeString(name);
 		dest.writeString(description);
 		dest.writeString(imageLink);
@@ -233,6 +252,7 @@ public class ItemData implements Parcelable {
 	};
 	
 	private ItemData(Parcel source) {
+		id = source.readLong();
 		name = source.readString();
 		description = source.readString();
 		imageLink = source.readString();

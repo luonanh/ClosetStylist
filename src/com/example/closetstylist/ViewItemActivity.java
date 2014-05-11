@@ -1,7 +1,9 @@
 package com.example.closetstylist;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 public class ViewItemActivity extends Activity {
 	private final static String LOG_TAG = AddItemActivity.class.getCanonicalName();
 	private ItemDatabaseHelper itemDatabaseHelper = null;
+	private ItemData itemData = null;
 	private Context context = null;
 	
 	private Uri imagePath = null;
@@ -44,7 +47,7 @@ public class ViewItemActivity extends Activity {
 		
 		// Restore ItemData passed in by MyCloset activity
 		itemDatabaseHelper = new ItemDatabaseHelper(this);
-		ItemData itemData = getIntent().getExtras().getParcelable(ItemData.INTENT);
+		itemData = getIntent().getExtras().getParcelable(ItemData.INTENT);
 		Log.i(LOG_TAG, itemData.toString());
 
 		imageLocation = (TextView) findViewById(
@@ -85,7 +88,6 @@ public class ViewItemActivity extends Activity {
 		buttonEdit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finish();
 			}			
 		});
 		
@@ -93,7 +95,36 @@ public class ViewItemActivity extends Activity {
 		buttonDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finish();
+				String message;
+
+				message = context.getString(
+						R.string.my_closet_item_view_dialog_deletion_message);
+
+				//new AlertDialog.Builder(context) --> android alertdialog unable to add window token null is not for an application
+				new AlertDialog.Builder(ViewItemActivity.this)
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setTitle(R.string.my_closet_item_view_dialog_deletion_title)
+						.setMessage(message)
+						.setPositiveButton(R.string.my_closet_item_view_dialog_deletion_yes,
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										try {
+											itemDatabaseHelper.deleteRecord(itemData);
+										} catch (Exception e) {
+											Log.e(LOG_TAG, "Exception Caught => "
+													+ e.getMessage());
+											e.printStackTrace();
+										} 
+										setResult(Activity.RESULT_OK);
+										finish();
+									}
+
+								})
+						.setNegativeButton(R.string.my_closet_item_view_dialog_deletion_no, null)
+						.create()
+						.show();
 			}			
 		});
 

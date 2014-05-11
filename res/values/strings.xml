@@ -81,7 +81,14 @@
     <!-- My Closet Item View Strings -->
     <string name="my_closet_item_view_label_name">Name: </string>
     <string name="my_closet_item_view_value_no_name">No Name</string>
-    <string name="my_closet_item_view_label_description">Description</string>
+    <string name="my_closet_item_view_label_description">Description: </string>
     <string name="my_closet_item_view_value_no_description">No Description</string>
+    
+    
+    <string name="my_closet_item_view_dialog_deletion_title">Closing Activity</string>
+    <string name="my_closet_item_view_dialog_deletion_message">Are you sure you want to Delete this Item?</string>
+    <string name="my_closet_item_view_dialog_deletion_yes">Yes</string>
+    <string name="my_closet_item_view_dialog_deletion_no">No</string>
+    
 
 </resources>
