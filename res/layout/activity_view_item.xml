@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/view_item_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp" >
+
+        <RelativeLayout
+            android:id="@+id/view_item_RelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- name label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_name"
+                android:layout_alignBottom="@+id/view_item_value_name"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_name" />
+
+            <TextView
+                android:id="@+id/view_item_value_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
+
+            <!-- description label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_description"
+                android:layout_alignBottom="@+id/view_item_value_description"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_description" />
+
+            <TextView
+                android:id="@+id/view_item_value_description"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_name" />
+
+            <!-- color label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_color"
+                android:layout_alignBottom="@+id/view_item_value_color"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_color" />
+
+            <TextView
+                android:id="@+id/view_item_value_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_description" />
+            
+            <!-- tempMin label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_temp_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_temp_min"
+                android:layout_alignBottom="@+id/view_item_value_temp_min"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_temp_min" />
+
+            <TextView
+                android:id="@+id/view_item_value_temp_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_color" />
+            
+            <!-- tempMax label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_temp_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_temp_max"
+                android:layout_alignBottom="@+id/view_item_value_temp_max"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_temp_max" />
+
+            <TextView
+                android:id="@+id/view_item_value_temp_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_temp_min" />
+            
+            <!-- category label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_category"
+                android:layout_alignBottom="@+id/view_item_value_category"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_category" />
+
+            <TextView
+                android:id="@+id/view_item_value_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_temp_max" />
+
+            <!-- brand label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_brand"
+                android:layout_alignBottom="@+id/view_item_value_brand"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_brand" />
+
+            <TextView
+                android:id="@+id/view_item_value_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_category" />
+            
+             <!-- age label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_age"
+                android:layout_alignBottom="@+id/view_item_value_age"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_age" />
+
+            <TextView
+                android:id="@+id/view_item_value_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_brand" />
+            
+             <!-- material label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_material"
+                android:layout_alignBottom="@+id/view_item_value_material"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_material" />
+
+            <TextView
+                android:id="@+id/view_item_value_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_age" />            
+                       
+            <!-- addImage label/value pair change android:layout_below="@+id/view_item_value_description" -->
+            <TextView
+                android:id="@+id/view_item_label_image_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_image_link"
+                android:layout_alignBottom="@+id/view_item_value_image_link"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_image_link" />
+
+            <Button
+                android:id="@+id/view_item_value_image_link"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_material"
+                android:text="@string/view_item_value_image_link" />
+
+            <TextView
+                android:id="@+id/view_item_value_image_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_image_link"
+                android:text="" />
+
+            <!-- new item image -->
+
+            <ImageView
+                android:id="@+id/view_item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_item_value_image_location"
+                android:layout_centerHorizontal="true" />
+
+
+            <!-- tags label/value pair -->
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/view_item_btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="54dp"
+        android:layout_toLeftOf="@+id/view_item_btn_edit"
+        android:text="@string/view_item_btn_delete" />
+
+    <Button
+        android:id="@+id/view_item_btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
+        android:text="@string/view_item_btn_edit" />
+
+</RelativeLayout>

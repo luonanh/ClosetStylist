@@ -54,6 +54,25 @@
     
     <!-- Edit Item Strings -->
     
+    <!-- View Item Strings -->
+    <string name="view_item_label_name">Name</string>
+    <string name="view_item_value_name_default_value">polo1</string>
+    <string name="view_item_label_description">Description</string>
+    <string name="view_item_value_description_default_value">Description</string>
+    <string name="view_item_label_image_link">ImageLink:</string>
+    <string name="view_item_value_image_link">Add Image</string>
+    <string name="view_item_label_edit_image">Edit Image</string>
+    <string name="view_item_label_color">Color</string>
+    <string name="view_item_label_age">Age</string>
+    <string name="view_item_label_temp_min">Temperature Min(F)</string>
+    <string name="view_item_label_temp_max">Temperature Max(F)</string>
+    <string name="view_item_label_category">Category</string>
+    <string name="view_item_label_brand">Brand</string>
+    <string name="view_item_label_material">Material</string>
+    
+    
+    <string name="view_item_btn_edit">Edit</string>
+    <string name="view_item_btn_delete">Delete</string>
     
     <!-- My Closet Strings -->
     <string name="my_closet_btn_add_item">AddItem</string>

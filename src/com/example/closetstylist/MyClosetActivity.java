@@ -2,10 +2,13 @@ package com.example.closetstylist;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -13,6 +16,7 @@ public class MyClosetActivity extends Activity {
 	private final static String LOG_TAG = MyClosetActivity.class
 			.getCanonicalName();
 	static final int ADD_ITEM_REQUEST = 1;
+	static final int VIEW_ITEM_REQUEST = 2;
 	
 	private ItemDatabaseHelper itemDatabaseHelper;
 	private ItemDataAdapter itemDataAdapter;
@@ -48,6 +52,21 @@ public class MyClosetActivity extends Activity {
 		ListView listView = (ListView) findViewById(R.id.my_closet_list);
 		itemDataAdapter = new ItemDataAdapter(this, itemDatabaseHelper.getAllItemRecords());
 		listView.setAdapter(itemDataAdapter);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
+				Cursor c = (Cursor) itemDataAdapter.getItem(position);
+				if (null != c) {
+					Log.i(LOG_TAG, "Cursor is NOT null");
+					ItemData itemData = ItemDatabaseHelper.getItemDataFromCursor(c);
+					Intent i1 = new Intent(MyClosetActivity.this, ViewItemActivity.class);
+					i1.putExtra(ItemData.INTENT, itemData);
+					startActivityForResult(i1, VIEW_ITEM_REQUEST);									
+				} else {
+					Log.i(LOG_TAG, "Cursor is null");
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -61,6 +80,10 @@ public class MyClosetActivity extends Activity {
 			if (Activity.RESULT_OK == resultCode) {	// Make sure the request was successful
 				ItemData itemData = data.getExtras().getParcelable(ItemData.INTENT);
 				itemDatabaseHelper.saveRecord(itemData);
+				itemDataAdapter.changeCursor(itemDatabaseHelper.getAllItemRecords());
+			}
+		} else if (VIEW_ITEM_REQUEST == requestCode) {
+			if (Activity.RESULT_OK == resultCode) {
 				itemDataAdapter.changeCursor(itemDatabaseHelper.getAllItemRecords());
 			}
 		}

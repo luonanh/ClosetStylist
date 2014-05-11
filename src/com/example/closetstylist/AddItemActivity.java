@@ -28,7 +28,8 @@ import android.widget.Toast;
 
 public class AddItemActivity extends Activity {
 	private final static String LOG_TAG = AddItemActivity.class.getCanonicalName();
-	private ItemDatabaseHelper itemDatabaseHelper;
+	private ItemDatabaseHelper itemDatabaseHelper = null;
+	private Context context = null;
 	
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	
@@ -44,7 +45,6 @@ public class AddItemActivity extends Activity {
 	EditText description = null;
 	ImageView image = null;
 	Button buttonAddImage = null;
-	Context context = null;
 	Spinner color = null;
 	Spinner tempMin = null;
 	Spinner tempMax = null;

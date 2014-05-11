@@ -118,6 +118,15 @@ public class ItemData implements Parcelable {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
+	
+	public String toString() {
+		return "ItemData toString: name - " + name + "; description - "
+				+ description + "; iamgeLink - " + imageLink + "; color - "
+				+ color + "; tempMin - " + Integer.toString(tempMin)
+				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
+				+ category + "; brand - " + brand + "; age - " + age
+				+ "; material - " + material;
+	}
 
 	public static class ItemDataBuilder {
 		private String name = ""; // optional
