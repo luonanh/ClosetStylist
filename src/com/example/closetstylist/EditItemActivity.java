@@ -6,15 +6,19 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditItemActivity extends Activity {
 	private final static String LOG_TAG = EditItemActivity.class.getCanonicalName();
@@ -27,12 +31,11 @@ public class EditItemActivity extends Activity {
 	private TextView imageLocation = null;
 	private Uri imagePathFinal = null;
 	private Button buttonReset = null;
-	private Button buttonRegister = null;
-	private Button buttonDiscard = null;
+	private Button buttonSave = null;
 	private EditText name = null;
 	private EditText description = null;
 	private ImageView image = null;
-	private Button buttonAddImage = null;
+	private Button buttonEditImage = null;
 	private Spinner color = null;
 	private Spinner tempMin = null;
 	private Spinner tempMax = null;
@@ -127,6 +130,80 @@ public class EditItemActivity extends Activity {
 		material.setAdapter(materialAdapter);
 		
 		setEditItemActivityFromItemData(itemData);
+		
+		buttonReset = (Button) findViewById(R.id.edit_item_btn_reset);
+		buttonReset.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setEditItemActivityFromItemData(itemData);
+			}	
+		});
+
+		buttonEditImage = (Button) findViewById(R.id.edit_item_btn_edit_image);
+		buttonEditImage.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// start ViewImage activity - should I use another program to edit image
+				// save the image to the same file or different file on SD card ???
+			}	
+		});
+
+		buttonSave = (Button) findViewById(R.id.edit_item_btn_save);
+		buttonSave.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// create a new ItemData based on the current fields
+				// newItemData = new ItemData.ItemDataBuilder...id(itemData.getId())
+				
+				/*
+				 * Make sure all the required fields are valid 
+				 */
+				
+				// image field cannot be null
+				/* itemData must already contain an imagePath
+				if (null == imagePath) {
+					Toast.makeText(context, 
+							R.string.add_item_message_no_image, 
+							Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+				*/
+				
+				// tempMax >= tempMin
+				if (Integer.valueOf(tempMax.getSelectedItem().toString()) 
+						< Integer.valueOf(tempMin.getSelectedItem().toString())) {
+					Toast.makeText(context, 
+							R.string.edit_item_message_tempMax_smaller_tempMin, 
+							Toast.LENGTH_SHORT)
+							.show();
+					return;					
+				}
+				
+				/*
+				 * Create a new ItemData instance.
+				 * Hard code color, tempMin, tempMax, category for now
+				 */
+				ItemData.ItemDataBuilder itemDataBuilder = new ItemData.ItemDataBuilder(
+						itemData.getImageLink(), 
+						color.getSelectedItem().toString(), 
+						Integer.valueOf(tempMin.getSelectedItem().toString()), 
+						Integer.valueOf(tempMax.getSelectedItem().toString()), 
+						category.getSelectedItem().toString())
+						.brand(brand.getSelectedItem().toString())
+						.age(Double.valueOf(age.getSelectedItem().toString()))
+						.material(material.getSelectedItem().toString())
+						.name(name.getText().toString())
+						.description(description.getText().toString());
+				itemData = itemDataBuilder.build();
+				
+				// update the database with the newly create ItemData
+				itemDatabaseHelper.updateRecord(itemData);
+				
+				onBackPressed(); // same as hit back key
+			}	
+		});
+
 	}
 	
 	private void setEditItemActivityFromItemData(ItemData item) {
@@ -141,15 +218,19 @@ public class EditItemActivity extends Activity {
 		brand.setSelection(brandArray.indexOf(item.getBrand()));
 		age.setSelection(ageArray.indexOf(Double.toString(item.getAge())));
 		material.setSelection(materialArray.indexOf(item.getMaterial()));
+	}
 
-		/*
-		color.setText(item.getColor());
-		tempMin.setText(Integer.toString(item.getTempMin()));
-		tempMax.setText(Integer.toString(item.getTempMax()));
-		category.setText(item.getCategory());
-		brand.setText(item.getBrand());
-		age.setText(Double.toString(item.getAge()));
-		material.setText(item.getMaterial());
-		*/
-	}	
+	@Override
+	public void onBackPressed() {
+		Intent i1 = new Intent();
+		i1.putExtra(ItemData.INTENT, itemData);
+		
+		// Set Activity's result with result code RESULT_OK
+		setResult(Activity.RESULT_OK, i1);
+		
+		// Finish the Activity
+		finish();
+	}
+	
+	
 }

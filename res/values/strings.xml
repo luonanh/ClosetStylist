@@ -39,7 +39,7 @@
     <string name="add_item_message_no_color">Please choose a color for this item</string>
     
     <!-- Edit Item Strings -->
-        <string name="edit_item_label_name">Name</string>
+    <string name="edit_item_label_name">Name</string>
     <string name="edit_item_value_name_default_value">polo1</string>
     <string name="edit_item_label_description">Description</string>
     <string name="edit_item_value_description_default_value">Description</string>

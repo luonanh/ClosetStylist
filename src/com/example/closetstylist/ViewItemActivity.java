@@ -57,34 +57,36 @@ public class ViewItemActivity extends Activity {
 		imageLocation.setText(itemData.getImageLink());
 		
 		name = (TextView) findViewById(R.id.view_item_value_name);
-		name.setText(itemData.getName());
+		//name.setText(itemData.getName());
 		
 		description = (TextView) findViewById(R.id.view_item_value_description);
-		description.setText(itemData.getDescription());
+		//description.setText(itemData.getDescription());
 		
 		image = (ImageView) findViewById(R.id.view_item_image);
-		image.setImageURI(Uri.parse(itemData.getImageLink()));
+		//image.setImageURI(Uri.parse(itemData.getImageLink()));
 		
 		color = (TextView) findViewById(R.id.view_item_value_color);
-		color.setText(itemData.getColor());
+		//color.setText(itemData.getColor());
 		
 		tempMin = (TextView) findViewById(R.id.view_item_value_temp_min);
-		tempMin.setText(Integer.toString(itemData.getTempMin()));
+		//tempMin.setText(Integer.toString(itemData.getTempMin()));
 
 		tempMax = (TextView) findViewById(R.id.view_item_value_temp_max);
-		tempMax.setText(Integer.toString(itemData.getTempMax()));
+		//tempMax.setText(Integer.toString(itemData.getTempMax()));
 
 		category = (TextView) findViewById(R.id.view_item_value_category);
-		category.setText(itemData.getCategory());
+		//category.setText(itemData.getCategory());
 
 		brand = (TextView) findViewById(R.id.view_item_value_brand);
-		brand.setText(itemData.getBrand());
+		//brand.setText(itemData.getBrand());
 		
 		age = (TextView) findViewById(R.id.view_item_value_age);
-		age.setText(Double.toString(itemData.getAge()));
+		//age.setText(Double.toString(itemData.getAge()));
 
 		material = (TextView) findViewById(R.id.view_item_value_material);
-		material.setText(itemData.getMaterial());
+		//material.setText(itemData.getMaterial());
+		
+		setViewItemActivityFromItemData(itemData); // set all the fields in this activity
 
 		buttonEdit = (Button) findViewById(R.id.view_item_btn_edit);
 		buttonEdit.setOnClickListener(new OnClickListener() {

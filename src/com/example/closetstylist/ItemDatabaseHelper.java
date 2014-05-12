@@ -48,6 +48,9 @@ public class ItemDatabaseHelper {
 		database.delete(TABLE_NAME, WHERE_CLAUSE, whereArgs);
 	}
 
+	/*
+	 * param ItemData must have a valid id field 
+	 */
 	public void updateRecord(ItemData item) {
 		String[] whereArgs = { String.valueOf(item.getId()) };
 		database.update(TABLE_NAME, getContentValuesFromItemData(item), 
