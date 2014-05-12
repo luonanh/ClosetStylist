@@ -33,9 +33,9 @@ public class ItemDataAdapter extends CursorAdapter {
 		// Populate name field
 		TextView name = (TextView) view.findViewById(R.id.closet_value_name);
 		if (itemData.getName().isEmpty()) {
-			name.setText(context.getString(R.string.my_closet_item_view_value_no_name));
+			name.setText(context.getString(R.string.my_closet_value_item_name_default_value));
 		} else {
-			name.setText(context.getString(R.string.my_closet_item_view_label_name) 
+			name.setText(context.getString(R.string.my_closet_label_item_name) 
 					+ itemData.getName());
 			
 		}
@@ -43,9 +43,9 @@ public class ItemDataAdapter extends CursorAdapter {
 		// Populate description field
 		TextView description = (TextView) view.findViewById(R.id.closet_value_description);
 		if (itemData.getDescription().isEmpty()) {
-			description.setText(context.getString(R.string.my_closet_item_view_value_no_description));
+			description.setText(context.getString(R.string.my_closet_value_item_description_default_value));
 		} else {
-			description.setText(context.getString(R.string.my_closet_item_view_label_description) 
+			description.setText(context.getString(R.string.my_closet_label_item_description) 
 					+ itemData.getDescription());
 		}
 		

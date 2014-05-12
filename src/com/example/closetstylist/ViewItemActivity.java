@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 public class ViewItemActivity extends Activity {
 	private final static String LOG_TAG = AddItemActivity.class.getCanonicalName();
+	static final int EDIT_ITEM_REQUEST = 1;
+	
 	private ItemDatabaseHelper itemDatabaseHelper = null;
 	private ItemData itemData = null;
 	private Context context = null;
@@ -88,6 +90,9 @@ public class ViewItemActivity extends Activity {
 		buttonEdit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Intent i1 = new Intent(ViewItemActivity.this, EditItemActivity.class);
+				i1.putExtra(ItemData.INTENT, itemData);
+				startActivityForResult(i1, EDIT_ITEM_REQUEST);
 			}			
 		});
 		
@@ -98,14 +103,14 @@ public class ViewItemActivity extends Activity {
 				String message;
 
 				message = context.getString(
-						R.string.my_closet_item_view_dialog_deletion_message);
+						R.string.view_item_dialog_deletion_message);
 
 				//new AlertDialog.Builder(context) --> android alertdialog unable to add window token null is not for an application
 				new AlertDialog.Builder(ViewItemActivity.this)
 						.setIcon(android.R.drawable.ic_dialog_alert)
-						.setTitle(R.string.my_closet_item_view_dialog_deletion_title)
+						.setTitle(R.string.view_item_dialog_deletion_title)
 						.setMessage(message)
-						.setPositiveButton(R.string.my_closet_item_view_dialog_deletion_yes,
+						.setPositiveButton(R.string.view_item_dialog_deletion_yes,
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
@@ -122,7 +127,7 @@ public class ViewItemActivity extends Activity {
 									}
 
 								})
-						.setNegativeButton(R.string.my_closet_item_view_dialog_deletion_no, null)
+						.setNegativeButton(R.string.view_item_dialog_deletion_no, null)
 						.create()
 						.show();
 			}			
@@ -137,6 +142,35 @@ public class ViewItemActivity extends Activity {
 		// activity refresh cursor if changed.
 		setResult(Activity.RESULT_OK);
 		finish();
+	}
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.i(LOG_TAG, "Entered onActivityResult()");
+		
+		// RESULT_OK result code and a recognized request code
+		// If so, update the Textview showing the user-entered text.
+		if (EDIT_ITEM_REQUEST == requestCode) {	// Check which request we're responding to
+			if (Activity.RESULT_OK == resultCode) {	// Make sure the request was successful
+				ItemData item = data.getExtras().getParcelable(ItemData.INTENT);
+				setViewItemActivityFromItemData(item);
+			}
+		}
+	}
+
+	private void setViewItemActivityFromItemData(ItemData item) {
+		name.setText(item.getName());
+		description.setText(item.getDescription());
+		imageLocation.setText(item.getImageLink());
+		image.setImageURI(Uri.parse(item.getImageLink()));
+		color.setText(item.getColor());
+		tempMin.setText(Integer.toString(item.getTempMin()));
+		tempMax.setText(Integer.toString(item.getTempMax()));
+		category.setText(item.getCategory());
+		brand.setText(item.getBrand());
+		age.setText(Double.toString(item.getAge()));
+		material.setText(item.getMaterial());
 	}
 
 }

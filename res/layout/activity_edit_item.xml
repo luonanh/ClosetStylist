@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/edit_item_scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp" >
+
+        <RelativeLayout
+            android:id="@+id/edit_item_RelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- name label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_value_name"
+                android:layout_alignBottom="@+id/edit_item_value_name"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_name" />
+
+            <EditText
+                android:id="@+id/edit_item_value_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:inputType="text"
+                android:text="@string/edit_item_value_name_default_value" />
+
+            <!-- description label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_value_description"
+                android:layout_alignBottom="@+id/edit_item_value_description"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_description" />
+
+            <EditText
+                android:id="@+id/edit_item_value_description"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_value_name"
+                android:inputType="text"
+                android:text="@string/edit_item_value_description_default_value" />
+
+            <!-- color label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_spinner_color"
+                android:layout_alignBottom="@+id/edit_item_spinner_color"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_color" />
+
+            <Spinner
+                android:id="@+id/edit_item_spinner_color"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_value_description" />
+            
+            <!-- tempMin label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_temp_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_spinner_temp_min"
+                android:layout_alignBottom="@+id/edit_item_spinner_temp_min"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_temp_min" />
+
+            <Spinner
+                android:id="@+id/edit_item_spinner_temp_min"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_spinner_color" />
+            
+            <!-- tempMax label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_temp_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_spinner_temp_max"
+                android:layout_alignBottom="@+id/edit_item_spinner_temp_max"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_temp_max" />
+
+            <Spinner
+                android:id="@+id/edit_item_spinner_temp_max"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_spinner_temp_min" />
+            
+            <!-- category label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_spinner_category"
+                android:layout_alignBottom="@+id/edit_item_spinner_category"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_category" />
+
+            <Spinner
+                android:id="@+id/edit_item_spinner_category"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_spinner_temp_max" />
+
+            <!-- brand label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_spinner_brand"
+                android:layout_alignBottom="@+id/edit_item_spinner_brand"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_brand" />
+
+            <Spinner
+                android:id="@+id/edit_item_spinner_brand"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_spinner_category" />
+            
+             <!-- age label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_spinner_age"
+                android:layout_alignBottom="@+id/edit_item_spinner_age"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_age" />
+
+            <Spinner
+                android:id="@+id/edit_item_spinner_age"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_spinner_brand" />
+            
+             <!-- material label/value pair -->
+
+            <TextView
+                android:id="@+id/edit_item_label_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_spinner_material"
+                android:layout_alignBottom="@+id/edit_item_spinner_material"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_label_material" />
+
+            <Spinner
+                android:id="@+id/edit_item_spinner_material"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_spinner_age" />            
+                       
+            <!-- addImage label/value pair change android:layout_below="@+id/edit_item_value_description" -->
+            <TextView
+                android:id="@+id/edit_item_label_image_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_item_btn_edit_image"
+                android:layout_alignBottom="@+id/edit_item_btn_edit_image"
+                android:layout_alignParentLeft="true"
+                android:text="@string/edit_item_btn_edit_image" />
+
+            <Button
+                android:id="@+id/edit_item_btn_edit_image"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_spinner_material"
+                android:text="@string/edit_item_btn_edit_image" />
+
+            <TextView
+                android:id="@+id/edit_item_value_image_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_btn_edit_image"
+                android:text="" />
+
+            <!-- new item image -->
+
+            <ImageView
+                android:id="@+id/edit_item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_item_value_image_location"
+                android:layout_centerHorizontal="true" />
+
+
+            <!-- tags label/value pair -->
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/edit_item_btn_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="68dp"
+        android:text="@string/edit_item_btn_reset" />
+
+    <Button
+        android:id="@+id/edit_item_btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="46dp"
+        android:text="@string/edit_item_btn_save" />
+
+</RelativeLayout>
+

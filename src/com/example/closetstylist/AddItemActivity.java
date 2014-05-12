@@ -36,27 +36,28 @@ public class AddItemActivity extends Activity {
 	static final int CAMERA_PIC_REQUEST = 1;
 	
 	private Uri imagePath = null;
-	TextView imageLocation = null;
-	Uri imagePathFinal = null;
-	Button buttonReset = null;
-	Button buttonRegister = null;
-	Button buttonDiscard = null;
-	EditText name = null;
-	EditText description = null;
-	ImageView image = null;
-	Button buttonAddImage = null;
-	Spinner color = null;
-	Spinner tempMin = null;
-	Spinner tempMax = null;
-	Spinner category = null;
-	Spinner brand = null;
-	Spinner age = null;
-	Spinner material = null;
-	ArrayList<String> temperatureArray = new ArrayList<String>();//new ArrayList<String>(Arrays.asList("10", "11", "12"));
-	ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("dress", "jacket", "jeans", "shirt", "short", "t-shirt"));
-	ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike"));
-	ArrayList<String> ageArray = new ArrayList<String>();
-	ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("wool", "cotton", "nylon"));
+	private TextView imageLocation = null;
+	private Uri imagePathFinal = null;
+	private Button buttonReset = null;
+	private Button buttonRegister = null;
+	private Button buttonDiscard = null;
+	private EditText name = null;
+	private EditText description = null;
+	private ImageView image = null;
+	private Button buttonAddImage = null;
+	private Spinner color = null;
+	private Spinner tempMin = null;
+	private Spinner tempMax = null;
+	private Spinner category = null;
+	private Spinner brand = null;
+	private Spinner age = null;
+	private Spinner material = null;
+	private ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("black", "blue", "brown", "gray", "green", "orange", "pink", "purple", "red", "white", "yellow"));
+	private ArrayList<String> temperatureArray = new ArrayList<String>();//new ArrayList<String>(Arrays.asList("10", "11", "12"));
+	private ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("dress", "jacket", "jeans", "shirt", "short", "t-shirt"));
+	private ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike"));
+	private ArrayList<String> ageArray = new ArrayList<String>();
+	private ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("wool", "cotton", "nylon"));
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +76,8 @@ public class AddItemActivity extends Activity {
 		
 		color = (Spinner) findViewById(R.id.add_item_spinner_color);
 		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> colorAdapter = ArrayAdapter.createFromResource(this,
-		        R.array.add_item_spinner_color, R.layout.color_dropdown_item);
+		ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(this,
+		        R.layout.color_dropdown_item, colorArray);
 		// Apply the adapter to the spinner
 		color.setAdapter(colorAdapter);
 		

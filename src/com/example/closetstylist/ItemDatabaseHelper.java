@@ -25,6 +25,9 @@ public class ItemDatabaseHelper {
 		database = mItemDataOpenHelper.getWritableDatabase();
 	}
 	
+	/*
+	 * no id
+	 */
 	public void saveRecord(ItemData item) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(Schema.Item.Cols.NAME, item.getName());
@@ -43,6 +46,12 @@ public class ItemDatabaseHelper {
 	public void deleteRecord(ItemData item) {
 		String[] whereArgs = { String.valueOf(item.getId()) };
 		database.delete(TABLE_NAME, WHERE_CLAUSE, whereArgs);
+	}
+
+	public void updateRecord(ItemData item) {
+		String[] whereArgs = { String.valueOf(item.getId()) };
+		database.update(TABLE_NAME, getContentValuesFromItemData(item), 
+				WHERE_CLAUSE, whereArgs);
 	}
 
 	public Cursor getAllItemRecords() {
@@ -100,6 +109,25 @@ public class ItemDatabaseHelper {
 			.name(name)
 			.brand(brand)
 			.build();
+	}
+	
+	/*
+	 * valid id field in ItemData
+	 */
+	public static ContentValues getContentValuesFromItemData(ItemData item) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(Schema.Item.Cols.ID, item.getId());
+		contentValues.put(Schema.Item.Cols.NAME, item.getName());
+		contentValues.put(Schema.Item.Cols.DESCRIPTION, item.getDescription());
+		contentValues.put(Schema.Item.Cols.IMAGE_LINK, item.getImageLink());
+		contentValues.put(Schema.Item.Cols.COLOR, item.getColor());
+		contentValues.put(Schema.Item.Cols.TEMPERATUTRE_MIN, item.getTempMin());
+		contentValues.put(Schema.Item.Cols.TEMPERATUTRE_MAX, item.getTempMax());
+		contentValues.put(Schema.Item.Cols.CATEGORY, item.getCategory());
+		contentValues.put(Schema.Item.Cols.BRAND, item.getBrand());
+		contentValues.put(Schema.Item.Cols.AGE, item.getAge());
+		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
+		return contentValues;
 	}
 	
 	private class ItemDataOpenHelper extends SQLiteOpenHelper {

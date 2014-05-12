@@ -38,21 +38,29 @@
     <string name="add_item_message_tempMax_smaller_tempMin">Maximum temperature must be higher than minimum temperature</string>
     <string name="add_item_message_no_color">Please choose a color for this item</string>
     
-    <string-array name="add_item_spinner_color">
-        <item>black</item>
-        <item>blue</item>
-        <item>brown</item>
-        <item>gray</item>
-        <item>green</item>
-        <item>orange</item>
-        <item>pink</item>
-        <item>purple</item>
-        <item>red</item>
-        <item>white</item>
-        <item>yellow</item>
-    </string-array>
-    
     <!-- Edit Item Strings -->
+        <string name="edit_item_label_name">Name</string>
+    <string name="edit_item_value_name_default_value">polo1</string>
+    <string name="edit_item_label_description">Description</string>
+    <string name="edit_item_value_description_default_value">Description</string>
+    <string name="edit_item_label_image_link">ImageLink:</string>
+    <string name="edit_item_btn_edit_image">Edit Image</string>
+    <string name="edit_item_label_color">Color</string>
+    <string name="edit_item_label_age">Age</string>
+    <string name="edit_item_label_temp_min">Temperature Min(F)</string>
+    <string name="edit_item_label_temp_max">Temperature Max(F)</string>
+    <string name="edit_item_label_category">Category</string>
+    <string name="edit_item_label_brand">Brand</string>
+    <string name="edit_item_label_material">Material</string>
+    
+    
+    <string name="edit_item_btn_reset">Reset</string>
+    <string name="edit_item_btn_save">Save</string>
+    
+    <string name="edit_item_message_no_external_storage">No SD card is found</string>
+    <string name="edit_item_message_no_image">Please take a picture of this item</string>
+    <string name="edit_item_message_tempMax_smaller_tempMin">Maximum temperature must be higher than minimum temperature</string>
+    <string name="edit_item_message_no_color">Please choose a color for this item</string>
     
     <!-- View Item Strings -->
     <string name="view_item_label_name">Name</string>
@@ -69,26 +77,23 @@
     <string name="view_item_label_category">Category</string>
     <string name="view_item_label_brand">Brand</string>
     <string name="view_item_label_material">Material</string>
-    
-    
+        
     <string name="view_item_btn_edit">Edit</string>
     <string name="view_item_btn_delete">Delete</string>
+    
+    <string name="view_item_dialog_deletion_title">Closing Activity</string>
+    <string name="view_item_dialog_deletion_message">Are you sure you want to Delete this Item?</string>
+    <string name="view_item_dialog_deletion_yes">Yes</string>
+    <string name="view_item_dialog_deletion_no">No</string>
     
     <!-- My Closet Strings -->
     <string name="my_closet_btn_add_item">AddItem</string>
     <string name="my_closet_btn_back">Back</string>
     
-    <!-- My Closet Item View Strings -->
-    <string name="my_closet_item_view_label_name">Name: </string>
-    <string name="my_closet_item_view_value_no_name">No Name</string>
-    <string name="my_closet_item_view_label_description">Description: </string>
-    <string name="my_closet_item_view_value_no_description">No Description</string>
-    
-    
-    <string name="my_closet_item_view_dialog_deletion_title">Closing Activity</string>
-    <string name="my_closet_item_view_dialog_deletion_message">Are you sure you want to Delete this Item?</string>
-    <string name="my_closet_item_view_dialog_deletion_yes">Yes</string>
-    <string name="my_closet_item_view_dialog_deletion_no">No</string>
+    <string name="my_closet_label_item_name">Name: </string>
+    <string name="my_closet_value_item_name_default_value">No Name</string>
+    <string name="my_closet_label_item_description">Description: </string>
+    <string name="my_closet_value_item_description_default_value">No Description</string>
     
 
 </resources>
