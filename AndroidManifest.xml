@@ -39,6 +39,9 @@
         <!-- THIS IS THE VIEW ITEM ACTIVITY -->
         <activity android:name="com.example.closetstylist.ViewItemActivity" >
         </activity>
+        <!-- THIS IS THE EDIT ITEM ACTIVITY -->
+        <activity android:name="com.example.closetstylist.EditItemActivity" >
+        </activity>
         
     </application>
 
