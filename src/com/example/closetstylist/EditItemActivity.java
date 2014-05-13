@@ -190,12 +190,14 @@ public class EditItemActivity extends Activity {
 						Integer.valueOf(tempMin.getSelectedItem().toString()), 
 						Integer.valueOf(tempMax.getSelectedItem().toString()), 
 						category.getSelectedItem().toString())
+						.id(itemData.getId())
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
 						.material(material.getSelectedItem().toString())
 						.name(name.getText().toString())
 						.description(description.getText().toString());
 				itemData = itemDataBuilder.build();
+				Log.i(LOG_TAG, "buttonSave" + itemData.toString());
 				
 				// update the database with the newly create ItemData
 				itemDatabaseHelper.updateRecord(itemData);

@@ -131,7 +131,7 @@ public class ItemData implements Parcelable {
 	}
 	
 	public String toString() {
-		return "ItemData toString: name - " + name + "; description - "
+		return "ItemData toString: id - " + id + " name - " + name + "; description - "
 				+ description + "; iamgeLink - " + imageLink + "; color - "
 				+ color + "; tempMin - " + Integer.toString(tempMin)
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "

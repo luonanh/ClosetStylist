@@ -8,8 +8,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.RemoteException;
+import android.util.Log;
 
 public class ItemDatabaseHelper {
+	private final static String LOG_TAG = ItemDatabaseHelper.class.getCanonicalName();
+	
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "closetStylist.db";
 	private static final String TABLE_NAME = "itemData_db";
@@ -52,9 +55,10 @@ public class ItemDatabaseHelper {
 	 * param ItemData must have a valid id field 
 	 */
 	public void updateRecord(ItemData item) {
+		Log.i(LOG_TAG, "updateRecord" + item.toString());
 		String[] whereArgs = { String.valueOf(item.getId()) };
-		database.update(TABLE_NAME, getContentValuesFromItemData(item), 
-				WHERE_CLAUSE, whereArgs);
+		Log.i(LOG_TAG, "Rows updated: " + database.update(TABLE_NAME, 
+				getContentValuesFromItemData(item), WHERE_CLAUSE, whereArgs));
 	}
 
 	public Cursor getAllItemRecords() {
