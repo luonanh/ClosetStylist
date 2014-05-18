@@ -85,7 +85,8 @@ public class ItemDatabaseHelper {
 	}
 	
 	void deleteMyCloset() {
-		mContext.deleteDatabase(TABLE_NAME);
+		// thought this was working once but not anymore mContext.deleteDatabase(TABLE_NAME);
+		database.delete(TABLE_NAME, null, null);
 	}
 	
 	/*

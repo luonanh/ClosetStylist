@@ -68,7 +68,7 @@
     <string name="view_item_label_description">Description</string>
     <string name="view_item_value_description_default_value">Description</string>
     <string name="view_item_label_image_link">ImageLink:</string>
-    <string name="view_item_value_image_link">Add Image</string>
+    <string name="view_item_value_image_link">To Be Removed</string>
     <string name="view_item_label_edit_image">Edit Image</string>
     <string name="view_item_label_color">Color</string>
     <string name="view_item_label_age">Age</string>
