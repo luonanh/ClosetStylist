@@ -8,6 +8,7 @@ public class Schema {
 			public static final String BRAND = "brand";
 			public static final String DESCRIPTION = "description";
 			public static final String IMAGE_LINK = "imageLink";
+			public static final String CROP_IMAGE_LINK = "cropImageLink";
 			public static final String COLOR = "color";	
 			public static final String TEMPERATUTRE_MIN = "TempMin";
 			public static final String TEMPERATUTRE_MAX = "TempMax";

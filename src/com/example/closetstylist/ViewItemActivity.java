@@ -118,6 +118,10 @@ public class ViewItemActivity extends Activity {
 									public void onClick(DialogInterface dialog,
 											int which) {
 										try {
+											// delete original image and cropped image from SD card
+											AddItemActivity.deleteItemImagesFromSd(itemData);
+											
+											// delete the entry in the item database
 											itemDatabaseHelper.deleteRecord(itemData);
 										} catch (Exception e) {
 											Log.e(LOG_TAG, "Exception Caught => "

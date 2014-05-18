@@ -51,16 +51,16 @@
 
     <ImageView
         android:id="@+id/outfit_view_top"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/crop_top_width"
+        android:layout_height="@dimen/crop_top_height"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="48dp"
         android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/outfit_view_bottom"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/crop_bottom_width"
+        android:layout_height="@dimen/crop_bottom_height"
         android:layout_below="@+id/outfit_view_top"
         android:layout_centerHorizontal="true" />
 

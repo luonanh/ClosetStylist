@@ -43,6 +43,7 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.BRAND, item.getBrand());
 		contentValues.put(Schema.Item.Cols.AGE, item.getAge());
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
+		contentValues.put(Schema.Item.Cols.CROP_IMAGE_LINK, item.getCropImageLink());
 		database.insert(TABLE_NAME, null, contentValues);
 	}
 
@@ -105,11 +106,12 @@ public class ItemDatabaseHelper {
 		String brand = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.BRAND));
 		double age = cursor.getDouble(cursor.getColumnIndex(Schema.Item.Cols.AGE));
 		String material = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.MATERIAL));
+		String cropImageLink = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.CROP_IMAGE_LINK));
 		/*
 		 * 		public ItemDataBuilder(String imageLink, String color, int tempMin, 
 				int tempMax, String category) {
 		 */
-		return new ItemData.ItemDataBuilder(imageLink, color, tempMin, tempMax, category)
+		return new ItemData.ItemDataBuilder(imageLink, color, tempMin, tempMax, category, cropImageLink)
 			.id(rowID)	
 			.age(age)			
 			.description(description)
@@ -135,6 +137,7 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.BRAND, item.getBrand());
 		contentValues.put(Schema.Item.Cols.AGE, item.getAge());
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
+		contentValues.put(Schema.Item.Cols.CROP_IMAGE_LINK, item.getCropImageLink());
 		return contentValues;
 	}
 	
@@ -156,7 +159,8 @@ public class ItemDatabaseHelper {
 					+ Schema.Item.Cols.CATEGORY + " TEXT, "
 					+ Schema.Item.Cols.BRAND + " TEXT, "
 					+ Schema.Item.Cols.AGE + " REAL, "
-					+ Schema.Item.Cols.MATERIAL + " TEXT)");
+					+ Schema.Item.Cols.MATERIAL + " TEXT, "
+					+ Schema.Item.Cols.CROP_IMAGE_LINK + " TEXT)");
 			
 		}
 

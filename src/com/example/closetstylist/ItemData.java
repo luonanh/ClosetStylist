@@ -16,6 +16,7 @@ public class ItemData implements Parcelable {
 	private String name; // optional
 	private String description; // optional
 	private String imageLink; // required
+	private String cropImageLink; // required
 	private String color; // required
 	private int tempMin; // required
 	private int tempMax; // required
@@ -33,6 +34,7 @@ public class ItemData implements Parcelable {
 		this.name = builder.name;
 		this.description = builder.description;
 		this.imageLink = builder.imageLink;
+		this.cropImageLink = builder.cropImageLink;		
 		this.color = builder.color;
 		this.tempMin = builder.tempMin;
 		this.tempMax = builder.tempMax;
@@ -40,6 +42,14 @@ public class ItemData implements Parcelable {
 		this.brand = builder.brand;
 		this.age = builder.age;
 		this.material = builder.material;
+	}
+
+	public String getCropImageLink() {
+		return cropImageLink;
+	}
+
+	public void setCropImageLink(String cropImageLink) {
+		this.cropImageLink = cropImageLink;
 	}
 
 	public long getId() {
@@ -136,14 +146,15 @@ public class ItemData implements Parcelable {
 				+ color + "; tempMin - " + Integer.toString(tempMin)
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
 				+ category + "; brand - " + brand + "; age - " + age
-				+ "; material - " + material;
+				+ "; material - " + material + "; cropImageLink " + cropImageLink;
 	}
 
 	public static class ItemDataBuilder {
 		private long id; // once added to database, this field will be populated
 		private String name = ""; // optional
 		private String description = ""; // optional
-		private final String imageLink; // required
+		private final String imageLink; // required cropImageLink
+		private final String cropImageLink; // required
 		private final String color; // required
 		private final int tempMin; // required
 		private final int tempMax; // required
@@ -153,21 +164,27 @@ public class ItemData implements Parcelable {
 		private String material = ""; // optional
 		
 		public ItemDataBuilder(String imageLink, String color, int tempMin, 
-				int tempMax, String category) {
+				int tempMax, String category, String cropImageLink) {
 			this.imageLink = imageLink;
 			this.color = color;
 			this.tempMin = tempMin;
 			this.tempMax = tempMax;
 			this.category = category;
 			this.id = INVALID_ID; // default in case of insertion, there's no valid id yet
+			this.cropImageLink = cropImageLink;
 		}
-		
+
 		public ItemDataBuilder() {
 			this.imageLink = "";
 			this.color = "";
 			this.tempMin = 10;
 			this.tempMax = 25;
 			this.category = "";
+			this.cropImageLink = "";
+		}
+
+		public String getCropImageLink() {
+			return cropImageLink;
 		}
 
 		public ItemDataBuilder name(String name) {
@@ -232,6 +249,7 @@ public class ItemData implements Parcelable {
 		dest.writeString(brand);
 		dest.writeDouble(age);
 		dest.writeString(material);
+		dest.writeString(cropImageLink);
 	}
 	
 	/*
@@ -263,6 +281,7 @@ public class ItemData implements Parcelable {
 		brand = source.readString();
 		age = source.readDouble();
 		material = source.readString();
+		cropImageLink = source.readString();
 	}
 
 }

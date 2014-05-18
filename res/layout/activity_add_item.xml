@@ -208,16 +208,30 @@
                 android:layout_below="@+id/add_item_value_image_link"
                 android:text="" />
 
+            <TextView
+                android:id="@+id/add_item_value_crop_image_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/add_item_value_image_location"
+                android:text="" />
+            
             <!-- new item image -->
 
             <ImageView
                 android:id="@+id/add_item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/add_item_value_image_location"
+                android:layout_below="@+id/add_item_value_crop_image_location"
                 android:layout_centerHorizontal="true" />
 
-
+            <ImageView
+                android:id="@+id/add_item_crop_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add_item_image"
+                android:layout_centerHorizontal="true" />
+            
             <!-- tags label/value pair -->
 
         </RelativeLayout>

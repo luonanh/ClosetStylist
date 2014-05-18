@@ -51,7 +51,7 @@ public class ItemDataAdapter extends CursorAdapter {
 		
 		// Populate image
 		ImageView image = (ImageView) view.findViewById(R.id.closet_value_image);
-		image.setImageURI(Uri.parse(itemData.getImageLink()));
+		image.setImageURI(Uri.parse(itemData.getCropImageLink()));
 	}
 
 }
