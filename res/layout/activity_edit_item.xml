@@ -208,16 +208,30 @@
                 android:layout_below="@+id/edit_item_btn_edit_image"
                 android:text="" />
 
+            <TextView
+                android:id="@+id/edit_item_value_crop_image_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_item_value_image_location"
+                android:text="" />
+            
             <!-- new item image -->
 
             <ImageView
                 android:id="@+id/edit_item_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edit_item_value_image_location"
+                android:layout_below="@+id/edit_item_value_crop_image_location"
                 android:layout_centerHorizontal="true" />
 
-
+            <ImageView
+                android:id="@+id/edit_item_crop_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_item_image"
+                android:layout_centerHorizontal="true" />
+            
             <!-- tags label/value pair -->
 
         </RelativeLayout>
@@ -229,7 +243,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="68dp"
+        android:layout_marginLeft="30dp"
         android:text="@string/edit_item_btn_reset" />
 
     <Button
@@ -237,9 +251,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="46dp"
+        android:layout_centerHorizontal="true"
         android:text="@string/edit_item_btn_save" />
+
+    <Button
+        android:id="@+id/edit_item_btn_new_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="@string/edit_item_btn_new_image" />
 
 </RelativeLayout>
 

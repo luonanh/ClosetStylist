@@ -5,10 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,14 +32,22 @@ public class EditItemActivity extends Activity {
 	private ItemData itemData = null;
 	private Context context = null;
 
-	private Uri imagePath = null;
+	static final int CAMERA_PIC_REQUEST = 1;
+	static final int CROP_FROM_CAMERA = 2;
+	static final int EDIT_FROM_FILE = 3;
+
+	private Uri newImagePath = null;
+	private Uri newCropImagePath = null;
+	private Uri newEditImagePath = null;
 	private TextView imageLocation = null;
-	private Uri imagePathFinal = null;
+	private TextView cropImageLocation = null;
 	private Button buttonReset = null;
 	private Button buttonSave = null;
+	private Button buttonNewImage = null;
 	private EditText name = null;
 	private EditText description = null;
 	private ImageView image = null;
+	private ImageView cropImage = null;
 	private Button buttonEditImage = null;
 	private Spinner color = null;
 	private Spinner tempMin = null;
@@ -54,44 +67,47 @@ public class EditItemActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_item);
-		
+
 		context = getApplicationContext();
-		
+
 		// Restore ItemData passed in by MyCloset activity
 		itemDatabaseHelper = new ItemDatabaseHelper(this);
 		itemData = getIntent().getExtras().getParcelable(ItemData.INTENT);
 		Log.i(LOG_TAG, itemData.toString());
-		
+
 		imageLocation = (TextView) findViewById(
 				R.id.edit_item_value_image_location);
+		cropImageLocation = (TextView) findViewById(
+				R.id.edit_item_value_crop_image_location);
 		name = (EditText) findViewById(R.id.edit_item_value_name);
 		description = (EditText) findViewById(R.id.edit_item_value_description);
 		image = (ImageView) findViewById(R.id.edit_item_image);
-		
+		cropImage = (ImageView) findViewById(R.id.edit_item_crop_image);
+
 		color = (Spinner) findViewById(R.id.edit_item_spinner_color);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(this,
-		        R.layout.color_dropdown_item, colorArray);
+				R.layout.color_dropdown_item, colorArray);
 		// Apply the adapter to the spinner
 		color.setAdapter(colorAdapter);
-		
+
 		// initialize temperature array for tempMin and tempMax spinner
 		for (int i=-30; i<=120; i++) {
 			temperatureArray.add(String.valueOf(i));
 		}
-		
+
 		tempMin = (Spinner) findViewById(R.id.edit_item_spinner_temp_min);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> tempMinAdapter = new ArrayAdapter<String>(this,
-		        R.layout.temperature_dropdown_item, temperatureArray);
+				R.layout.temperature_dropdown_item, temperatureArray);
 		// Apply the adapter to the spinner
 		tempMin.setAdapter(tempMinAdapter);
 		tempMin.setSelection(80);
-		
+
 		tempMax = (Spinner) findViewById(R.id.edit_item_spinner_temp_max);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> tempMaxAdapter = new ArrayAdapter<String>(this,
-		        R.layout.temperature_dropdown_item, temperatureArray);
+				R.layout.temperature_dropdown_item, temperatureArray);
 		// Apply the adapter to the spinner
 		tempMax.setAdapter(tempMaxAdapter);
 		tempMax.setSelection(120);
@@ -99,14 +115,14 @@ public class EditItemActivity extends Activity {
 		category = (Spinner) findViewById(R.id.edit_item_spinner_category);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
-		        R.layout.temperature_dropdown_item, categoryArray);
+				R.layout.temperature_dropdown_item, categoryArray);
 		// Apply the adapter to the spinner
 		category.setAdapter(categoryAdapter);
-		
+
 		brand = (Spinner) findViewById(R.id.edit_item_spinner_brand);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> brandAdapter = new ArrayAdapter<String>(this,
-		        R.layout.temperature_dropdown_item, brandArray);
+				R.layout.temperature_dropdown_item, brandArray);
 		// Apply the adapter to the spinner
 		brand.setAdapter(brandAdapter);
 
@@ -117,20 +133,25 @@ public class EditItemActivity extends Activity {
 		age = (Spinner) findViewById(R.id.edit_item_spinner_age);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> ageAdapter = new ArrayAdapter<String>(this,
-		        R.layout.temperature_dropdown_item, ageArray);
+				R.layout.temperature_dropdown_item, ageArray);
 		// Apply the adapter to the spinner
 		age.setAdapter(ageAdapter);
-		
+
 
 		material = (Spinner) findViewById(R.id.edit_item_spinner_material);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> materialAdapter = new ArrayAdapter<String>(this,
-		        R.layout.temperature_dropdown_item, materialArray);
+				R.layout.temperature_dropdown_item, materialArray);
 		// Apply the adapter to the spinner
 		material.setAdapter(materialAdapter);
 		
+		// Initialize temporary variables
+		newImagePath = null;
+		newCropImagePath = null;
+		newEditImagePath = null;
+
 		setEditItemActivityFromItemData(itemData);
-		
+
 		buttonReset = (Button) findViewById(R.id.edit_item_btn_reset);
 		buttonReset.setOnClickListener(new OnClickListener() {
 			@Override
@@ -139,13 +160,38 @@ public class EditItemActivity extends Activity {
 			}	
 		});
 
+		buttonNewImage = (Button) findViewById(R.id.edit_item_btn_new_image);
+		buttonNewImage.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (Environment.MEDIA_MOUNTED.equals(Environment
+						.getExternalStorageState())) {
+					launchCameraIntent();
+				} else {
+					Toast.makeText(context, 
+							R.string.edit_item_message_no_external_storage, 
+							Toast.LENGTH_SHORT)
+							.show();	
+				}
+			}
+
+		});
+
 		buttonEditImage = (Button) findViewById(R.id.edit_item_btn_edit_image);
 		buttonEditImage.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// start ViewImage activity - should I use another program to edit image
-				// save the image to the same file or different file on SD card ???
-			}	
+				if (Environment.MEDIA_MOUNTED.equals(Environment
+						.getExternalStorageState())) {
+					launchEditIntent();
+				} else {
+					Toast.makeText(context, 
+							R.string.edit_item_message_no_external_storage, 
+							Toast.LENGTH_SHORT)
+							.show();	
+				}
+			}
 		});
 
 		buttonSave = (Button) findViewById(R.id.edit_item_btn_save);
@@ -154,23 +200,6 @@ public class EditItemActivity extends Activity {
 			public void onClick(View v) {
 				// create a new ItemData based on the current fields
 				// newItemData = new ItemData.ItemDataBuilder...id(itemData.getId())
-				
-				/*
-				 * Make sure all the required fields are valid 
-				 */
-				
-				// image field cannot be null
-				/* itemData must already contain an imagePath
-				if (null == imagePath) {
-					Toast.makeText(context, 
-							R.string.add_item_message_no_image, 
-							Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
-				*/
-				
-				// tempMax >= tempMin
 				if (Integer.valueOf(tempMax.getSelectedItem().toString()) 
 						< Integer.valueOf(tempMin.getSelectedItem().toString())) {
 					Toast.makeText(context, 
@@ -179,7 +208,7 @@ public class EditItemActivity extends Activity {
 							.show();
 					return;					
 				}
-				
+
 				/*
 				 * Create a new ItemData instance.
 				 * Hard code color, tempMin, tempMax, category for now
@@ -189,30 +218,41 @@ public class EditItemActivity extends Activity {
 						color.getSelectedItem().toString(), 
 						Integer.valueOf(tempMin.getSelectedItem().toString()), 
 						Integer.valueOf(tempMax.getSelectedItem().toString()), 
-						category.getSelectedItem().toString())
-						.id(itemData.getId())
-						.brand(brand.getSelectedItem().toString())
-						.age(Double.valueOf(age.getSelectedItem().toString()))
-						.material(material.getSelectedItem().toString())
-						.name(name.getText().toString())
-						.description(description.getText().toString());
+						category.getSelectedItem().toString(),
+						itemData.getCropImageLink())
+				.id(itemData.getId())
+				.brand(brand.getSelectedItem().toString())
+				.age(Double.valueOf(age.getSelectedItem().toString()))
+				.material(material.getSelectedItem().toString())
+				.name(name.getText().toString())
+				.description(description.getText().toString());
 				itemData = itemDataBuilder.build();
 				Log.i(LOG_TAG, "buttonSave" + itemData.toString());
-				
+
 				// update the database with the newly create ItemData
 				itemDatabaseHelper.updateRecord(itemData);
-				
+
 				onBackPressed(); // same as hit back key
 			}	
 		});
 
 	}
-	
+
+	private void launchCameraIntent() {
+		Intent i1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		newImagePath = AddItemActivity.getOutputMediaFileUri(
+				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, false);
+		i1.putExtra(MediaStore.EXTRA_OUTPUT, newImagePath);
+		startActivityForResult(i1, EditItemActivity.CAMERA_PIC_REQUEST);
+	}
+
 	private void setEditItemActivityFromItemData(ItemData item) {
 		name.setText(item.getName());
 		description.setText(item.getDescription());
 		imageLocation.setText(item.getImageLink());
 		image.setImageURI(Uri.parse(item.getImageLink()));
+		cropImageLocation.setText(item.getCropImageLink());
+		cropImage.setImageURI(Uri.parse(item.getCropImageLink()));
 		//color.setSelection(colorAdapter.getPosition(itemData.getColor()));
 		color.setSelection(colorArray.indexOf(item.getColor()));
 		tempMin.setSelection(temperatureArray.indexOf(Integer.toString(item.getTempMin())));
@@ -222,17 +262,123 @@ public class EditItemActivity extends Activity {
 		material.setSelection(materialArray.indexOf(item.getMaterial()));
 	}
 
+
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == EditItemActivity.CAMERA_PIC_REQUEST) {
+			if (resultCode == Activity.RESULT_OK) {
+				// Image captured and saved to fileUri specified in the Intent
+				if (null != newImagePath) {
+					AddItemActivity.deleteItemOriginalImageFromSd(itemData);
+					itemData.setImageLink(newImagePath.toString());
+				}
+				setEditItemActivityFromItemData(itemData);
+				//imageLocation.setText(itemData.getImageLink());
+				image.setImageURI(Uri.parse(itemData.getImageLink()));
+				launchCropIntent();
+			}
+		} else if (EditItemActivity.CROP_FROM_CAMERA == requestCode) {
+			if (resultCode == Activity.RESULT_OK) {
+				if (null != newCropImagePath) {
+					AddItemActivity.deleteItemCropImageFromSd(itemData);
+					itemData.setCropImageLink(newCropImagePath.toString());
+				}
+				setEditItemActivityFromItemData(itemData);
+				//cropImageLocation.setText(itemData.getCropImageLink());
+				cropImage.setImageURI(Uri.parse(itemData.getCropImageLink()));
+			}
+		} else if (EditItemActivity.EDIT_FROM_FILE == requestCode) {
+			if (resultCode == Activity.RESULT_OK) {
+				if (null != newEditImagePath) {
+					AddItemActivity.deleteItemCropImageFromSd(itemData);
+					itemData.setCropImageLink(newEditImagePath.toString());
+				}
+				setEditItemActivityFromItemData(itemData);
+				cropImage.setImageURI(Uri.parse(itemData.getCropImageLink()));
+			}			
+		}
+	}
+
+	private void launchCropIntent() {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setType("image/*");
+
+		List<ResolveInfo> list = getPackageManager().queryIntentActivities( intent, 0 );
+
+		int size = list.size();
+
+		if (size == 0) {	        
+			Toast.makeText(this, "Can not find image crop app", Toast.LENGTH_SHORT).show();
+
+			return;
+		} else {
+        	newCropImagePath = AddItemActivity.getOutputMediaFileUri(
+    				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
+			intent.setData(Uri.parse(itemData.getImageLink())) // set the input to the picture taken by camera
+			.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
+			.putExtra("outputY", 150) // equal to R.dimen.crop_bottom_height
+			.putExtra("aspectX", 1)
+			.putExtra("aspectY", 1)
+			.putExtra("scale", true)
+			.putExtra("return-data", false) // don't return bitmap data
+			.putExtra(MediaStore.EXTRA_OUTPUT, newCropImagePath); // set the name of the output cropped image
+
+			// Create the following intent to avoid the following  error 
+			// No Activity found to handle Intent { act=... (has extras) }
+			Intent i = new Intent(intent);
+			ResolveInfo res	= list.get(0); // ALDBG assume the first one is camera crop       	
+			i.setComponent( new ComponentName(res.activityInfo.packageName, 
+					res.activityInfo.name));        	
+			startActivityForResult(i, CROP_FROM_CAMERA);
+		}
+	}
+	
+	private void launchEditIntent() {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setType("image/*");
+
+		List<ResolveInfo> list = getPackageManager().queryIntentActivities( intent, 0 );
+
+		int size = list.size();
+
+		if (size == 0) {	        
+			Toast.makeText(this, "Can not find image crop app", Toast.LENGTH_SHORT).show();
+
+			return;
+		} else {
+			newEditImagePath = AddItemActivity.getOutputMediaFileUri(
+    				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
+			intent.setData(Uri.parse(itemData.getImageLink())) // set the input to the picture taken by camera
+			.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
+			.putExtra("outputY", 150) // equal to R.dimen.crop_bottom_height
+			.putExtra("aspectX", 1)
+			.putExtra("aspectY", 1)
+			.putExtra("scale", true)
+			.putExtra("return-data", false) // don't return bitmap data
+			.putExtra(MediaStore.EXTRA_OUTPUT, newEditImagePath); // set the name of the output cropped image
+
+			// Create the following intent to avoid the following  error 
+			// No Activity found to handle Intent { act=... (has extras) }
+			Intent i = new Intent(intent);
+			ResolveInfo res	= list.get(0); // ALDBG assume the first one is camera crop       	
+			i.setComponent( new ComponentName(res.activityInfo.packageName, 
+					res.activityInfo.name));        	
+			startActivityForResult(i, EDIT_FROM_FILE);
+		}
+	}
+	
 	@Override
 	public void onBackPressed() {
 		Intent i1 = new Intent();
 		i1.putExtra(ItemData.INTENT, itemData);
-		
+
 		// Set Activity's result with result code RESULT_OK
 		setResult(Activity.RESULT_OK, i1);
-		
+
 		// Finish the Activity
 		finish();
 	}
-	
-	
+
+
 }

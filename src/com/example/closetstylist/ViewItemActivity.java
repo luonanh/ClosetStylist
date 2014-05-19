@@ -26,6 +26,7 @@ public class ViewItemActivity extends Activity {
 	
 	private Uri imagePath = null;
 	private TextView imageLocation = null;
+	private TextView cropImageLocation = null;
 	private Button buttonEdit = null;
 	private Button buttonDelete = null;
 	private TextView name = null;
@@ -55,6 +56,10 @@ public class ViewItemActivity extends Activity {
 		imageLocation = (TextView) findViewById(
 				R.id.view_item_value_image_location);
 		imageLocation.setText(itemData.getImageLink());
+		
+		cropImageLocation = (TextView) findViewById(
+				R.id.view_item_value_crop_image_location);
+		cropImageLocation.setText(itemData.getCropImageLink());
 		
 		name = (TextView) findViewById(R.id.view_item_value_name);
 		//name.setText(itemData.getName());
@@ -169,6 +174,7 @@ public class ViewItemActivity extends Activity {
 		name.setText(item.getName());
 		description.setText(item.getDescription());
 		imageLocation.setText(item.getImageLink());
+		cropImageLocation.setText(item.getCropImageLink());
 		image.setImageURI(Uri.parse(item.getImageLink()));
 		color.setText(item.getColor());
 		tempMin.setText(Integer.toString(item.getTempMin()));

@@ -336,7 +336,7 @@ public class AddItemActivity extends Activity {
 	}
 	
 	protected static Uri getOutputMediaFileUri(int type, boolean isCrop) {
-		return Uri.fromFile(getOutputMediaFile(type, false));
+		return Uri.fromFile(getOutputMediaFile(type, isCrop));
 	}
 	
 	private static File getOutputMediaFile(int type, boolean isCrop) {
@@ -430,7 +430,59 @@ public class AddItemActivity extends Activity {
 
 		}
 	}
+
+	protected static void deleteItemOriginalImageFromSd(ItemData item) {
+		if (!item.getImageLink().isEmpty()) { // delete if the image exists
+			Log.d(LOG_TAG, "Search for " + item.getImageLink());
+			// File file = new File(imagePath.toString()) ALDBG doesn't work,
+			// don't know detail
+			File file = new File(URI.create(item.getImageLink()));
+			if (file.exists()) { // only delete if the image was stored on SD
+									// card
+				Log.d(LOG_TAG, item.getImageLink() + " exists");
+				/*
+				 * ALDBG follows stackoverFlow but doesn't work
+				 * sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+				 * Uri.parse(imagePath.toString())));
+				 */
+				if (file.delete()) {
+					Log.d(LOG_TAG,
+							"Successfully to delete file "
+									+ item.getImageLink());
+				} else {
+					Log.d(LOG_TAG, "Fail delete file " + item.getImageLink());
+				}
+			} else {
+				Log.d(LOG_TAG, "Cannot find file " + item.getImageLink());
+			}
+		}
+	}
 	
+	protected static void deleteItemCropImageFromSd(ItemData item) {
+		if (!item.getCropImageLink().isEmpty()) { // delete if the cropped image exists
+			Log.d(LOG_TAG, "Search for " + item.getCropImageLink());
+			File file = new File(URI.create(item.getCropImageLink()));
+			if (file.exists()) { // only delete if the image was stored on SD
+				// card
+				Log.d(LOG_TAG, item.getCropImageLink() + " exists");
+				/*
+				 * ALDBG follows stackoverFlow but doesn't work
+				 * sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+				 * Uri.parse(imagePath.toString())));
+				 */
+				if (file.delete()) {
+					Log.d(LOG_TAG,
+							"Successfully to delete file "
+									+ item.getCropImageLink());
+				} else {
+					Log.d(LOG_TAG, "Fail delete file " + item.getCropImageLink());
+				}
+			} else {
+				Log.d(LOG_TAG, "Cannot find file " + item.getCropImageLink());
+			}
+		}
+	}
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d(LOG_TAG, "CreateFragment onActivtyResult called. requestCode: "

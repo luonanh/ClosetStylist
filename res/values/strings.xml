@@ -58,6 +58,7 @@
     
     <string name="edit_item_btn_reset">Reset</string>
     <string name="edit_item_btn_save">Save</string>
+    <string name="edit_item_btn_new_image">NewImage</string>
     
     <string name="edit_item_message_no_external_storage">No SD card is found</string>
     <string name="edit_item_message_no_image">Please take a picture of this item</string>
