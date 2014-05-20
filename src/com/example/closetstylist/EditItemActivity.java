@@ -1,5 +1,7 @@
 package com.example.closetstylist;
 
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +41,7 @@ public class EditItemActivity extends Activity {
 	private Uri newImagePath = null;
 	private Uri newCropImagePath = null;
 	private Uri newEditImagePath = null;
+	private CropImageStatus cropStatus = CropImageStatus.NO_CHANGE;
 	private TextView imageLocation = null;
 	private TextView cropImageLocation = null;
 	private Button buttonReset = null;
@@ -149,6 +152,7 @@ public class EditItemActivity extends Activity {
 		newImagePath = null;
 		newCropImagePath = null;
 		newEditImagePath = null;
+		cropStatus = CropImageStatus.NO_CHANGE;
 
 		setEditItemActivityFromItemData(itemData);
 
@@ -207,6 +211,30 @@ public class EditItemActivity extends Activity {
 							Toast.LENGTH_SHORT)
 							.show();
 					return;					
+				}
+				
+				//if ((null != newImagePath) && (isNewImagePathValid)) {
+				if (null != newImagePath) {
+					deleteFileIfExist(Uri.parse(itemData.getImageLink()));
+					itemData.setImageLink(newImagePath.toString());
+					newImagePath = null; // so that onBackPressed doesn't delete this
+				}
+				
+				//if ((null != newCropImagePath) && (isNewCropImagePathValid)) {
+				if (null != newCropImagePath) {
+					if (CropImageStatus.NEW_IMAGE_NEWER == cropStatus) {
+						deleteFileIfExist(Uri.parse(itemData.getCropImageLink()));
+						itemData.setCropImageLink(newCropImagePath.toString());
+						newCropImagePath = null; // so that onBackPressed doesn't delete this						
+					}
+				}
+				
+				if (null != newEditImagePath) {
+					if (CropImageStatus.EDIT_IMAGE_NEWER == cropStatus) {
+						deleteFileIfExist(Uri.parse(itemData.getCropImageLink()));
+						itemData.setCropImageLink(newEditImagePath.toString());
+						newEditImagePath = null; // so that onBackPressed doesn't delete this												
+					}
 				}
 
 				/*
@@ -270,33 +298,58 @@ public class EditItemActivity extends Activity {
 			if (resultCode == Activity.RESULT_OK) {
 				// Image captured and saved to fileUri specified in the Intent
 				if (null != newImagePath) {
-					AddItemActivity.deleteItemOriginalImageFromSd(itemData);
-					itemData.setImageLink(newImagePath.toString());
+					image.setImageURI(newImagePath);
+					launchCropIntent();
 				}
-				setEditItemActivityFromItemData(itemData);
-				//imageLocation.setText(itemData.getImageLink());
-				image.setImageURI(Uri.parse(itemData.getImageLink()));
-				launchCropIntent();
+			} else {
+				deleteFileIfExist(newImagePath);
+				newImagePath = null;
 			}
 		} else if (EditItemActivity.CROP_FROM_CAMERA == requestCode) {
 			if (resultCode == Activity.RESULT_OK) {
 				if (null != newCropImagePath) {
-					AddItemActivity.deleteItemCropImageFromSd(itemData);
-					itemData.setCropImageLink(newCropImagePath.toString());
+					cropImage.setImageURI(newCropImagePath);
+					cropStatus = CropImageStatus.NEW_IMAGE_NEWER;
 				}
-				setEditItemActivityFromItemData(itemData);
-				//cropImageLocation.setText(itemData.getCropImageLink());
-				cropImage.setImageURI(Uri.parse(itemData.getCropImageLink()));
+			} else {
+				deleteFileIfExist(newCropImagePath);
+				newCropImagePath = null;
 			}
 		} else if (EditItemActivity.EDIT_FROM_FILE == requestCode) {
 			if (resultCode == Activity.RESULT_OK) {
 				if (null != newEditImagePath) {
-					AddItemActivity.deleteItemCropImageFromSd(itemData);
-					itemData.setCropImageLink(newEditImagePath.toString());
+					cropImage.setImageURI(newEditImagePath);
+					cropStatus = CropImageStatus.EDIT_IMAGE_NEWER;
 				}
-				setEditItemActivityFromItemData(itemData);
-				cropImage.setImageURI(Uri.parse(itemData.getCropImageLink()));
-			}			
+			} else {
+				deleteFileIfExist(newEditImagePath);
+				newEditImagePath = null;
+			}
+		}
+	}
+	
+	/*
+	 * Helper function to determine if a file exist or not
+	 */
+	protected static boolean isFileExist(Uri uri) {
+		if (null == uri) {
+			return false;
+		}
+		
+		File file = new File(URI.create(uri.toString()));
+		if (file.exists()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	protected static void deleteFileIfExist(Uri uri) {
+		if (null != uri) {
+			File file = new File(URI.create(uri.toString()));
+			if (file.exists()) {
+				file.delete();
+			}
 		}
 	}
 
@@ -315,7 +368,7 @@ public class EditItemActivity extends Activity {
 		} else {
         	newCropImagePath = AddItemActivity.getOutputMediaFileUri(
     				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
-			intent.setData(Uri.parse(itemData.getImageLink())) // set the input to the picture taken by camera
+			intent.setData(newImagePath) // set the input to the picture taken by camera
 			.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
 			.putExtra("outputY", 150) // equal to R.dimen.crop_bottom_height
 			.putExtra("aspectX", 1)
@@ -349,7 +402,13 @@ public class EditItemActivity extends Activity {
 		} else {
 			newEditImagePath = AddItemActivity.getOutputMediaFileUri(
     				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
-			intent.setData(Uri.parse(itemData.getImageLink())) // set the input to the picture taken by camera
+			Uri oldUri = null;
+			if (null == newImagePath) {
+				oldUri = Uri.parse(itemData.getImageLink()); // user didn't take a new picture
+			} else {
+				oldUri = newImagePath; // user took a new picture, let's edit the new one
+			}
+			intent.setData(oldUri) // set the input to the picture taken by camera
 			.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
 			.putExtra("outputY", 150) // equal to R.dimen.crop_bottom_height
 			.putExtra("aspectX", 1)
@@ -370,6 +429,25 @@ public class EditItemActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		//if ((null != newImagePath) && (isNewImagePathValid)) {
+		if (null != newImagePath) {
+			// this mean a new image was taken, but user decides not to save
+			deleteFileIfExist(newImagePath);
+		}
+		newImagePath = null;
+			
+		
+		//if ((null != newCropImagePath) && (isNewCropImagePathValid)) {
+		if (null != newCropImagePath) {
+			deleteFileIfExist(newCropImagePath);
+		}
+		newCropImagePath = null;
+		
+		if (null != newEditImagePath) {
+			deleteFileIfExist(newEditImagePath);
+		}
+		newEditImagePath = null;
+		
 		Intent i1 = new Intent();
 		i1.putExtra(ItemData.INTENT, itemData);
 
@@ -380,5 +458,7 @@ public class EditItemActivity extends Activity {
 		finish();
 	}
 
-
+	private enum CropImageStatus {
+		NO_CHANGE, NEW_IMAGE_NEWER, EDIT_IMAGE_NEWER
+	}
 }
