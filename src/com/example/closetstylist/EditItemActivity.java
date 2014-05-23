@@ -7,8 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -37,10 +39,14 @@ public class EditItemActivity extends Activity {
 	static final int CAMERA_PIC_REQUEST = 1;
 	static final int CROP_FROM_CAMERA = 2;
 	static final int EDIT_FROM_FILE = 3;
+	static final int PICK_FROM_GALLERY = 4;
+	static final int CROP_FROM_GALLERY = 5;
 
 	private Uri newImagePath = null;
 	private Uri newCropImagePath = null;
 	private Uri newEditImagePath = null;
+	private Uri newGalleryImagePath = null;
+	private Uri newCropGalleryImagePath = null;
 	private CropImageStatus cropStatus = CropImageStatus.NO_CHANGE;
 	private TextView imageLocation = null;
 	private TextView cropImageLocation = null;
@@ -152,9 +158,36 @@ public class EditItemActivity extends Activity {
 		newImagePath = null;
 		newCropImagePath = null;
 		newEditImagePath = null;
+		newGalleryImagePath = null;
+		newCropGalleryImagePath = null;
 		cropStatus = CropImageStatus.NO_CHANGE;
 
 		setEditItemActivityFromItemData(itemData);
+
+		// Create dialog for NewImage button
+		final String [] items			= new String [] {"Take from camera", "Select from gallery"};				
+		ArrayAdapter<String> adapter	= new ArrayAdapter<String> (this, android.R.layout.select_dialog_item,items);
+		AlertDialog.Builder builder		= new AlertDialog.Builder(this);
+		builder.setTitle("Select Image");
+		builder.setAdapter( adapter, new DialogInterface.OnClickListener() {
+			public void onClick( DialogInterface dialog, int item ) { //pick from camera
+				if (item == 0) {
+					if (Environment.MEDIA_MOUNTED.equals(Environment
+							.getExternalStorageState())) {
+						launchCameraIntent();
+					} else {
+						Toast.makeText(context, 
+								R.string.edit_item_message_no_external_storage, 
+								Toast.LENGTH_SHORT)
+								.show();	
+					}
+				} else { // pick from gallery
+					launchGalleryIntent();
+				}
+			}
+		} );
+
+		final AlertDialog dialog = builder.create();
 
 		buttonReset = (Button) findViewById(R.id.edit_item_btn_reset);
 		buttonReset.setOnClickListener(new OnClickListener() {
@@ -169,15 +202,7 @@ public class EditItemActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if (Environment.MEDIA_MOUNTED.equals(Environment
-						.getExternalStorageState())) {
-					launchCameraIntent();
-				} else {
-					Toast.makeText(context, 
-							R.string.edit_item_message_no_external_storage, 
-							Toast.LENGTH_SHORT)
-							.show();	
-				}
+				dialog.show();
 			}
 
 		});
@@ -212,14 +237,14 @@ public class EditItemActivity extends Activity {
 							.show();
 					return;					
 				}
-				
+
 				//if ((null != newImagePath) && (isNewImagePathValid)) {
 				if (null != newImagePath) {
 					deleteFileIfExist(Uri.parse(itemData.getImageLink()));
 					itemData.setImageLink(newImagePath.toString());
 					newImagePath = null; // so that onBackPressed doesn't delete this
 				}
-				
+
 				//if ((null != newCropImagePath) && (isNewCropImagePathValid)) {
 				if (null != newCropImagePath) {
 					if (CropImageStatus.NEW_IMAGE_NEWER == cropStatus) {
@@ -228,12 +253,24 @@ public class EditItemActivity extends Activity {
 						newCropImagePath = null; // so that onBackPressed doesn't delete this						
 					}
 				}
-				
+
 				if (null != newEditImagePath) {
 					if (CropImageStatus.EDIT_IMAGE_NEWER == cropStatus) {
 						deleteFileIfExist(Uri.parse(itemData.getCropImageLink()));
 						itemData.setCropImageLink(newEditImagePath.toString());
 						newEditImagePath = null; // so that onBackPressed doesn't delete this												
+					}
+				}
+				
+				if (null != newCropGalleryImagePath) {
+					if (CropImageStatus.NEW_IMAGE_NEWER == cropStatus) {
+						if (null != newGalleryImagePath) {
+							deleteFileIfExist(Uri.parse(itemData.getImageLink()));
+							itemData.setImageLink(newGalleryImagePath.toString());							
+						}
+						deleteFileIfExist(Uri.parse(itemData.getCropImageLink()));
+						itemData.setCropImageLink(newCropGalleryImagePath.toString());
+						newCropGalleryImagePath = null; // so that onBackPressed doesn't delete this												
 					}
 				}
 
@@ -265,6 +302,13 @@ public class EditItemActivity extends Activity {
 		});
 
 	}
+	
+	private void launchGalleryIntent() {
+		Intent intent = new Intent();
+		intent.setType("image/*");
+		intent.setAction(Intent.ACTION_GET_CONTENT);
+		startActivityForResult(intent, PICK_FROM_GALLERY);
+	}	
 
 	private void launchCameraIntent() {
 		Intent i1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -290,8 +334,6 @@ public class EditItemActivity extends Activity {
 		material.setSelection(materialArray.indexOf(item.getMaterial()));
 	}
 
-
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == EditItemActivity.CAMERA_PIC_REQUEST) {
@@ -299,7 +341,7 @@ public class EditItemActivity extends Activity {
 				// Image captured and saved to fileUri specified in the Intent
 				if (null != newImagePath) {
 					image.setImageURI(newImagePath);
-					launchCropIntent();
+					launchCropIntent(CAMERA_PIC_REQUEST);
 				}
 			} else {
 				deleteFileIfExist(newImagePath);
@@ -325,9 +367,26 @@ public class EditItemActivity extends Activity {
 				deleteFileIfExist(newEditImagePath);
 				newEditImagePath = null;
 			}
+		} else if (EditItemActivity.PICK_FROM_GALLERY == requestCode) {
+			if (resultCode == Activity.RESULT_OK) {
+				newGalleryImagePath = data.getData();
+				image.setImageURI(newGalleryImagePath);
+				launchCropIntent(PICK_FROM_GALLERY);
+			}
+		} else if (EditItemActivity.CROP_FROM_GALLERY == requestCode) {
+			if (resultCode == Activity.RESULT_OK) {
+				if (null != newCropGalleryImagePath) {
+					cropImage.setImageURI(newCropGalleryImagePath);
+					cropStatus = CropImageStatus.NEW_IMAGE_NEWER;
+				}
+			} else {
+				deleteFileIfExist(newCropGalleryImagePath);
+				newCropGalleryImagePath = null;
+				newGalleryImagePath = null;
+			}			
 		}
 	}
-	
+
 	/*
 	 * Helper function to determine if a file exist or not
 	 */
@@ -335,7 +394,7 @@ public class EditItemActivity extends Activity {
 		if (null == uri) {
 			return false;
 		}
-		
+
 		File file = new File(URI.create(uri.toString()));
 		if (file.exists()) {
 			return true;
@@ -343,7 +402,7 @@ public class EditItemActivity extends Activity {
 			return false;
 		}
 	}
-	
+
 	protected static void deleteFileIfExist(Uri uri) {
 		if (null != uri) {
 			File file = new File(URI.create(uri.toString()));
@@ -353,7 +412,7 @@ public class EditItemActivity extends Activity {
 		}
 	}
 
-	private void launchCropIntent() {
+	private void launchCropIntent(int type) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setType("image/*");
 
@@ -366,27 +425,49 @@ public class EditItemActivity extends Activity {
 
 			return;
 		} else {
-        	newCropImagePath = AddItemActivity.getOutputMediaFileUri(
-    				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
-			intent.setData(newImagePath) // set the input to the picture taken by camera
-			.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
-			.putExtra("outputY", 150) // equal to R.dimen.crop_bottom_height
-			.putExtra("aspectX", 1)
-			.putExtra("aspectY", 1)
-			.putExtra("scale", true)
-			.putExtra("return-data", false) // don't return bitmap data
-			.putExtra(MediaStore.EXTRA_OUTPUT, newCropImagePath); // set the name of the output cropped image
+			if (PICK_FROM_GALLERY == type) {
+				newCropGalleryImagePath = AddItemActivity.getOutputMediaFileUri(
+						MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
+				intent.setData(newGalleryImagePath) // set the input to the picture in gallery
+				.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
+				.putExtra("outputY", 150) // equal to R.dimen.crop_bottom_height
+				.putExtra("aspectX", 1)
+				.putExtra("aspectY", 1)
+				.putExtra("scale", true)
+				.putExtra("return-data", false) // don't return bitmap data
+				.putExtra(MediaStore.EXTRA_OUTPUT, newCropGalleryImagePath); // set the name of the output cropped image
+				
+				// Create the following intent to avoid the following  error 
+				// No Activity found to handle Intent { act=... (has extras) }
+				Intent i = new Intent(intent);
+				ResolveInfo res	= list.get(0); // ALDBG assume the first one is camera crop       	
+				i.setComponent( new ComponentName(res.activityInfo.packageName, 
+						res.activityInfo.name));        	
+				startActivityForResult(i, CROP_FROM_GALLERY);
+			} else if (CAMERA_PIC_REQUEST == type) {
+				newCropImagePath = AddItemActivity.getOutputMediaFileUri(
+						MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
+				intent.setData(newImagePath) // set the input to the picture taken by camera
+				.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
+				.putExtra("outputY", 150) // equal to R.dimen.crop_bottom_height
+				.putExtra("aspectX", 1)
+				.putExtra("aspectY", 1)
+				.putExtra("scale", true)
+				.putExtra("return-data", false) // don't return bitmap data
+				.putExtra(MediaStore.EXTRA_OUTPUT, newCropImagePath); // set the name of the output cropped image
+				
+				// Create the following intent to avoid the following  error 
+				// No Activity found to handle Intent { act=... (has extras) }
+				Intent i = new Intent(intent);
+				ResolveInfo res	= list.get(0); // ALDBG assume the first one is camera crop       	
+				i.setComponent( new ComponentName(res.activityInfo.packageName, 
+						res.activityInfo.name));        	
+				startActivityForResult(i, CROP_FROM_CAMERA);
+			}
 
-			// Create the following intent to avoid the following  error 
-			// No Activity found to handle Intent { act=... (has extras) }
-			Intent i = new Intent(intent);
-			ResolveInfo res	= list.get(0); // ALDBG assume the first one is camera crop       	
-			i.setComponent( new ComponentName(res.activityInfo.packageName, 
-					res.activityInfo.name));        	
-			startActivityForResult(i, CROP_FROM_CAMERA);
 		}
 	}
-	
+
 	private void launchEditIntent() {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setType("image/*");
@@ -401,7 +482,7 @@ public class EditItemActivity extends Activity {
 			return;
 		} else {
 			newEditImagePath = AddItemActivity.getOutputMediaFileUri(
-    				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
+					MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
 			Uri oldUri = null;
 			if (null == newImagePath) {
 				oldUri = Uri.parse(itemData.getImageLink()); // user didn't take a new picture
@@ -426,7 +507,7 @@ public class EditItemActivity extends Activity {
 			startActivityForResult(i, EDIT_FROM_FILE);
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		//if ((null != newImagePath) && (isNewImagePathValid)) {
@@ -435,18 +516,24 @@ public class EditItemActivity extends Activity {
 			deleteFileIfExist(newImagePath);
 		}
 		newImagePath = null;
-			
-		
+
+
 		//if ((null != newCropImagePath) && (isNewCropImagePathValid)) {
 		if (null != newCropImagePath) {
 			deleteFileIfExist(newCropImagePath);
 		}
 		newCropImagePath = null;
-		
+
 		if (null != newEditImagePath) {
 			deleteFileIfExist(newEditImagePath);
 		}
 		newEditImagePath = null;
+
+		if (null != newCropGalleryImagePath) {
+			// this mean a new image was taken, but user decides not to save
+			deleteFileIfExist(newCropGalleryImagePath);
+		}
+		newCropGalleryImagePath = null;
 		
 		Intent i1 = new Intent();
 		i1.putExtra(ItemData.INTENT, itemData);
