@@ -29,7 +29,6 @@
     <string name="add_item_label_material">Material</string>
     <string name="add_item_label_crop_image_link">CropImageLink:</string>
     
-    
     <string name="add_item_btn_register">Register</string>
     <string name="add_item_btn_reset">Reset</string>
     <string name="add_item_btn_discard">Discard</string>
@@ -98,6 +97,14 @@
     <string name="my_closet_value_item_name_default_value">No Name</string>
     <string name="my_closet_label_item_description">Description: </string>
     <string name="my_closet_value_item_description_default_value">No Description</string>
+    
+    <!-- Outfit Of The Day Strings -->
+    <string name="outfit_label_title">OutfitOfTheDay</string>
+    <string name="outfit_btn_wear">Wear</string>
+    <string name="outfit_btn_home">Home</string>
+    
+    <string name="outfit_message_no_top">No top item found in your closet</string>
+    <string name="outfit_message_no_bottom">No bottom item found in your closet</string>
     
 
 </resources>

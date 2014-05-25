@@ -38,8 +38,7 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				Intent i2 = new Intent(MainActivity.this, MyClosetActivity.class);
-				startActivity(i2);
-				
+				startActivity(i2);				
 			}
 			
 		});
@@ -53,6 +52,17 @@ public class MainActivity extends ActionBarActivity {
 				ItemDatabaseHelper itemDatabaseHelper = 
 						new ItemDatabaseHelper(MainActivity.this);
 				itemDatabaseHelper.deleteMyCloset();				
+			}
+			
+		});
+		
+		Button outfitBtn = (Button) findViewById(R.id.main_btn_outfit);
+		outfitBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i3 = new Intent(MainActivity.this, OutfitActivity.class);
+				startActivity(i3);
 			}
 			
 		});

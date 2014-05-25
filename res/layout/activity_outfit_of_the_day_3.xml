@@ -4,64 +4,64 @@
     android:layout_height="match_parent" >
 
     <ImageButton
-        android:id="@+id/prev"
+        android:id="@+id/outfit_btn_prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/outfit_view_top"
+        android:layout_below="@+id/outfit_label_top"
         android:src="@drawable/abc_ic_ab_back_holo_light" />
 
     <ImageButton
-        android:id="@+id/next"
+        android:id="@+id/outfit_btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/outfit_view_top"
+        android:layout_below="@+id/outfit_label_top"
         android:rotation="180"
         android:src="@drawable/abc_ic_ab_back_holo_light" />
 
     <Button
-        android:id="@+id/wear"
+        android:id="@+id/outfit_btn_wear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="29dp"
         android:layout_marginLeft="24dp"
-        android:text="Wear" />
+        android:text="@string/outfit_btn_wear" />
 
     <Button
-        android:id="@+id/home"
+        android:id="@+id/outfit_btn_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/wear"
-        android:layout_alignBottom="@+id/wear"
+        android:layout_alignBaseline="@+id/outfit_btn_wear"
+        android:layout_alignBottom="@+id/outfit_btn_wear"
         android:layout_alignParentRight="true"
         android:layout_marginRight="24dp"
-        android:text="Home" />
+        android:text="@string/outfit_btn_home" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/outfit_label_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="OutfitOfTheDay"
+        android:text="@string/outfit_label_title"
         android:textSize="22sp" />
 
     <ImageView
-        android:id="@+id/outfit_view_top"
+        android:id="@+id/outfit_label_top"
         android:layout_width="@dimen/crop_top_width"
         android:layout_height="@dimen/crop_top_height"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/outfit_label_title"
         android:layout_marginTop="48dp"
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:id="@+id/outfit_view_bottom"
+        android:id="@+id/outfit_label_bottom"
         android:layout_width="@dimen/crop_bottom_width"
         android:layout_height="@dimen/crop_bottom_height"
-        android:layout_below="@+id/outfit_view_top"
+        android:layout_below="@+id/outfit_label_top"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

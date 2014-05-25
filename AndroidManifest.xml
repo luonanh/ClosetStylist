@@ -42,6 +42,9 @@
         <!-- THIS IS THE EDIT ITEM ACTIVITY -->
         <activity android:name="com.example.closetstylist.EditItemActivity" >
         </activity>
+        <!-- THIS IS THE OUTFIT OF THE DAY ACTIVITY -->
+        <activity android:name="com.example.closetstylist.OutfitActivity" >
+        </activity>
         
     </application>
 

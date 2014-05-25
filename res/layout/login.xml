@@ -74,4 +74,13 @@
         android:layout_marginTop="32dp"
         android:text="ClearMyCloset" />
 
+    <Button
+        android:id="@+id/main_btn_outfit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_btn_clear_my_closet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="OutfitOfTheDay" />
+
 </RelativeLayout>

@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.net.Uri;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -94,6 +97,7 @@ public class ItemDatabaseHelper {
 	 * Get the first ItemData from the passed in cursor.
 	 */
 	public static ItemData getItemDataFromCursor(Cursor cursor) {
+		// Dump all the rows pointed to by cursor Log.i(LOG_TAG, DatabaseUtils.dumpCursorToString(cursor));
 		long rowID = cursor.getLong(cursor
 				.getColumnIndex(Schema.Item.Cols.ID));
 		String name = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.NAME));
@@ -107,10 +111,14 @@ public class ItemDatabaseHelper {
 		double age = cursor.getDouble(cursor.getColumnIndex(Schema.Item.Cols.AGE));
 		String material = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.MATERIAL));
 		String cropImageLink = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.CROP_IMAGE_LINK));
-		/*
-		 * 		public ItemDataBuilder(String imageLink, String color, int tempMin, 
-				int tempMax, String category) {
-		 */
+		/* Debug Log to dump all the fields read back from this row
+		Log.i(LOG_TAG, "The new ItemData: " + " id - " + rowID + " name - " + name + "; description - "
+				+ description + "; iamgeLink - " + imageLink + "; color - "
+				+ color + "; tempMin - " + Integer.toString(tempMin)
+				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
+				+ category + "; brand - " + brand + "; age - " + age
+				+ "; material - " + material + "; cropImageLink " + cropImageLink);
+		*/
 		return new ItemData.ItemDataBuilder(imageLink, color, tempMin, tempMax, category, cropImageLink)
 			.id(rowID)	
 			.age(age)			
@@ -140,7 +148,39 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.CROP_IMAGE_LINK, item.getCropImageLink());
 		return contentValues;
 	}
-	
+
+	/*
+	 * Query "top" items in the item database
+	 */
+	public Cursor queryTop() {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(TABLE_NAME);
+		qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?,?,?)");
+		
+		String[] whereArgs = {"jacket", "shirt", "t-shirt"}; // may change when more categories are added
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		
+		Cursor c = qb.query(database, null, null, whereArgs, null, null,
+				orderBy);
+		return c;
+	}
+
+	/*
+	 * Query "bottom" items in the item database
+	 */
+	public Cursor queryBottom() {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(TABLE_NAME);
+		qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?,?)");
+		
+		String[] whereArgs = {"jeans", "short"}; // may change when more categories are added
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		
+		Cursor c = qb.query(database, null, null, whereArgs, null, null,
+				orderBy);
+		return c;
+	}
+
 	private class ItemDataOpenHelper extends SQLiteOpenHelper {
 		public ItemDataOpenHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -161,7 +201,6 @@ public class ItemDatabaseHelper {
 					+ Schema.Item.Cols.AGE + " REAL, "
 					+ Schema.Item.Cols.MATERIAL + " TEXT, "
 					+ Schema.Item.Cols.CROP_IMAGE_LINK + " TEXT)");
-			
 		}
 
 		@Override
