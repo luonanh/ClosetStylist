@@ -164,8 +164,8 @@ public class ViewItemActivity extends Activity {
 		// If so, update the Textview showing the user-entered text.
 		if (EDIT_ITEM_REQUEST == requestCode) {	// Check which request we're responding to
 			if (Activity.RESULT_OK == resultCode) {	// Make sure the request was successful
-				ItemData item = data.getExtras().getParcelable(ItemData.INTENT);
-				setViewItemActivityFromItemData(item);
+				itemData = data.getExtras().getParcelable(ItemData.INTENT);
+				setViewItemActivityFromItemData(itemData);
 			}
 		}
 	}

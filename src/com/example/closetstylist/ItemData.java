@@ -1,5 +1,7 @@
 package com.example.closetstylist;
 
+import java.util.Calendar;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -40,7 +42,7 @@ public class ItemData implements Parcelable {
 		this.tempMax = builder.tempMax;
 		this.category = builder.category;
 		this.brand = builder.brand;
-		this.age = builder.age;
+		setAge(builder.age);
 		this.material = builder.material;
 	}
 
@@ -125,11 +127,11 @@ public class ItemData implements Parcelable {
 	}
 
 	public double getAge() {
-		return age;
+		return (getCurrentYear() - this.age);
 	}
 
 	public void setAge(double age) {
-		this.age = age;
+		this.age = (getCurrentYear() - age);
 	}
 
 	public String getMaterial() {
@@ -147,6 +149,12 @@ public class ItemData implements Parcelable {
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
 				+ category + "; brand - " + brand + "; age - " + age
 				+ "; material - " + material + "; cropImageLink " + cropImageLink;
+	}
+	
+	// per http://developer.android.com/reference/java/util/Date.html and
+	// http://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
+	public static double getCurrentYear() {
+		return Calendar.getInstance().get(Calendar.YEAR) - 1900;
 	}
 
 	public static class ItemDataBuilder {
@@ -219,9 +227,11 @@ public class ItemData implements Parcelable {
 		
 		public ItemData build() {
 			ItemData itemData = new ItemData(this);
+			/*
 			if (age > 50) {
 				throw new IllegalStateException("Age out of range");
 			}
+			*/
 			return itemData;
 		}
 	}

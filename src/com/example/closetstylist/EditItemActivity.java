@@ -330,7 +330,7 @@ public class EditItemActivity extends Activity {
 		tempMin.setSelection(temperatureArray.indexOf(Integer.toString(item.getTempMin())));
 		category.setSelection(categoryArray.indexOf(item.getCategory()));
 		brand.setSelection(brandArray.indexOf(item.getBrand()));
-		age.setSelection(ageArray.indexOf(Double.toString(item.getAge())));
+		age.setSelection(ageArray.indexOf(Integer.toString((int)item.getAge())));
 		material.setSelection(materialArray.indexOf(item.getMaterial()));
 	}
 
