@@ -322,7 +322,7 @@ public class EditItemActivity extends Activity {
 		name.setText(item.getName());
 		description.setText(item.getDescription());
 		imageLocation.setText(item.getImageLink());
-		image.setImageURI(Uri.parse(item.getImageLink()));
+		//image.setImageURI(Uri.parse(item.getImageLink()));
 		cropImageLocation.setText(item.getCropImageLink());
 		cropImage.setImageURI(Uri.parse(item.getCropImageLink()));
 		//color.setSelection(colorAdapter.getPosition(itemData.getColor()));
@@ -340,7 +340,7 @@ public class EditItemActivity extends Activity {
 			if (resultCode == Activity.RESULT_OK) {
 				// Image captured and saved to fileUri specified in the Intent
 				if (null != newImagePath) {
-					image.setImageURI(newImagePath);
+					//image.setImageURI(newImagePath);
 					launchCropIntent(CAMERA_PIC_REQUEST);
 				}
 			} else {
@@ -370,7 +370,7 @@ public class EditItemActivity extends Activity {
 		} else if (EditItemActivity.PICK_FROM_GALLERY == requestCode) {
 			if (resultCode == Activity.RESULT_OK) {
 				newGalleryImagePath = data.getData();
-				image.setImageURI(newGalleryImagePath);
+				//image.setImageURI(newGalleryImagePath);
 				launchCropIntent(PICK_FROM_GALLERY);
 			}
 		} else if (EditItemActivity.CROP_FROM_GALLERY == requestCode) {

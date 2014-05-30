@@ -175,7 +175,7 @@ public class ViewItemActivity extends Activity {
 		description.setText(item.getDescription());
 		imageLocation.setText(item.getImageLink());
 		cropImageLocation.setText(item.getCropImageLink());
-		image.setImageURI(Uri.parse(item.getImageLink()));
+		//image.setImageURI(Uri.parse(item.getImageLink()));
 		color.setText(item.getColor());
 		tempMin.setText(Integer.toString(item.getTempMin()));
 		tempMax.setText(Integer.toString(item.getTempMax()));
