@@ -1,5 +1,7 @@
 package com.example.closetstylist;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import android.os.Parcel;
@@ -14,6 +16,13 @@ public class ItemData implements Parcelable {
 	public static final String INTENT = "ItemDataIntent";
 	public static final long INVALID_ID = -1;
 	
+	private static ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("black", "blue", "brown", "gray", "green", "orange", "pink", "purple", "red", "white", "yellow"));
+	private static ArrayList<String> temperatureArray = new ArrayList<String>();
+	private static ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("jacket", "jeans", "shirt", "short", "t-shirt", "dress"));
+	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans"));
+	private static ArrayList<String> ageArray = new ArrayList<String>();
+	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("cotton", "nylon", "jeans", "wool"));
+	
 	private long id; // once added to database, this field will be populated
 	private String name; // optional
 	private String description; // optional
@@ -26,6 +35,18 @@ public class ItemData implements Parcelable {
 	private String brand; // optional
 	private double age; // optional
 	private String material; // optional
+	
+	static {
+		// initialize temperature array for tempMin and tempMax spinner
+		for (int i=-30; i<=120; i++) {
+			temperatureArray.add(String.valueOf(i));
+		}
+		
+		// initialize temperature array for age spinner
+		for (int i=0; i<=20; i++) {
+			ageArray.add(String.valueOf(i));
+		}
+	}
 	
 	/*
 	 * To create new ItemData, do
@@ -142,6 +163,14 @@ public class ItemData implements Parcelable {
 		this.material = material;
 	}
 	
+	public int getCropHeight() {
+		return 100;
+	}
+	
+	public int getCropWidth() {
+		return 100;
+	}
+	
 	public String toString() {
 		return "ItemData toString: id - " + id + " name - " + name + "; description - "
 				+ description + "; iamgeLink - " + imageLink + "; color - "
@@ -155,6 +184,30 @@ public class ItemData implements Parcelable {
 	// http://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
 	public static double getCurrentYear() {
 		return Calendar.getInstance().get(Calendar.YEAR) - 1900;
+	}
+
+	public static ArrayList<String> getAgeArray() {
+		return ageArray;
+	}
+
+	public static ArrayList<String> getColorArray() {
+		return colorArray;
+	}
+
+	public static ArrayList<String> getTemperatureArray() {
+		return temperatureArray;
+	}
+
+	public static ArrayList<String> getCategoryArray() {
+		return categoryArray;
+	}
+
+	public static ArrayList<String> getBrandArray() {
+		return brandArray;
+	}
+
+	public static ArrayList<String> getMaterialArray() {
+		return materialArray;
 	}
 
 	public static class ItemDataBuilder {
@@ -293,5 +346,4 @@ public class ItemData implements Parcelable {
 		material = source.readString();
 		cropImageLink = source.readString();
 	}
-
 }

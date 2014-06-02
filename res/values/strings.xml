@@ -98,6 +98,9 @@
     <string name="my_closet_label_item_description">Description: </string>
     <string name="my_closet_value_item_description_default_value">No Description</string>
     
+    <string name="my_closet_menu_create_closet">Create Closet</string>
+    <string name="my_closet_menu_etc">Etc</string>
+    
     <!-- Outfit Of The Day Strings -->
     <string name="outfit_label_title">OutfitOfTheDay</string>
     <string name="outfit_btn_wear">Wear</string>

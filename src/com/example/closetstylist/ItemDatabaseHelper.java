@@ -21,6 +21,30 @@ public class ItemDatabaseHelper {
 	private static final String TABLE_NAME = "itemData_db";
 	private static final String WHERE_CLAUSE = Schema.Item.Cols.ID + " = ? ";
 	
+	/*
+	 * PREDEFINED_RESID and PREDEFINED_ITEMS must always match, otherwise, info
+	 * will be wrong. If we change one later, MUST change the other one as well.
+	 */
+	private static final int[] PREDEFINED_RESID 
+			= {
+			R.drawable.jeans_blue_solid,
+			R.drawable.polo_blue_solid,
+			R.drawable.short_black_white_stripe,
+			R.drawable.short_green_solid,
+			R.drawable.tshirt_black_white_stripe,
+			R.drawable.tshirt_yellow_solid
+			};
+	private static final ItemData[] PREDEFINED_ITEMS 
+			= {
+			// String imageLink (null), String color, int tempMin, int tempMax, String category, String cropImageLink (null)
+			new ItemData.ItemDataBuilder(null, "blue", 15, 100, "jeans", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("jeans").build(),
+			new ItemData.ItemDataBuilder(null, "blue", 40, 120, "t-shirt", null).name("Express polo").description("Express polo").brand("Express").age(2).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "white", 70, 120, "short", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "green", 70, 120, "short", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "black", 70, 120, "t-shirt", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "yellow", 70, 120, "t-shirt", null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("cotton").build()
+			};
+	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);
 	private SQLiteDatabase database;
 	private ItemDataOpenHelper mItemDataOpenHelper;
@@ -208,6 +232,29 @@ public class ItemDatabaseHelper {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + "");
 			onCreate(database);
 		}
-
 	}
+	
+	/*
+	 * Create a default database based on the preloaded images in the app.
+	 */
+	public void createDefaultDatabase() {
+		for (int i = 0; i < PREDEFINED_RESID.length; i++) {
+			PREDEFINED_ITEMS[i].setImageLink(
+					getUriFromResource(PREDEFINED_RESID[i]).toString());
+			PREDEFINED_ITEMS[i].setCropImageLink(
+					getUriFromResource(PREDEFINED_RESID[i]).toString());
+			saveRecord(PREDEFINED_ITEMS[i]);
+		}
+	}
+	
+	/*
+	 * Create Uri to assign fields in ItemData.
+	 * http://stackoverflow.com/questions/4896223/how-to-get-an-uri-of-an-image-resource-in-android
+	 */
+	private Uri getUriFromResource(int resId) {
+		Uri path = Uri.parse("android.resource://com.example.closetstylist/" + resId);
+		return path;
+	}
+	
+
 }

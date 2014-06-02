@@ -65,12 +65,12 @@ public class EditItemActivity extends Activity {
 	private Spinner brand = null;
 	private Spinner age = null;
 	private Spinner material = null;
-	private ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("black", "blue", "brown", "gray", "green", "orange", "pink", "purple", "red", "white", "yellow"));
-	private ArrayList<String> temperatureArray = new ArrayList<String>();//new ArrayList<String>(Arrays.asList("10", "11", "12"));
-	private ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("dress", "jacket", "jeans", "shirt", "short", "t-shirt"));
-	private ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike"));
-	private ArrayList<String> ageArray = new ArrayList<String>();
-	private ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("wool", "cotton", "nylon"));
+	private ArrayList<String> colorArray = null;
+	private ArrayList<String> temperatureArray = null;
+	private ArrayList<String> categoryArray = null;
+	private ArrayList<String> brandArray = null;
+	private ArrayList<String> ageArray = null;
+	private ArrayList<String> materialArray = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,8 @@ public class EditItemActivity extends Activity {
 		description = (EditText) findViewById(R.id.edit_item_value_description);
 		image = (ImageView) findViewById(R.id.edit_item_image);
 		cropImage = (ImageView) findViewById(R.id.edit_item_crop_image);
+		
+		colorArray = ItemData.getColorArray();
 
 		color = (Spinner) findViewById(R.id.edit_item_spinner_color);
 		// Create an ArrayAdapter using the string array and a default spinner layout
@@ -100,10 +102,7 @@ public class EditItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		color.setAdapter(colorAdapter);
 
-		// initialize temperature array for tempMin and tempMax spinner
-		for (int i=-30; i<=120; i++) {
-			temperatureArray.add(String.valueOf(i));
-		}
+		temperatureArray = ItemData.getTemperatureArray();
 
 		tempMin = (Spinner) findViewById(R.id.edit_item_spinner_temp_min);
 		// Create an ArrayAdapter using the string array and a default spinner layout
@@ -121,6 +120,7 @@ public class EditItemActivity extends Activity {
 		tempMax.setAdapter(tempMaxAdapter);
 		tempMax.setSelection(120);
 
+		categoryArray = ItemData.getCategoryArray();
 		category = (Spinner) findViewById(R.id.edit_item_spinner_category);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
@@ -128,6 +128,7 @@ public class EditItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		category.setAdapter(categoryAdapter);
 
+		brandArray = ItemData.getBrandArray();
 		brand = (Spinner) findViewById(R.id.edit_item_spinner_brand);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> brandAdapter = new ArrayAdapter<String>(this,
@@ -135,10 +136,7 @@ public class EditItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		brand.setAdapter(brandAdapter);
 
-		// initialize temperature array for tempMin and tempMax spinner
-		for (int i=0; i<=20; i++) {
-			ageArray.add(String.valueOf(i));
-		}
+		ageArray = ItemData.getAgeArray();
 		age = (Spinner) findViewById(R.id.edit_item_spinner_age);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> ageAdapter = new ArrayAdapter<String>(this,
@@ -146,7 +144,7 @@ public class EditItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		age.setAdapter(ageAdapter);
 
-
+		materialArray = ItemData.getMaterialArray();
 		material = (Spinner) findViewById(R.id.edit_item_spinner_material);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> materialAdapter = new ArrayAdapter<String>(this,
@@ -324,7 +322,8 @@ public class EditItemActivity extends Activity {
 		imageLocation.setText(item.getImageLink());
 		//image.setImageURI(Uri.parse(item.getImageLink()));
 		cropImageLocation.setText(item.getCropImageLink());
-		cropImage.setImageURI(Uri.parse(item.getCropImageLink()));
+		//cropImage.setImageURI(Uri.parse(item.getCropImageLink()));
+		ImageSubSampler.subSampleUri(itemData, image, context);
 		//color.setSelection(colorAdapter.getPosition(itemData.getColor()));
 		color.setSelection(colorArray.indexOf(item.getColor()));
 		tempMin.setSelection(temperatureArray.indexOf(Integer.toString(item.getTempMin())));
