@@ -58,12 +58,12 @@ public class AddItemActivity extends Activity {
 	private Spinner brand = null;
 	private Spinner age = null;
 	private Spinner material = null;
-	private ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("black", "blue", "brown", "gray", "green", "orange", "pink", "purple", "red", "white", "yellow"));
-	private ArrayList<String> temperatureArray = new ArrayList<String>();//new ArrayList<String>(Arrays.asList("10", "11", "12"));
-	private ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("dress", "jacket", "jeans", "shirt", "short", "t-shirt"));
-	private ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike"));
-	private ArrayList<String> ageArray = new ArrayList<String>();
-	private ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("wool", "cotton", "nylon"));
+	private ArrayList<String> colorArray = null;
+	private ArrayList<String> temperatureArray = null;
+	private ArrayList<String> categoryArray = null;
+	private ArrayList<String> brandArray = null;
+	private ArrayList<String> ageArray = null;
+	private ArrayList<String> materialArray = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,7 @@ public class AddItemActivity extends Activity {
 		image = (ImageView) findViewById(R.id.add_item_image);
 		cropImage = (ImageView) findViewById(R.id.add_item_crop_image);
 		
+		colorArray = ItemData.getColorArray();
 		color = (Spinner) findViewById(R.id.add_item_spinner_color);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(this,
@@ -90,11 +91,8 @@ public class AddItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		color.setAdapter(colorAdapter);
 		
-		// initialize temperature array for tempMin and tempMax spinner
-		for (int i=-30; i<=120; i++) {
-			temperatureArray.add(String.valueOf(i));
-		}
-		
+		temperatureArray = ItemData.getTemperatureArray();
+
 		tempMin = (Spinner) findViewById(R.id.add_item_spinner_temp_min);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> tempMinAdapter = new ArrayAdapter<String>(this,
@@ -111,6 +109,7 @@ public class AddItemActivity extends Activity {
 		tempMax.setAdapter(tempMaxAdapter);
 		tempMax.setSelection(120);
 
+		categoryArray = ItemData.getCategoryArray();
 		category = (Spinner) findViewById(R.id.add_item_spinner_category);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
@@ -118,6 +117,7 @@ public class AddItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		category.setAdapter(categoryAdapter);
 		
+		brandArray = ItemData.getBrandArray();
 		brand = (Spinner) findViewById(R.id.add_item_spinner_brand);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> brandAdapter = new ArrayAdapter<String>(this,
@@ -125,18 +125,15 @@ public class AddItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		brand.setAdapter(brandAdapter);
 
-		// initialize temperature array for tempMin and tempMax spinner
-		for (int i=0; i<=20; i++) {
-			ageArray.add(String.valueOf(i));
-		}
+		ageArray = ItemData.getAgeArray();
 		age = (Spinner) findViewById(R.id.add_item_spinner_age);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> ageAdapter = new ArrayAdapter<String>(this,
 		        R.layout.temperature_dropdown_item, ageArray);
 		// Apply the adapter to the spinner
 		age.setAdapter(ageAdapter);
-		
 
+		materialArray = ItemData.getMaterialArray();
 		material = (Spinner) findViewById(R.id.add_item_spinner_material);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<String> materialAdapter = new ArrayAdapter<String>(this,
@@ -487,11 +484,34 @@ public class AddItemActivity extends Activity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d(LOG_TAG, "CreateFragment onActivtyResult called. requestCode: "
 				+ requestCode + " resultCode:" + resultCode + "data:" + data);
+		// create a temporary ItemData to display picture and avoid OutOfMemoryError
+		ItemData.ItemDataBuilder itemDataBuilder = null;
 		if (AddItemActivity.CAMERA_PIC_REQUEST == requestCode) {
 			if (Activity.RESULT_OK == resultCode) {
 				// Image captured and saved to fileUri specified in the Intent
 				imageLocation.setText(imagePath.toString());
-				image.setImageURI(imagePath);
+				//image.setImageURI(imagePath);
+				/*
+				 * Create a temporary a ItemData.ItemDataBuilder
+				 */
+				itemDataBuilder = new ItemData.ItemDataBuilder(
+						imagePath.toString(), 
+						color.getSelectedItem().toString(), 
+						Integer.valueOf(tempMin.getSelectedItem().toString()), 
+						Integer.valueOf(tempMax.getSelectedItem().toString()), 
+						category.getSelectedItem().toString(),
+						null)//cropImagePath.toString())
+						.brand(brand.getSelectedItem().toString())
+						.age(Double.valueOf(age.getSelectedItem().toString()))
+						.material(material.getSelectedItem().toString());
+				if (!name.getText().toString().isEmpty()) {
+					itemDataBuilder.name(name.getText().toString());
+				}
+				if (!description.getText().toString().isEmpty()) {
+					itemDataBuilder.description(description.getText().toString());
+				}
+				ImageSubSampler.subSampleOriginalUri(itemDataBuilder.build(), image, context);
+
 				launchCropIntent();
 			} else if (resultCode == AddItemActivity.RESULT_CANCELED) {
 				// User cancelled the image capture
@@ -501,7 +521,27 @@ public class AddItemActivity extends Activity {
 		} else if (AddItemActivity.CROP_FROM_CAMERA == requestCode) {
 			if (resultCode == AddItemActivity.RESULT_OK) {
 				cropImageLocation.setText(cropImagePath.toString());
-				cropImage.setImageURI(cropImagePath);
+				//cropImage.setImageURI(cropImagePath);
+				/*
+				 * Create a temporary a ItemData.ItemDataBuilder
+				 */
+				itemDataBuilder = new ItemData.ItemDataBuilder(
+						imagePath.toString(), 
+						color.getSelectedItem().toString(), 
+						Integer.valueOf(tempMin.getSelectedItem().toString()), 
+						Integer.valueOf(tempMax.getSelectedItem().toString()), 
+						category.getSelectedItem().toString(),
+						cropImagePath.toString())
+						.brand(brand.getSelectedItem().toString())
+						.age(Double.valueOf(age.getSelectedItem().toString()))
+						.material(material.getSelectedItem().toString());
+				if (!name.getText().toString().isEmpty()) {
+					itemDataBuilder.name(name.getText().toString());
+				}
+				if (!description.getText().toString().isEmpty()) {
+					itemDataBuilder.description(description.getText().toString());
+				}
+				ImageSubSampler.subSampleCroppedUri(itemDataBuilder.build(), cropImage, context);
 			}
 		}
 	}

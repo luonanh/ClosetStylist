@@ -164,11 +164,34 @@ public class ItemData implements Parcelable {
 	}
 	
 	public int getCropHeight() {
-		return 100;
+		//"jacket", "jeans", "shirt", "short", "t-shirt", "dress"
+		switch(category) {
+		case "jacket":
+		case "shirt":
+		case "t-shirt":
+			return 100;
+		case "jeans":
+		case "short":
+		case "dress":
+			return 100;
+		default:
+			return 100;
+		}
 	}
 	
 	public int getCropWidth() {
-		return 100;
+		switch(category) {
+		case "jacket":
+		case "shirt":
+		case "t-shirt":
+			return 100;
+		case "jeans":
+		case "short":
+		case "dress":
+			return 100;
+		default:
+			return 100;
+		}
 	}
 	
 	public String toString() {

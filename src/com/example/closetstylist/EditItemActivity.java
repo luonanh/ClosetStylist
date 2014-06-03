@@ -321,9 +321,10 @@ public class EditItemActivity extends Activity {
 		description.setText(item.getDescription());
 		imageLocation.setText(item.getImageLink());
 		//image.setImageURI(Uri.parse(item.getImageLink()));
+		ImageSubSampler.subSampleOriginalUri(itemData, image, context);
 		cropImageLocation.setText(item.getCropImageLink());
 		//cropImage.setImageURI(Uri.parse(item.getCropImageLink()));
-		ImageSubSampler.subSampleUri(itemData, image, context);
+		ImageSubSampler.subSampleCroppedUri(itemData, cropImage, context);
 		//color.setSelection(colorAdapter.getPosition(itemData.getColor()));
 		color.setSelection(colorArray.indexOf(item.getColor()));
 		tempMin.setSelection(temperatureArray.indexOf(Integer.toString(item.getTempMin())));

@@ -73,8 +73,9 @@ public class OutfitActivity extends Activity {
 				topItem = ItemDatabaseHelper.getItemDataFromCursor(cTop);
 			}
 			*/
+			//top.setImageURI(Uri.parse(topItem.getCropImageLink())); // display the image
+			ImageSubSampler.subSampleCroppedUri(topItem, top, context);
 		}
-		top.setImageURI(Uri.parse(topItem.getCropImageLink())); // display the image
 
 		// Get all the "bottom" items from our database
 		Cursor cBottom = itemDatabaseHelper.queryBottom();
@@ -111,8 +112,8 @@ public class OutfitActivity extends Activity {
 			}
 			// Dump all the rows pointed to by cursor Log.i(LOG_TAG, DatabaseUtils.dumpCursorToString(cBottom));
 			bottomItem = ItemDatabaseHelper.getItemDataFromCursor(cBottom); // build ItemData from cursor
+			//bottom.setImageURI(Uri.parse(bottomItem.getCropImageLink())); // display the image
+			ImageSubSampler.subSampleCroppedUri(bottomItem, bottom, context);
 		}
-		bottom.setImageURI(Uri.parse(bottomItem.getCropImageLink())); // display the image
-
 	}
 }

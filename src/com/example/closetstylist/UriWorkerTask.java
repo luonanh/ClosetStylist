@@ -21,12 +21,14 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 	private final static String LOG_TAG = UriWorkerTask.class.getCanonicalName();
 	private final WeakReference<ImageView> imageViewReference;
 	private ItemData mItemData = null;
-	private Context mContext;
+	private Context mContext = null;
+	private boolean mIsCropped = true; // false - original; true - cropped
 
-	public UriWorkerTask(ImageView imageView, Context context) {
+	public UriWorkerTask(ImageView imageView, Context context, boolean isCropped) {
 		// Use a WeakReference to ensure the ImageView can be garbage collected
 		imageViewReference = new WeakReference<ImageView>(imageView);
 		mContext = context.getApplicationContext();
+		mIsCropped = isCropped;
 	}
 
 	@Override
@@ -63,17 +65,27 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;
 			
-			BitmapFactory.decodeStream(mContext.getContentResolver()
-					.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);
+			if (true == mIsCropped) {
+				BitmapFactory.decodeStream(mContext.getContentResolver()
+						.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);				
+			} else {
+				BitmapFactory.decodeStream(mContext.getContentResolver()
+						.openInputStream(Uri.parse(itemData.getImageLink())), null, options);
+			}
 
 			// Calculate inSampleSize
 			options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
 			// Decode bitmap with inSampleSize set
 			options.inJustDecodeBounds = false;
-			return BitmapFactory.decodeStream(mContext.getContentResolver()
-					.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);
 			
+			if (true == mIsCropped) {
+				return BitmapFactory.decodeStream(mContext.getContentResolver()
+						.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);				
+			} else {
+				return BitmapFactory.decodeStream(mContext.getContentResolver()
+						.openInputStream(Uri.parse(itemData.getImageLink())), null, options);
+			}			
 		} catch (Exception e) {
 			Log.d(LOG_TAG, "Error in decodeSampledBitmapFromResource " + e.toString());
 			return null;

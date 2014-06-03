@@ -14,8 +14,13 @@ public class ImageSubSampler {
 	    task.execute(resId);
 	}
 	
-	public static void subSampleUri(ItemData itemData, ImageView imageView, Context context) {
-		UriWorkerTask task = new UriWorkerTask(imageView, context);
+	public static void subSampleCroppedUri(ItemData itemData, ImageView imageView, Context context) {
+		UriWorkerTask task = new UriWorkerTask(imageView, context, true);
+	    task.execute(itemData);
+	}
+	
+	public static void subSampleOriginalUri(ItemData itemData, ImageView imageView, Context context) {
+		UriWorkerTask task = new UriWorkerTask(imageView, context, false);
 	    task.execute(itemData);
 	}
 }
