@@ -165,6 +165,7 @@ public class ItemData implements Parcelable {
 	
 	public int getCropHeight() {
 		//"jacket", "jeans", "shirt", "short", "t-shirt", "dress"
+		/*
 		switch(category) {
 		case "jacket":
 		case "shirt":
@@ -177,9 +178,20 @@ public class ItemData implements Parcelable {
 		default:
 			return 100;
 		}
+		*/
+		if (category.equalsIgnoreCase("jacket") || category.equalsIgnoreCase("shirt")
+				|| category.equalsIgnoreCase("t-shirt")) {
+			return 100;
+		} else if (category.equalsIgnoreCase("jeans") || category.equalsIgnoreCase("short")
+				|| category.equalsIgnoreCase("dress")) {
+			return 100;
+		} else {
+			return 100;
+		}
 	}
 	
 	public int getCropWidth() {
+		/*
 		switch(category) {
 		case "jacket":
 		case "shirt":
@@ -190,6 +202,16 @@ public class ItemData implements Parcelable {
 		case "dress":
 			return 100;
 		default:
+			return 100;
+		}
+		*/
+		if ((category.equalsIgnoreCase("jacket")) || (category.equalsIgnoreCase("shirt"))
+				|| (category.equalsIgnoreCase("t-shirt"))) {
+			return 100;
+		} else if (category.equalsIgnoreCase("jeans") || category.equalsIgnoreCase("short")
+				|| category.equalsIgnoreCase("dress")) {
+			return 100;
+		} else {
 			return 100;
 		}
 	}
