@@ -1,11 +1,14 @@
 package com.example.closetstylist;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -64,14 +67,15 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 			// First decode with inJustDecodeBounds=true to check dimensions
 			final BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;
+			String imageLink = null;
 			
 			if (true == mIsCropped) {
-				BitmapFactory.decodeStream(mContext.getContentResolver()
-						.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);				
+				imageLink = itemData.getCropImageLink();
 			} else {
-				BitmapFactory.decodeStream(mContext.getContentResolver()
-						.openInputStream(Uri.parse(itemData.getImageLink())), null, options);
+				imageLink = itemData.getImageLink();
 			}
+			BitmapFactory.decodeStream(mContext.getContentResolver()
+					.openInputStream(Uri.parse(imageLink)), null, options);				
 
 			// Calculate inSampleSize
 			options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
@@ -79,13 +83,20 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 			// Decode bitmap with inSampleSize set
 			options.inJustDecodeBounds = false;
 			
-			if (true == mIsCropped) {
-				return BitmapFactory.decodeStream(mContext.getContentResolver()
-						.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);				
-			} else {
-				return BitmapFactory.decodeStream(mContext.getContentResolver()
-						.openInputStream(Uri.parse(itemData.getImageLink())), null, options);
-			}			
+			Bitmap source = BitmapFactory.decodeStream(mContext.getContentResolver()
+					.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);
+
+			/*
+			 * Try to programmatically rotate the images based on 
+			 * android.media.ExifInterface constants but this doesn't work.
+			 */
+			Matrix matrix = new Matrix();
+			matrix.postRotate(getImageOrientation(imageLink));
+			return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+			/*
+			return BitmapFactory.decodeStream(mContext.getContentResolver()
+					.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);
+					*/
 		} catch (Exception e) {
 			Log.d(LOG_TAG, "Error in decodeSampledBitmapFromResource " + e.toString());
 			return null;
@@ -117,6 +128,37 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 		}
 
 		return inSampleSize;
+	}
+	
+	/*
+	 * Get rotation angle based on android.media.ExifInterface constants.
+	 * Somehow the value got back is always 0 ???
+	 */
+	private static int getImageOrientation(String imageLink) {
+		int rotate = 0;
+	     try {
+	         File imageFile = new File(imageLink);
+	         ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
+	         int orientation = exif.getAttributeInt(
+	                 ExifInterface.TAG_ORIENTATION,
+	                 ExifInterface.ORIENTATION_NORMAL);
+
+	         switch (orientation) {
+	         case ExifInterface.ORIENTATION_ROTATE_270:
+	             rotate = 270;
+	             break;
+	         case ExifInterface.ORIENTATION_ROTATE_180:
+	             rotate = 180;
+	             break;
+	         case ExifInterface.ORIENTATION_ROTATE_90:
+	             rotate = 90;
+	             break;
+	         }
+	         Log.d(LOG_TAG, "Exif orientation: " + orientation);
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	     }
+		return rotate;
 	}
 }
 
