@@ -19,9 +19,9 @@ public class ItemData implements Parcelable {
 	private static ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("black", "blue", "brown", "gray", "green", "orange", "pink", "purple", "red", "white", "yellow"));
 	private static ArrayList<String> temperatureArray = new ArrayList<String>();
 	private static ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("jacket", "jeans", "shirt", "short", "t-shirt", "dress"));
-	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans"));
+	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans", "Rei", "Dockers", "Aeropostale", "KennethCole", "Diesel", "Gordon Cooper"));
 	private static ArrayList<String> ageArray = new ArrayList<String>();
-	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("cotton", "nylon", "jeans", "wool"));
+	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("cotton", "nylon", "jeans", "poly", "wool"));
 	
 	private long id; // once added to database, this field will be populated
 	private String name; // optional

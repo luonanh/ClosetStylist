@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -83,20 +82,18 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 			// Decode bitmap with inSampleSize set
 			options.inJustDecodeBounds = false;
 			
-			Bitmap source = BitmapFactory.decodeStream(mContext.getContentResolver()
-					.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);
+			return BitmapFactory.decodeStream(mContext.getContentResolver()
+					.openInputStream(Uri.parse(imageLink)), null, options);
 
 			/*
 			 * Try to programmatically rotate the images based on 
 			 * android.media.ExifInterface constants but this doesn't work.
-			 */
+			 * 
 			Matrix matrix = new Matrix();
 			matrix.postRotate(getImageOrientation(imageLink));
 			return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-			/*
-			return BitmapFactory.decodeStream(mContext.getContentResolver()
-					.openInputStream(Uri.parse(itemData.getCropImageLink())), null, options);
-					*/
+			 *
+			 */
 		} catch (Exception e) {
 			Log.d(LOG_TAG, "Error in decodeSampledBitmapFromResource " + e.toString());
 			return null;
@@ -131,6 +128,7 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 	}
 	
 	/*
+	 * This function is NOT used.
 	 * Get rotation angle based on android.media.ExifInterface constants.
 	 * Somehow the value got back is always 0 ???
 	 */

@@ -190,6 +190,23 @@ public class ItemDatabaseHelper {
 	}
 
 	/*
+	 * Follow public ArrayList<StoryData> queryStoryData in MoocResolver.java
+	 * Return a List of ItemData of category top
+	 */
+	public ArrayList<ItemData> getAllTop() {
+		ArrayList<ItemData> tops = new ArrayList<ItemData>();
+		Cursor c = queryTop();
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					tops.add(getItemDataFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return tops;
+	}
+
+	/*
 	 * Query "bottom" items in the item database
 	 */
 	public Cursor queryBottom() {
@@ -203,6 +220,23 @@ public class ItemDatabaseHelper {
 		Cursor c = qb.query(database, null, null, whereArgs, null, null,
 				orderBy);
 		return c;
+	}
+
+	/*
+	 * Follow public ArrayList<StoryData> queryStoryData in MoocResolver.java
+	 * Return a List of ItemData of category bottom
+	 */
+	public ArrayList<ItemData> getAllBottom() {
+		ArrayList<ItemData> bottoms = new ArrayList<ItemData>();
+		Cursor c = queryBottom();
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					bottoms.add(getItemDataFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return bottoms;
 	}
 
 	private class ItemDataOpenHelper extends SQLiteOpenHelper {

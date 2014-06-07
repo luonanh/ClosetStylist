@@ -1,5 +1,6 @@
 package com.example.closetstylist;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.app.Activity;
@@ -9,6 +10,10 @@ import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,7 +26,11 @@ public class OutfitActivity extends Activity {
 	private ImageView bottom = null;
 	private ItemData topItem = null;
 	private ItemData bottomItem = null;
+	private ImageButton buttonPrev = null;
+	private ImageButton buttonNext = null;
 	
+	private ArrayList<ItemData> topList = null;
+	private ArrayList<ItemData> bottomList = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,84 +45,49 @@ public class OutfitActivity extends Activity {
 		bottom = (ImageView) findViewById(R.id.outfit_label_bottom);
 		
 		// Get all the "top" items from our database
-		Cursor cTop = itemDatabaseHelper.queryTop();
-		int topCount = cTop.getCount();
-		Log.i(LOG_TAG, "The number of rows in cTop is: " + topCount);
-		if (cTop.getCount() == 0) {
+		topList = itemDatabaseHelper.getAllTop();
+		if (0 == topList.size()) {
 			Toast.makeText(context, R.string.outfit_message_no_top, 
-					Toast.LENGTH_SHORT).show();
-		}
-		
-		// Haven't created an algorithm to pick a "top" item yet.
-		// Temporarily pick a random item
-		int indexTop = 0;
-		if (cTop.getCount() > 1) {
-			indexTop = new Random().nextInt(cTop.getCount());
-		}
-		if (null != cTop) {
-			cTop.moveToFirst();
-			for (int i = 0; i < cTop.getCount(); i++) {
-				if (i == indexTop)
-					break;
-				cTop.moveToNext();
+					Toast.LENGTH_SHORT).show();						
+		} else {
+			// Haven't created an algorithm to pick a "top" item yet.
+			// Temporarily pick a random item
+			int indexTop = 0;
+			if (topList.size() > 1) {
+				indexTop = new Random().nextInt(topList.size());
 			}
-			// Dump all the rows pointed to by cursor Log.i(LOG_TAG, DatabaseUtils.dumpCursorToString(cTop));
-			topItem = ItemDatabaseHelper.getItemDataFromCursor(cTop); // build ItemData from cursor
-			/* Debug log
-			if (cTop.moveToFirst()) {
-				int numOfColumns = cTop.getColumnCount();
-				int id = cTop.getColumnIndex(Schema.Item.Cols.ID);
-				int name = cTop.getColumnIndex(Schema.Item.Cols.NAME);
-				int cropImage = cTop.getColumnIndex(Schema.Item.Cols.CROP_IMAGE_LINK);
-				int material = cTop.getColumnIndex(Schema.Item.Cols.MATERIAL);
-				Log.i(LOG_TAG, "The number of columns is: " + bottomCount + " - index of column name is: " + name
-						+ " - index of column id is: " + id + " - index of column cropImage is: " + cropImage
-						+ " - index of column material is: " + material);
-				Log.i(LOG_TAG, DatabaseUtils.dumpCursorToString(cTop));
-				topItem = ItemDatabaseHelper.getItemDataFromCursor(cTop);
-			}
-			*/
-			//top.setImageURI(Uri.parse(topItem.getCropImageLink())); // display the image
+			topItem = topList.get(indexTop);
 			ImageSubSampler.subSampleCroppedUri(topItem, top, context);
 		}
+		
 
 		// Get all the "bottom" items from our database
-		Cursor cBottom = itemDatabaseHelper.queryBottom();
-		int bottomCount = cBottom.getCount();
-		Log.i(LOG_TAG, "The number of rows in cTop is: " + bottomCount);
-		if (cBottom.getCount() == 0) {
+		bottomList = itemDatabaseHelper.getAllBottom();
+		if (0 == bottomList.size()) {
 			Toast.makeText(context, R.string.outfit_message_no_bottom, 
 					Toast.LENGTH_SHORT).show();
-		}
-	
-		// Haven't created an algorithm to pick a "bottom" item yet.
-		// Temporarily pick a random item
-		int indexBottom = 0;
-		if (cBottom.getCount() > 1) {
-			indexBottom = new Random().nextInt(cBottom.getCount());
-		}
-		if (null != cBottom) {
-			cBottom.moveToFirst();
-			for (int i = 0; i < cBottom.getCount(); i++) {
-				/* Debug log
-				int numOfColumns = cBottom.getColumnCount();
-				int id = cBottom.getColumnIndex(Schema.Item.Cols.ID);
-				int name = cBottom.getColumnIndex(Schema.Item.Cols.NAME);
-				int cropImage = cBottom.getColumnIndex(Schema.Item.Cols.CROP_IMAGE_LINK);
-				int material = cBottom.getColumnIndex(Schema.Item.Cols.MATERIAL);
-				Log.i(LOG_TAG, "The number of columns is: " + bottomCount + " - index of column name is: " + name
-						+ " - index of column id is: " + id + " - index of column cropImage is: " + cropImage
-						+ " - index of column material is: " + material);
-				*/
-
-				if (i == indexBottom)
-					break;
-				cBottom.moveToNext();
+		} else {
+			// Haven't created an algorithm to pick a "bottom" item yet.
+			// Temporarily pick a random item
+			int indexbottom = 0;
+			if (bottomList.size() > 1) {
+				indexbottom = new Random().nextInt(bottomList.size());
 			}
-			// Dump all the rows pointed to by cursor Log.i(LOG_TAG, DatabaseUtils.dumpCursorToString(cBottom));
-			bottomItem = ItemDatabaseHelper.getItemDataFromCursor(cBottom); // build ItemData from cursor
-			//bottom.setImageURI(Uri.parse(bottomItem.getCropImageLink())); // display the image
+			bottomItem = bottomList.get(indexbottom);
 			ImageSubSampler.subSampleCroppedUri(bottomItem, bottom, context);
 		}
+		
+		buttonPrev = (ImageButton) findViewById(R.id.outfit_btn_prev);
+		buttonPrev.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+			}			
+		});
+		buttonNext = (ImageButton) findViewById(R.id.outfit_btn_next);
+		buttonNext.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+			}			
+		});
 	}
 }
