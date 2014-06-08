@@ -32,7 +32,21 @@ public class ItemDatabaseHelper {
 			R.drawable.short_black_white_stripe,
 			R.drawable.short_green_solid,
 			R.drawable.tshirt_black_white_stripe,
-			R.drawable.tshirt_yellow_solid
+			R.drawable.tshirt_yellow_solid,
+			R.drawable.jean_light_blue_solid,
+			R.drawable.pant_brown_solid,
+			R.drawable.pant_white_solid,
+			R.drawable.jacket_gray_blue_stripe,
+			R.drawable.jacket_green_solid,
+			R.drawable.jacket_yellow_solid,
+			R.drawable.short_blue_white_stripe,
+			R.drawable.short_brown_solid,
+			R.drawable.polo_green_solid,
+			R.drawable.polo_light_blue_solid,
+			R.drawable.shirt_blue_solid,
+			R.drawable.shirt_blue_white_stripe,
+			R.drawable.shirt_brown_stripe,
+			R.drawable.shirt_white_blue_stripe
 			};
 	private static final ItemData[] PREDEFINED_ITEMS 
 			= {
@@ -42,7 +56,21 @@ public class ItemDatabaseHelper {
 			new ItemData.ItemDataBuilder(null, "white", 70, 120, "short", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("cotton").build(),
 			new ItemData.ItemDataBuilder(null, "green", 70, 120, "short", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("cotton").build(),
 			new ItemData.ItemDataBuilder(null, "black", 70, 120, "t-shirt", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "yellow", 70, 120, "t-shirt", null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("cotton").build()
+			new ItemData.ItemDataBuilder(null, "yellow", 70, 120, "t-shirt", null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "blue", 15, 100, "jeans", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("jeans").build(),
+			new ItemData.ItemDataBuilder(null, "brown", 15, 100, "pants", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "white", 15, 100, "pants", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "blue", 15, 100, "jacket", null).name("Adiddas jacket").description("Adiddas jacket").brand("Adiddas").age(1).material("nylon").build(),
+			new ItemData.ItemDataBuilder(null, "green", 15, 100, "jacket", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("nylon").build(),
+			new ItemData.ItemDataBuilder(null, "yellow", 15, 100, "jacket", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("nylon").build(),
+			new ItemData.ItemDataBuilder(null, "blue", 70, 120, "short", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "brown", 70, 120, "short", null).name("AE short").description("AE short").brand("AE").age(7).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "green", 40, 120, "t-shirt", null).name("Adiddas polo").description("Adiddas polo").brand("Adiddas").age(0).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "blue", 40, 120, "t-shirt", null).name("Express polo").description("Express polo").brand("Express").age(3).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "blue", 70, 120, "shirt", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "blue", 70, 120, "shirt", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "brown", 70, 120, "shirt", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("cotton").build(),
+			new ItemData.ItemDataBuilder(null, "white", 70, 120, "shirt", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("cotton").build()
 			};
 	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);

@@ -57,7 +57,7 @@ public class OutfitActivity extends Activity {
 				indexTop = new Random().nextInt(topList.size());
 			}
 			topItem = topList.get(indexTop);
-			ImageSubSampler.subSampleCroppedUri(topItem, top, context);
+			new ImageSubSampler(context).subSampleCroppedUri(topItem, top, context);
 		}
 		
 
@@ -74,7 +74,7 @@ public class OutfitActivity extends Activity {
 				indexbottom = new Random().nextInt(bottomList.size());
 			}
 			bottomItem = bottomList.get(indexbottom);
-			ImageSubSampler.subSampleCroppedUri(bottomItem, bottom, context);
+			new ImageSubSampler(context).subSampleCroppedUri(bottomItem, bottom, context);
 		}
 		
 		buttonPrev = (ImageButton) findViewById(R.id.outfit_btn_prev);

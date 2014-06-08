@@ -175,7 +175,7 @@ public class ViewItemActivity extends Activity {
 		description.setText(item.getDescription());
 		imageLocation.setText(item.getImageLink());
 		//image.setImageURI(Uri.parse(item.getImageLink()));
-		ImageSubSampler.subSampleOriginalUri(itemData, image, context);
+		new ImageSubSampler(context).subSampleOriginalUri(itemData, image, context);
 		cropImageLocation.setText(item.getCropImageLink());
 		color.setText(item.getColor());
 		tempMin.setText(Integer.toString(item.getTempMin()));

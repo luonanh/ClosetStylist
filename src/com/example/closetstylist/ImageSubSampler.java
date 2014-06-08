@@ -1,9 +1,20 @@
 package com.example.closetstylist;
 
+import com.example.closetstylist.UriWorkerTask.AsyncDrawable;
+
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
 public class ImageSubSampler {
+	private Bitmap mLoadingBitmap;
+	private Resources mResources;
+	
+	public ImageSubSampler(Context context) {
+		mLoadingBitmap = BitmapFactory.decodeResource(mResources, R.drawable.ic_launcher);
+	}
 
 	/*
 	 * This function is used to subsample an image resId by a power of 2 
@@ -13,14 +24,22 @@ public class ImageSubSampler {
 		BitmapWorkerTask task = new BitmapWorkerTask(imageView, context);
 	    task.execute(resId);
 	}
-	
-	public static void subSampleCroppedUri(ItemData itemData, ImageView imageView, Context context) {
-		UriWorkerTask task = new UriWorkerTask(imageView, context, true);
-	    task.execute(itemData);
+
+	public void subSampleCroppedUri(ItemData itemData, ImageView imageView, Context context) {
+		if (UriWorkerTask.cancelPotentialWork(itemData, imageView)) {
+			UriWorkerTask task = new UriWorkerTask(imageView, context, true);
+			AsyncDrawable asyncDrawable = new AsyncDrawable(context.getResources(), mLoadingBitmap, task);
+			imageView.setImageDrawable(asyncDrawable);
+		    task.execute(itemData);			
+		}
 	}
-	
-	public static void subSampleOriginalUri(ItemData itemData, ImageView imageView, Context context) {
-		UriWorkerTask task = new UriWorkerTask(imageView, context, false);
-	    task.execute(itemData);
-	}
+
+	public void subSampleOriginalUri(ItemData itemData, ImageView imageView, Context context) {
+		if (UriWorkerTask.cancelPotentialWork(itemData, imageView)) {
+			UriWorkerTask task = new UriWorkerTask(imageView, context, false);
+			AsyncDrawable asyncDrawable = new AsyncDrawable(context.getResources(), mLoadingBitmap, task);
+			imageView.setImageDrawable(asyncDrawable);
+		    task.execute(itemData);			
+		}
+	}	
 }

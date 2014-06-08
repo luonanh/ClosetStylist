@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -43,10 +45,15 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 	// Once complete, see if ImageView is still around and set bitmap.
 	@Override
 	protected void onPostExecute(Bitmap bitmap) {
+		if (isCancelled()) {
+			bitmap = null;
+		}
+		
 		// associate the bitmap with the imageView created in the constructor 
 		if (imageViewReference != null && bitmap != null) {
 			final ImageView imageView = imageViewReference.get();
-			if (imageView != null) {
+			UriWorkerTask uriWorkerTask = getBitmapWorkerTask(imageView);
+			if (this == uriWorkerTask && imageView != null) {
 				imageView.setImageBitmap(bitmap);
 			}
 		}
@@ -158,5 +165,66 @@ public class UriWorkerTask extends AsyncTask<ItemData, Void, Bitmap>{
 	     }
 		return rotate;
 	}
+	
+    /**
+     * Returns true if the current download has been canceled or if there was no download in
+     * progress on this image view.
+     * Returns false if the download in progress deals with the same url. The download is not
+     * stopped in that case.
+     */
+    public static boolean cancelPotentialWork(ItemData itemData, ImageView imageView) {
+        UriWorkerTask uriWorkerTask = getBitmapWorkerTask(imageView);
+
+        if (uriWorkerTask != null) {
+            ItemData item1 = uriWorkerTask.mItemData;
+            if ((item1 == null) || (item1.getId() != itemData.getId())) {
+                uriWorkerTask.cancel(true);
+                if (BuildConfig.DEBUG) {
+                	Log.d(LOG_TAG, "cancelPotentialWork - cancelled work for " + itemData.toString());
+                }
+            } else {
+                // The same work is already in progress
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    /*
+     * Acts as a dedicated Drawable subclass to store a reference back to the 
+     * worker task. A BitmapDrawable class is used so that a placeholder
+     * image can be displayed in the ImageView while the task completes.
+     */
+    static class AsyncDrawable extends BitmapDrawable {
+        private final WeakReference<UriWorkerTask> uriWorkerTaskReference;
+
+        public AsyncDrawable(Resources res, Bitmap bitmap,
+        		UriWorkerTask uriWorkerTask) {
+            super(res, bitmap);
+            uriWorkerTaskReference =
+                new WeakReference<UriWorkerTask>(uriWorkerTask);
+        }
+
+        public UriWorkerTask getBitmapWorkerTask() {
+            return uriWorkerTaskReference.get();
+        }
+    }
+    
+    /**
+     * @param imageView Any imageView
+     * @return Retrieve the currently active work task (if any) associated with this imageView.
+     * null if there is no such task.
+     */
+    private static UriWorkerTask getBitmapWorkerTask(ImageView imageView) {
+        if (imageView != null) {
+            final Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof AsyncDrawable) {
+                final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
+                return asyncDrawable.getBitmapWorkerTask();
+            }
+        }
+        return null;
+    }
 }
 

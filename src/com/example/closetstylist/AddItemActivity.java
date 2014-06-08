@@ -510,7 +510,7 @@ public class AddItemActivity extends Activity {
 				if (!description.getText().toString().isEmpty()) {
 					itemDataBuilder.description(description.getText().toString());
 				}
-				ImageSubSampler.subSampleOriginalUri(itemDataBuilder.build(), image, context);
+				new ImageSubSampler(context).subSampleOriginalUri(itemDataBuilder.build(), image, context);
 
 				launchCropIntent();
 			} else if (resultCode == AddItemActivity.RESULT_CANCELED) {
@@ -541,7 +541,7 @@ public class AddItemActivity extends Activity {
 				if (!description.getText().toString().isEmpty()) {
 					itemDataBuilder.description(description.getText().toString());
 				}
-				ImageSubSampler.subSampleCroppedUri(itemDataBuilder.build(), cropImage, context);
+				new ImageSubSampler(context).subSampleCroppedUri(itemDataBuilder.build(), cropImage, context);
 			}
 		}
 	}
