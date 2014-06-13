@@ -3,58 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/login_btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/login_btn_login" />
-
-    <TextView
-        android:id="@+id/login_label_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/login_value_password"
-        android:layout_alignBottom="@+id/login_value_password"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="30dp"
-        android:text="@string/login_label_password" />
-
-    <EditText
-        android:id="@+id/login_value_password"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/login_btn_login"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="39dp"
-        android:layout_marginRight="17dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="@string/login_value_password_default_value" />
-
     <TextView
         android:id="@+id/login_label_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/login_value_username"
-        android:layout_alignBottom="@+id/login_value_username"
-        android:layout_alignRight="@+id/login_label_password"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="21dp"
+        android:layout_toLeftOf="@+id/main_btn_my_closet"
         android:text="@string/login_label_username" />
 
     <EditText
         android:id="@+id/login_value_username"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/login_label_username"
         android:layout_alignLeft="@+id/login_value_password"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="41dp"
         android:ems="10"
         android:inputType="text"
-        android:text="@string/login_value_username_default_value" >
+        android:text="@string/login_value_username_default_value" />
+
+    <TextView
+        android:id="@+id/login_label_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login_label_username"
+        android:layout_below="@+id/login_label_username"
+        android:layout_marginTop="14dp"
+        android:text="@string/login_label_password" />
+
+    <EditText
+        android:id="@+id/login_value_password"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/login_label_password"
+        android:layout_marginRight="21dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="@string/login_value_password_default_value" >
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/login_btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_value_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/login_btn_login" />
 
     <Button
         android:id="@+id/main_btn_my_closet"
@@ -62,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_btn_login"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="14dp"
         android:text="MyCloset" />
 
     <Button
@@ -71,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_btn_my_closet"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="17dp"
         android:text="ClearMyCloset" />
 
     <Button
@@ -80,7 +78,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_btn_clear_my_closet"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="14dp"
         android:text="OutfitOfTheDay" />
+
+    <Button
+        android:id="@+id/main_btn_view_user_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_btn_outfit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="ViewUserProfile" />
 
 </RelativeLayout>

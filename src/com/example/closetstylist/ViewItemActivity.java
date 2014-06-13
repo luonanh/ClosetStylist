@@ -127,7 +127,7 @@ public class ViewItemActivity extends Activity {
 											AddItemActivity.deleteItemImagesFromSd(itemData);
 											
 											// delete the entry in the item database
-											itemDatabaseHelper.deleteRecord(itemData);
+											itemDatabaseHelper.deleteItemDataRecord(itemData);
 										} catch (Exception e) {
 											Log.e(LOG_TAG, "Exception Caught => "
 													+ e.getMessage());

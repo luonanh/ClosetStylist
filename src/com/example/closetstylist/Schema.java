@@ -17,4 +17,16 @@ public class Schema {
 			public static final String MATERIAL = "material";
 		}
 	}
+	
+	public static class UserProfile {
+		public static class Cols {
+			public static final String ID = "_id";
+			public static final String USR = "username";
+			public static final String PWD = "password";
+			public static final String SEX = "sex";
+			public static final String ZIP = "zip";
+			public static final String LAUNDRY_SCHEDULE = "laundrySchedule";
+			public static final String LAUNDRY_DAY = "laundryDay";
+		}
+	}
 }

@@ -293,7 +293,7 @@ public class EditItemActivity extends Activity {
 				Log.i(LOG_TAG, "buttonSave" + itemData.toString());
 
 				// update the database with the newly create ItemData
-				itemDatabaseHelper.updateRecord(itemData);
+				itemDatabaseHelper.updateItemDataRecord(itemData);
 
 				onBackPressed(); // same as hit back key
 			}	

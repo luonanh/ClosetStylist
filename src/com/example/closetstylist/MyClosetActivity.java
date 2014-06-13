@@ -53,7 +53,7 @@ public class MyClosetActivity extends Activity {
 		// Setup CursorAdapter
 		itemDatabaseHelper = new ItemDatabaseHelper(this);
 		ListView listView = (ListView) findViewById(R.id.my_closet_list);
-		itemDataAdapter = new ItemDataAdapter(this, itemDatabaseHelper.getAllItemRecords());
+		itemDataAdapter = new ItemDataAdapter(this, itemDatabaseHelper.getCursorToAllItemDataRecord());
 		listView.setAdapter(itemDataAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -82,12 +82,12 @@ public class MyClosetActivity extends Activity {
 		if (ADD_ITEM_REQUEST == requestCode) {	// Check which request we're responding to
 			if (Activity.RESULT_OK == resultCode) {	// Make sure the request was successful
 				ItemData itemData = data.getExtras().getParcelable(ItemData.INTENT);
-				itemDatabaseHelper.saveRecord(itemData);
-				itemDataAdapter.changeCursor(itemDatabaseHelper.getAllItemRecords());
+				itemDatabaseHelper.saveItemDataRecord(itemData);
+				itemDataAdapter.changeCursor(itemDatabaseHelper.getCursorToAllItemDataRecord());
 			}
 		} else if (VIEW_ITEM_REQUEST == requestCode) {
 			if (Activity.RESULT_OK == resultCode) {
-				itemDataAdapter.changeCursor(itemDatabaseHelper.getAllItemRecords());
+				itemDataAdapter.changeCursor(itemDatabaseHelper.getCursorToAllItemDataRecord());
 			}
 		}
 	}

@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				ItemDatabaseHelper itemDatabaseHelper = 
 						new ItemDatabaseHelper(MainActivity.this);
-				itemDatabaseHelper.deleteMyCloset();				
+				itemDatabaseHelper.deleteDatabase();
 			}
 			
 		});
@@ -67,6 +67,16 @@ public class MainActivity extends ActionBarActivity {
 			
 		});
 
+		Button viewUserProfileBtn = (Button) findViewById(R.id.main_btn_view_user_profile);
+		viewUserProfileBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i4 = new Intent(MainActivity.this, ViewUserProfileActivity.class);
+				startActivity(i4);
+			}
+			
+		});
 	}
 
 	@Override

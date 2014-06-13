@@ -109,5 +109,54 @@
     <string name="outfit_message_no_top">No top item found in your closet</string>
     <string name="outfit_message_no_bottom">No bottom item found in your closet</string>
     
+    <!-- Register Strings -->
+    <string name="register_label_username">UserName</string>
+    <string name="register_label_password">UserName</string>
+    <string name="register_label_sex">Sex</string>
+    <string name="register_label_age">Age</string>
+    <string name="register_label_location">Location</string>
+    <string name="register_label_style">Style</string>
+    <string name="register_label_favorite_color">FavoriteColors</string>
+    <string name="register_label_laundry_schedule">LaundrySchedule</string>
+    <string name="register_label_laundry_day">LaundryDay</string>
+    <string name="register_label_relationship_status">RelationshipStatus</string>
+    <string name="register_label_body_measurement">BodyMeasurement</string>
+    <string name="register_label_height">Height</string>
+    <string name="register_label_weight">Weight</string>
+    <string name="register_label_natural_waist">NaturalWaist</string>
+    <string name="register_label_low_waist">LowWaist</string>
+    <string name="register_label_inseam">Inseam</string>
+    <string name="register_label_hip">Hip</string>
+    <string name="register_label_eye_color">EyeColor</string>
+    <string name="register_label_hair_color">HairColor</string>
+    <string name="register_label_chest">Chest</string>
+    <string name="register_label_clothing_size">ClothingSize</string>
+    <string name="register_label_top">Top</string>
+    <string name="register_label_pants">Pants</string>
+    <string name="register_label_dresses">Dresses</string>
+    <string name="register_label_shoes">Shoes</string>
+    
+    <string name="register_btn_register">Register</string>
+    <string name="register_btn_reset">Reset</string>
+    
+    <string-array name="register_spinner_sex">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    
+    <!-- View User Profile Strings -->
+    <string name="view_user_profile_label_username">UserName</string>
+    <string name="view_user_profile_value_username">UserName</string>
+    <string name="view_user_profile_label_password">Password</string>
+    <string name="view_user_profile_value_password">Password</string>
+    <string name="view_user_profile_label_sex">Sex</string>
+    <string name="view_user_profile_value_sex">Sex</string>
+    <string name="view_user_profile_label_zip">Zip</string>
+    <string name="view_user_profile_value_zip">Zip</string>
+    <string name="view_user_profile_label_laundry_schedule">LaundrySchedule</string>
+    <string name="view_user_profile_value_laundry_schedule">LaundrySchedule</string>
+    <string name="view_user_profile_label_laundry_day">LaundryDay</string>
+    <string name="view_user_profile_value_laundry_day">LaundryDay</string>
 
+    
 </resources>

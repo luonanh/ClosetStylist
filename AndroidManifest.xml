@@ -45,6 +45,12 @@
         <!-- THIS IS THE OUTFIT OF THE DAY ACTIVITY -->
         <activity android:name="com.example.closetstylist.OutfitActivity" >
         </activity>
+        <!-- THIS IS THE REGISTER ACTIVITY -->
+        <activity android:name="com.example.closetstylist.RegisterActivity" >
+        </activity>
+        <!-- THIS IS THE VIEW USER PROFILE ACTIVITY -->
+        <activity android:name="com.example.closetstylist.ViewUserProfileActivity" >
+        </activity>
         
     </application>
 

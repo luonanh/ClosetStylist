@@ -20,6 +20,8 @@ public class ItemDatabaseHelper {
 	private static final String DATABASE_NAME = "closetStylist.db";
 	private static final String TABLE_NAME = "itemData_db";
 	private static final String WHERE_CLAUSE = Schema.Item.Cols.ID + " = ? ";
+	private static final String TABLE_USER_PROFILE = "userProfile_db";
+	private static final String WHERE_USER_PROFILE_CLAUSE = Schema.UserProfile.Cols.ID + " = ? ";
 	
 	/*
 	 * PREDEFINED_RESID and PREDEFINED_ITEMS must always match, otherwise, info
@@ -83,10 +85,103 @@ public class ItemDatabaseHelper {
 		database = mItemDataOpenHelper.getWritableDatabase();
 	}
 	
+	public void saveUserProfileRecord(UserProfile usr) {
+		ContentValues c = new ContentValues();
+		c.put(Schema.UserProfile.Cols.USR, usr.getUsr());
+		c.put(Schema.UserProfile.Cols.PWD, usr.getPwd());
+		c.put(Schema.UserProfile.Cols.SEX, usr.getSex());
+		c.put(Schema.UserProfile.Cols.ZIP, usr.getZip());
+		c.put(Schema.UserProfile.Cols.LAUNDRY_SCHEDULE, usr.getLaundrySchedule());
+		c.put(Schema.UserProfile.Cols.LAUNDRY_DAY, usr.getLaundryDay());
+		database.insert(TABLE_USER_PROFILE, null, c);
+	}
+
+	public void deleteUserProfileRecord(UserProfile usr) {
+		String[] whereArgs = { String.valueOf(usr.getId()) };
+		database.delete(TABLE_USER_PROFILE, WHERE_USER_PROFILE_CLAUSE, whereArgs);
+	}
+
+	/*
+	 * param UserProfile must have a valid id field 
+	 */
+	public void updateUserProfileRecord(UserProfile usr) {
+		Log.i(LOG_TAG, "updateRecord" + usr.toString());
+		String[] whereArgs = { String.valueOf(usr.getId()) };
+		Log.i(LOG_TAG, "Rows updated: " + database.update(TABLE_USER_PROFILE, 
+				getContentValuesFromUserProfile(usr), WHERE_CLAUSE, whereArgs));
+	}
+
+	public Cursor getCursorToAllUserProfileRecord() {
+		return database.rawQuery(
+				"SELECT * FROM " + TABLE_USER_PROFILE, 
+				null);
+	}
+	
+	/*
+	 * Get the first UserProfile from the passed in cursor.
+	 */
+	public static UserProfile getUserProfileFromCursor(Cursor cursor) {
+		// Dump all the rows pointed to by cursor Log.i(LOG_TAG, DatabaseUtils.dumpCursorToString(cursor));
+		long rowID = cursor.getLong(cursor
+				.getColumnIndex(Schema.UserProfile.Cols.ID));
+		String usr = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.USR));
+		String pwd = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.PWD));
+		String sex = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.SEX));
+		int zip = cursor.getInt(cursor.getColumnIndex(Schema.UserProfile.Cols.ZIP));
+		int laundrySchedule = cursor.getInt(cursor.getColumnIndex(Schema.UserProfile.Cols.LAUNDRY_SCHEDULE));
+		String laundryDay = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.LAUNDRY_DAY));
+		return new UserProfile.UserProfileBuilder(usr, pwd, sex, zip)
+			.id(rowID)
+			.laundrySchedule(laundrySchedule)
+			.laundryDay(laundryDay)
+			.build();
+	}
+
+	/*
+	 * valid id field in ItemData
+	 */
+	public static ContentValues getContentValuesFromUserProfile(UserProfile usr) {
+		ContentValues c = new ContentValues();
+		c.put(Schema.UserProfile.Cols.USR, usr.getUsr());
+		c.put(Schema.UserProfile.Cols.PWD, usr.getPwd());
+		c.put(Schema.UserProfile.Cols.SEX, usr.getSex());
+		c.put(Schema.UserProfile.Cols.ZIP, usr.getZip());
+		c.put(Schema.UserProfile.Cols.LAUNDRY_SCHEDULE, usr.getLaundrySchedule());
+		c.put(Schema.UserProfile.Cols.LAUNDRY_DAY, usr.getLaundryDay());
+		return c;
+	}
+
+	public void deleteUserProfile() {
+		database.delete(TABLE_USER_PROFILE, null, null);
+	}
+
+	/*
+	 * Follow public ArrayList<StoryData> queryStoryData in MoocResolver.java
+	 * Return a List of ItemData of category top
+	 */
+	public ArrayList<UserProfile> getAllUserProfile() {
+		ArrayList<UserProfile> tops = new ArrayList<UserProfile>();
+		Cursor c = getCursorToAllUserProfileRecord();
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					tops.add(getUserProfileFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return tops;
+	}
+	
+	/*
+	 * ************************************************************************
+	 * ItemData
+	 * ************************************************************************	 * 
+	 */
+
 	/*
 	 * no id
 	 */
-	public void saveRecord(ItemData item) {
+	public void saveItemDataRecord(ItemData item) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(Schema.Item.Cols.NAME, item.getName());
 		contentValues.put(Schema.Item.Cols.DESCRIPTION, item.getDescription());
@@ -102,7 +197,7 @@ public class ItemDatabaseHelper {
 		database.insert(TABLE_NAME, null, contentValues);
 	}
 
-	public void deleteRecord(ItemData item) {
+	public void deleteItemDataRecord(ItemData item) {
 		String[] whereArgs = { String.valueOf(item.getId()) };
 		database.delete(TABLE_NAME, WHERE_CLAUSE, whereArgs);
 	}
@@ -110,14 +205,14 @@ public class ItemDatabaseHelper {
 	/*
 	 * param ItemData must have a valid id field 
 	 */
-	public void updateRecord(ItemData item) {
+	public void updateItemDataRecord(ItemData item) {
 		Log.i(LOG_TAG, "updateRecord" + item.toString());
 		String[] whereArgs = { String.valueOf(item.getId()) };
 		Log.i(LOG_TAG, "Rows updated: " + database.update(TABLE_NAME, 
 				getContentValuesFromItemData(item), WHERE_CLAUSE, whereArgs));
 	}
 
-	public Cursor getAllItemRecords() {
+	public Cursor getCursorToAllItemDataRecord() {
 		return database.rawQuery(
 				"SELECT * FROM " + TABLE_NAME, 
 				null);
@@ -140,7 +235,7 @@ public class ItemDatabaseHelper {
 
 	}
 	
-	void deleteMyCloset() {
+	public void deleteMyCloset() {
 		// thought this was working once but not anymore mContext.deleteDatabase(TABLE_NAME);
 		database.delete(TABLE_NAME, null, null);
 	}
@@ -271,9 +366,20 @@ public class ItemDatabaseHelper {
 		public ItemDataOpenHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
-
+		
 		@Override
 		public void onCreate(SQLiteDatabase db) {
+			Log.i(LOG_TAG, "CREATE TABLE " + TABLE_USER_PROFILE);
+			db.execSQL("CREATE TABLE " + TABLE_USER_PROFILE + "("
+					+ Schema.UserProfile.Cols.ID + " INTEGER PRIMARY KEY, "
+					+ Schema.UserProfile.Cols.USR + " TEXT, "
+					+ Schema.UserProfile.Cols.PWD + " TEXT, "
+					+ Schema.UserProfile.Cols.SEX + " TEXT, "
+					+ Schema.UserProfile.Cols.ZIP + " INTEGER, "
+					+ Schema.UserProfile.Cols.LAUNDRY_SCHEDULE + " INTEGER, "
+					+ Schema.UserProfile.Cols.LAUNDRY_DAY + " TEXT)");
+			
+			Log.i(LOG_TAG, "CREATE TABLE " + TABLE_NAME);
 			db.execSQL("CREATE TABLE " + TABLE_NAME + "("
 					+ Schema.Item.Cols.ID + " INTEGER PRIMARY KEY, "
 					+ Schema.Item.Cols.NAME + " TEXT, "
@@ -287,11 +393,14 @@ public class ItemDatabaseHelper {
 					+ Schema.Item.Cols.AGE + " REAL, "
 					+ Schema.Item.Cols.MATERIAL + " TEXT, "
 					+ Schema.Item.Cols.CROP_IMAGE_LINK + " TEXT)");
+			
+			Log.i(LOG_TAG, "DONE CREATE TABLE");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + "");
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_PROFILE + "");
 			onCreate(database);
 		}
 	}
@@ -300,13 +409,26 @@ public class ItemDatabaseHelper {
 	 * Create a default database based on the preloaded images in the app.
 	 */
 	public void createDefaultDatabase() {
+		// ItemData database
 		for (int i = 0; i < PREDEFINED_RESID.length; i++) {
 			PREDEFINED_ITEMS[i].setImageLink(
 					getUriFromResource(PREDEFINED_RESID[i]).toString());
 			PREDEFINED_ITEMS[i].setCropImageLink(
 					getUriFromResource(PREDEFINED_RESID[i]).toString());
-			saveRecord(PREDEFINED_ITEMS[i]);
+			saveItemDataRecord(PREDEFINED_ITEMS[i]);
 		}
+		
+		// UserProfile database
+		UserProfile.UserProfileBuilder usrBuilder 
+				= new UserProfile.UserProfileBuilder("anh", "pwd", "M", 78758)
+						.laundrySchedule(0)
+						.laundryDay("Saturday");
+		saveUserProfileRecord(usrBuilder.build());		
+	}
+	
+	public void deleteDatabase() {
+		deleteMyCloset();
+		deleteUserProfile();
 	}
 	
 	/*
