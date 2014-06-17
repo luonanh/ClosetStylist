@@ -157,6 +157,9 @@
     <string name="view_user_profile_value_laundry_schedule">LaundrySchedule</string>
     <string name="view_user_profile_label_laundry_day">LaundryDay</string>
     <string name="view_user_profile_value_laundry_day">LaundryDay</string>
+    <string name="view_user_profile_label_current_location">CurrentLocation</string>
+    <string name="view_user_profile_label_current_latitude">CurrentLatitude</string>
+    <string name="view_user_profile_label_current_longtitude">CurrentLongtitude</string>
 
     
 </resources>

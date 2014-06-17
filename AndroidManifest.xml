@@ -8,14 +8,25 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
+    <!-- Save images to external SD card -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- Camera -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <!-- GPS or Network provider for Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Audio in case want to do text-to-speech -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    
+    <!-- Map just in case -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"

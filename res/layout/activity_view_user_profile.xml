@@ -8,6 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#fff" >
+
         <!-- Registration Form -->
 
         <LinearLayout
@@ -113,7 +114,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true" />
-            
+
+            <!-- Location Label -->
+
+            <TextView
+                android:id="@+id/view_user_profile_label_current_location"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/view_user_profile_label_current_location"
+                android:textColor="#372c24" />
+
+            <TextView
+                android:id="@+id/view_user_profile_label_current_latitude"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/view_user_profile_label_current_longtitude"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true" />
         </LinearLayout>
         <!-- Registration Form Ends -->
     </RelativeLayout>
