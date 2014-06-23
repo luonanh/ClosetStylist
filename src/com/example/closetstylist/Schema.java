@@ -15,6 +15,7 @@ public class Schema {
 			public static final String CATEGORY = "category";
 			public static final String AGE = "age";
 			public static final String MATERIAL = "material";
+			public static final String STYLE = "style";
 		}
 	}
 	

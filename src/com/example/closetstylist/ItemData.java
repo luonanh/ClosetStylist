@@ -16,12 +16,17 @@ public class ItemData implements Parcelable {
 	public static final String INTENT = "ItemDataIntent";
 	public static final long INVALID_ID = -1;
 	
-	private static ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("black", "blue", "brown", "gray", "green", "orange", "pink", "purple", "red", "white", "yellow"));
+	private static ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("Beige", "Black", "Blue", "Brown", "Gray", "Green", "Orange", "Pink", "Red", "Violet", "White", "Yellow", "MulticolorOrPattern"));
 	private static ArrayList<String> temperatureArray = new ArrayList<String>();
-	private static ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("jacket", "t-shirt", "shirt", "jeans", "short", "pants", "dress"));
-	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adiddas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans", "Rei", "Dockers", "Aeropostale", "KennethCole", "Diesel", "GordonCooper", "Arizona"));
+	private static ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("Bottom", "Top"));
+	private static ArrayList<String> menTopStyleArray = new ArrayList<String>(Arrays.asList("Casual Button Down Shirt", "Coat and Jacket - Heavy", "Coat and Jacket - Light", "Dress Shirt", "Polo", "Sweater and Sweatshirt", "T-Shirt - Long Sleeve", "T-Shirt - Short Sleeve"));
+	private static ArrayList<String> menBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Pants", "Shorts"));
+	private static ArrayList<String> womenTopStyleArray = new ArrayList<String>(Arrays.asList("Blouse", "Cardigan", "Coat and Jacket - Heavy", "Coat and Jacket - Light", "Collared and Button Down", "PartyTop", "Sweater", "Sweatshirt and Pull-over", "Tank Camisoles", "Tee Long - Sleeve", "Tee Short - Sleeve", "Tunic", "Vest"));
+	private static ArrayList<String> womenBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Legging Skinny", "Pants - Casual", "Pants - Dress", "Shorts", "Skirts"));
+	private static ArrayList<String> styleArray = new ArrayList<String>(Arrays.asList("Casual Button Down Shirt ", "Coat and Jacket - Heavy", "Coat and Jacket - Light", "Dress Shirt", "Polo", "Sweater and Sweatshirt", "T-Shirt - Long Sleeve", "T-Shirt - Short Sleeve", "Jeans", "Pants", "Shorts", "Blouse", "Cardigan", "Collared and Button Down", "PartyTop", "Sweater", "Sweatshirt and Pull-over", "Tank Camisoles", "Tee Long - Sleeve", "Tee Short - Sleeve", "Tunic", "Vest", "Legging Skinny", "Pants - Casual", "Pants - Dress", "Skirts")); 
+	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adidas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans", "Rei", "Dockers", "Aeropostale", "KennethCole", "Diesel", "GordonCooper", "Arizona"));
 	private static ArrayList<String> ageArray = new ArrayList<String>();
-	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("cotton", "nylon", "jeans", "poly", "wool"));
+	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("Cotton or Cotton Blend", "Denim", "Down", "Jersey Knit", "Lace", "Leather", "Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", "Wool or Wool Blend"));
 	
 	private long id; // once added to database, this field will be populated
 	private String name; // optional
@@ -35,6 +40,7 @@ public class ItemData implements Parcelable {
 	private String brand; // optional
 	private double age; // optional
 	private String material; // optional
+	private String style; // optional
 	
 	static {
 		// initialize temperature array for tempMin and tempMax spinner
@@ -65,6 +71,7 @@ public class ItemData implements Parcelable {
 		this.brand = builder.brand;
 		setAge(builder.age);
 		this.material = builder.material;
+		this.style = builder.style;
 	}
 
 	public String getCropImageLink() {
@@ -163,6 +170,14 @@ public class ItemData implements Parcelable {
 		this.material = material;
 	}
 	
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
 	public int getCropHeight() {
 		//"jacket", "jeans", "shirt", "short", "t-shirt", "dress"
 		/*
@@ -222,7 +237,8 @@ public class ItemData implements Parcelable {
 				+ color + "; tempMin - " + Integer.toString(tempMin)
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
 				+ category + "; brand - " + brand + "; age - " + age
-				+ "; material - " + material + "; cropImageLink " + cropImageLink;
+				+ "; material - " + material + "; cropImageLink " + cropImageLink
+				+ "; style" + style;
 	}
 	
 	// per http://developer.android.com/reference/java/util/Date.html and
@@ -255,6 +271,10 @@ public class ItemData implements Parcelable {
 		return materialArray;
 	}
 
+	public static ArrayList<String> getStyleArray() {
+		return styleArray;
+	}
+
 	public static class ItemDataBuilder {
 		private long id; // once added to database, this field will be populated
 		private String name = ""; // optional
@@ -268,6 +288,7 @@ public class ItemData implements Parcelable {
 		private String brand; // optional
 		private double age = 0; // optional
 		private String material = ""; // optional
+		private String style = ""; // optional
 		
 		public ItemDataBuilder(String imageLink, String color, int tempMin, 
 				int tempMax, String category, String cropImageLink) {
@@ -322,7 +343,12 @@ public class ItemData implements Parcelable {
 			this.id = id;
 			return this;
 		}
-		
+
+		public ItemDataBuilder style(String style) {
+			this.style = style;
+			return this;
+		}
+
 		public ItemData build() {
 			ItemData itemData = new ItemData(this);
 			/*
@@ -358,6 +384,7 @@ public class ItemData implements Parcelable {
 		dest.writeDouble(age);
 		dest.writeString(material);
 		dest.writeString(cropImageLink);
+		dest.writeString(style);
 	}
 	
 	/*
@@ -390,5 +417,6 @@ public class ItemData implements Parcelable {
 		age = source.readDouble();
 		material = source.readString();
 		cropImageLink = source.readString();
+		style = source.readString();
 	}
 }

@@ -28,6 +28,7 @@
     <string name="add_item_label_brand">Brand</string>
     <string name="add_item_label_material">Material</string>
     <string name="add_item_label_crop_image_link">CropImageLink:</string>
+    <string name="add_item_label_style">Style</string>
     
     <string name="add_item_btn_register">Register</string>
     <string name="add_item_btn_reset">Reset</string>
@@ -53,7 +54,7 @@
     <string name="edit_item_label_brand">Brand</string>
     <string name="edit_item_label_material">Material</string>
     <string name="edit_item_label_crop_image_link">CropImageLink:</string>
-    
+    <string name="edit_item_label_style">Style</string>    
     
     <string name="edit_item_btn_reset">Reset</string>
     <string name="edit_item_btn_save">Save</string>
@@ -80,6 +81,7 @@
     <string name="view_item_label_brand">Brand</string>
     <string name="view_item_label_material">Material</string>
     <string name="view_item_label_crop_image_link">CropImageLink:</string>
+    <string name="view_item_label_style">Style</string>
         
     <string name="view_item_btn_edit">Edit</string>
     <string name="view_item_btn_delete">Delete</string>
@@ -108,6 +110,7 @@
     
     <string name="outfit_message_no_top">No top item found in your closet</string>
     <string name="outfit_message_no_bottom">No bottom item found in your closet</string>
+    <string name="outfit_message_no_weather_info">Cannot obtain weather information</string>
     
     <!-- Register Strings -->
     <string name="register_label_username">UserName</string>

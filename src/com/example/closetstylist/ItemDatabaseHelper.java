@@ -51,6 +51,32 @@ public class ItemDatabaseHelper {
 			R.drawable.shirt_white_blue_stripe
 			};
 	private static final ItemData[] PREDEFINED_ITEMS 
+	= {
+		// String imageLink (null), String color, int tempMin, int tempMax, String category, String cropImageLink (null)
+		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("Denim").style("Jeans").build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(2).material("Cotton or Cotton Blend").style("Polo").build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Bottom", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("Polyester").style("Shorts").build(),
+		new ItemData.ItemDataBuilder(null, "Green", 70, 120, "Bottom", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("Cotton or Cotton Blend").style("Shorts").build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").build(),
+		new ItemData.ItemDataBuilder(null, "Yellow", 70, 120, "Top", null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("Denim").style("Jeans").build(),
+		new ItemData.ItemDataBuilder(null, "Brown", 15, 100, "Bottom", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("Cotton or Cotton Blend").style("Pants").build(),
+		new ItemData.ItemDataBuilder(null, "Beige", 15, 100, "Bottom", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("Cotton or Cotton Blend").style("Pants").build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 15, 100, "Top", null).name("Adidas jacket").description("Adidas jacket").brand("Adidas").age(1).material("Polyester").style("Coat and Jacket - Light").build(),
+		new ItemData.ItemDataBuilder(null, "Green", 15, 100, "Top", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("Nylon").style("Coat and Jacket - Light").build(),
+		new ItemData.ItemDataBuilder(null, "Yellow", 15, 100, "Top", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("Down").style("Coat and Jacket - Heavy").build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Bottom", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("Polyester").style("Shorts").build(),
+		new ItemData.ItemDataBuilder(null, "Beige", 70, 120, "Bottom", null).name("AE short").description("AE short").brand("AE").age(7).material("Cotton or Cotton Blend").style("Shorts").build(),
+		new ItemData.ItemDataBuilder(null, "Green", 40, 120, "Top", null).name("Adidas t-shirt").description("Adidas t-shirt").brand("Adidas").age(0).material("Nylon").style("T-Shirt - Long Sleeve").build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(3).material("Cotton or Cotton Blend").style("Polo").build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Top", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("Cotton or Cotton Blend").style("Dress Shirt").build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("Cotton or Cotton Blend").style("Dress Shirt").build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").build()
+	};
+
+	/*
+	private static final ItemData[] PREDEFINED_ITEMS 
 			= {
 			// String imageLink (null), String color, int tempMin, int tempMax, String category, String cropImageLink (null)
 			new ItemData.ItemDataBuilder(null, "blue", 15, 100, "jeans", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("jeans").build(),
@@ -74,6 +100,7 @@ public class ItemDatabaseHelper {
 			new ItemData.ItemDataBuilder(null, "brown", 70, 120, "shirt", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("cotton").build(),
 			new ItemData.ItemDataBuilder(null, "white", 70, 120, "shirt", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("cotton").build()
 			};
+			*/
 	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);
 	private SQLiteDatabase database;
@@ -194,6 +221,7 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.AGE, item.getAge());
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
 		contentValues.put(Schema.Item.Cols.CROP_IMAGE_LINK, item.getCropImageLink());
+		contentValues.put(Schema.Item.Cols.STYLE, item.getStyle());
 		database.insert(TABLE_NAME, null, contentValues);
 	}
 
@@ -258,13 +286,15 @@ public class ItemDatabaseHelper {
 		double age = cursor.getDouble(cursor.getColumnIndex(Schema.Item.Cols.AGE));
 		String material = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.MATERIAL));
 		String cropImageLink = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.CROP_IMAGE_LINK));
+		String style = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.STYLE));
 		/* Debug Log to dump all the fields read back from this row
 		Log.i(LOG_TAG, "The new ItemData: " + " id - " + rowID + " name - " + name + "; description - "
 				+ description + "; iamgeLink - " + imageLink + "; color - "
 				+ color + "; tempMin - " + Integer.toString(tempMin)
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
 				+ category + "; brand - " + brand + "; age - " + age
-				+ "; material - " + material + "; cropImageLink " + cropImageLink);
+				+ "; material - " + material + "; cropImageLink " + cropImageLink + "; style - "
+				+ style);
 		*/
 		return new ItemData.ItemDataBuilder(imageLink, color, tempMin, tempMax, category, cropImageLink)
 			.id(rowID)	
@@ -273,6 +303,7 @@ public class ItemDatabaseHelper {
 			.material(material)
 			.name(name)
 			.brand(brand)
+			.style(style)
 			.build();
 	}
 	
@@ -293,6 +324,7 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.AGE, item.getAge());
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
 		contentValues.put(Schema.Item.Cols.CROP_IMAGE_LINK, item.getCropImageLink());
+		contentValues.put(Schema.Item.Cols.STYLE, item.getStyle());
 		return contentValues;
 	}
 
@@ -302,9 +334,10 @@ public class ItemDatabaseHelper {
 	public Cursor queryTop() {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(TABLE_NAME);
-		qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?,?,?)");
-		
-		String[] whereArgs = {"jacket", "shirt", "t-shirt"}; // may change when more categories are added
+		//qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?,?,?)");
+		//String[] whereArgs = {"jacket", "shirt", "t-shirt"};
+		qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?)");
+		String[] whereArgs = {"Top"};
 		String orderBy = Schema.Item.Cols.ID + " DESC";
 		
 		Cursor c = qb.query(database, null, null, whereArgs, null, null,
@@ -335,9 +368,10 @@ public class ItemDatabaseHelper {
 	public Cursor queryBottom() {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(TABLE_NAME);
-		qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?,?)");
-		
-		String[] whereArgs = {"jeans", "short"}; // may change when more categories are added
+		//qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?,?)");
+		//String[] whereArgs = {"jeans", "short"};
+		qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?)");
+		String[] whereArgs = {"Bottom"};
 		String orderBy = Schema.Item.Cols.ID + " DESC";
 		
 		Cursor c = qb.query(database, null, null, whereArgs, null, null,
@@ -392,7 +426,8 @@ public class ItemDatabaseHelper {
 					+ Schema.Item.Cols.BRAND + " TEXT, "
 					+ Schema.Item.Cols.AGE + " REAL, "
 					+ Schema.Item.Cols.MATERIAL + " TEXT, "
-					+ Schema.Item.Cols.CROP_IMAGE_LINK + " TEXT)");
+					+ Schema.Item.Cols.CROP_IMAGE_LINK + " TEXT, "
+					+ Schema.Item.Cols.STYLE + " TEXT)");
 			
 			Log.i(LOG_TAG, "DONE CREATE TABLE");
 		}

@@ -34,8 +34,8 @@ public class OutfitActivity extends Activity {
 	private static final float MIN_ACCURACY = 25.0f;
 	private static final float MIN_LAST_READ_ACCURACY = 500.0f;
 	private static final float MIN_DISTANCE = 10.0f;
-	private static final String Celsius = "\u2103";  
-	private static final String Fahrenheit = "\u2109";
+	private static final String CELSIUS = "\u2103";  
+	private static final String FAHRENHEIT = "\u2109";
 	
 	private ItemDatabaseHelper itemDatabaseHelper = null;
 	private Context context = null;
@@ -270,8 +270,13 @@ public class OutfitActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(WeatherInfo result) {
-			weatherInfo = result;
-			temperature.setText(String.valueOf(result.getTempCurrent()) + " " + Fahrenheit);
+			if (null != result) {
+				weatherInfo = result;
+				temperature.setText(String.valueOf(result.getTempCurrent()) + " " + FAHRENHEIT);				
+			} else {
+				Toast.makeText(context, R.string.outfit_message_no_weather_info, 
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 

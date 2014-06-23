@@ -65,12 +65,14 @@ public class EditItemActivity extends Activity {
 	private Spinner brand = null;
 	private Spinner age = null;
 	private Spinner material = null;
+	private Spinner style = null;
 	private ArrayList<String> colorArray = null;
 	private ArrayList<String> temperatureArray = null;
 	private ArrayList<String> categoryArray = null;
 	private ArrayList<String> brandArray = null;
 	private ArrayList<String> ageArray = null;
 	private ArrayList<String> materialArray = null;
+	private ArrayList<String> styleArray = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +153,15 @@ public class EditItemActivity extends Activity {
 				R.layout.temperature_dropdown_item, materialArray);
 		// Apply the adapter to the spinner
 		material.setAdapter(materialAdapter);
-		
+
+		styleArray = ItemData.getStyleArray();
+		style = (Spinner) findViewById(R.id.edit_item_spinner_style);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> styleAdapter = new ArrayAdapter<String>(this,
+				R.layout.temperature_dropdown_item, styleArray);
+		// Apply the adapter to the spinner
+		style.setAdapter(styleAdapter);
+
 		// Initialize temporary variables
 		newImagePath = null;
 		newCropImagePath = null;
@@ -287,6 +297,7 @@ public class EditItemActivity extends Activity {
 				.brand(brand.getSelectedItem().toString())
 				.age(Double.valueOf(age.getSelectedItem().toString()))
 				.material(material.getSelectedItem().toString())
+				.style(style.getSelectedItem().toString())
 				.name(name.getText().toString())
 				.description(description.getText().toString());
 				itemData = itemDataBuilder.build();
@@ -332,6 +343,7 @@ public class EditItemActivity extends Activity {
 		brand.setSelection(brandArray.indexOf(item.getBrand()));
 		age.setSelection(ageArray.indexOf(Integer.toString((int)item.getAge())));
 		material.setSelection(materialArray.indexOf(item.getMaterial()));
+		style.setSelection(styleArray.indexOf(item.getStyle()));
 	}
 
 	@Override

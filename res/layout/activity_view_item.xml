@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/view_item_value_description" />
-            
+
             <!-- tempMin label/value pair -->
 
             <TextView
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/view_item_value_color" />
-            
+
             <!-- tempMax label/value pair -->
 
             <TextView
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/view_item_value_temp_min" />
-            
+
             <!-- category label/value pair -->
 
             <TextView
@@ -141,8 +141,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/view_item_value_category" />
-            
-             <!-- age label/value pair -->
+
+            <!-- age label/value pair -->
 
             <TextView
                 android:id="@+id/view_item_label_age"
@@ -159,8 +159,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/view_item_value_brand" />
-            
-             <!-- material label/value pair -->
+
+            <!-- material label/value pair -->
 
             <TextView
                 android:id="@+id/view_item_label_material"
@@ -176,9 +176,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/view_item_value_age" />            
-                       
+                android:layout_below="@+id/view_item_value_age" />
+
+            <!-- style label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_style"
+                android:layout_alignBottom="@+id/view_item_value_style"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_style" />
+
+            <TextView
+                android:id="@+id/view_item_value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_material" />
+
             <!-- addImage label/value pair change android:layout_below="@+id/view_item_value_description" -->
+
             <TextView
                 android:id="@+id/view_item_label_image_link"
                 android:layout_width="wrap_content"
@@ -193,7 +212,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/view_item_value_material"
+                android:layout_below="@+id/view_item_value_style"
                 android:text="@string/view_item_value_image_link" />
 
             <TextView
@@ -203,7 +222,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/view_item_value_image_link"
                 android:text="" />
-            
+
             <TextView
                 android:id="@+id/view_item_value_crop_image_location"
                 android:layout_width="wrap_content"
@@ -220,7 +239,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view_item_value_crop_image_location"
                 android:layout_centerHorizontal="true" />
-
 
             <!-- tags label/value pair -->
 

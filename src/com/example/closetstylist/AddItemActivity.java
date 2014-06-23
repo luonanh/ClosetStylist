@@ -58,12 +58,14 @@ public class AddItemActivity extends Activity {
 	private Spinner brand = null;
 	private Spinner age = null;
 	private Spinner material = null;
+	private Spinner style = null;
 	private ArrayList<String> colorArray = null;
 	private ArrayList<String> temperatureArray = null;
 	private ArrayList<String> categoryArray = null;
 	private ArrayList<String> brandArray = null;
 	private ArrayList<String> ageArray = null;
 	private ArrayList<String> materialArray = null;
+	private ArrayList<String> styleArray = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +143,14 @@ public class AddItemActivity extends Activity {
 		// Apply the adapter to the spinner
 		material.setAdapter(materialAdapter);
 
+		styleArray = ItemData.getStyleArray();
+		style = (Spinner) findViewById(R.id.add_item_spinner_style);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> styleAdapter = new ArrayAdapter<String>(this,
+		        R.layout.temperature_dropdown_item, styleArray);
+		// Apply the adapter to the spinner
+		style.setAdapter(styleAdapter);
+
 		buttonReset = (Button) findViewById(R.id.add_item_btn_reset);
 		buttonReset.setOnClickListener(new OnClickListener() {
 			@Override
@@ -190,7 +200,8 @@ public class AddItemActivity extends Activity {
 						cropImagePath.toString())
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
-						.material(material.getSelectedItem().toString());
+						.material(material.getSelectedItem().toString())
+						.style(style.getSelectedItem().toString());
 				
 				if (!name.getText().toString().isEmpty()) {
 					itemDataBuilder.name(name.getText().toString());
@@ -503,7 +514,8 @@ public class AddItemActivity extends Activity {
 						null)//cropImagePath.toString())
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
-						.material(material.getSelectedItem().toString());
+						.material(material.getSelectedItem().toString())
+						.style(style.getSelectedItem().toString());
 				if (!name.getText().toString().isEmpty()) {
 					itemDataBuilder.name(name.getText().toString());
 				}
@@ -534,7 +546,8 @@ public class AddItemActivity extends Activity {
 						cropImagePath.toString())
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
-						.material(material.getSelectedItem().toString());
+						.material(material.getSelectedItem().toString())
+						.style(style.getSelectedItem().toString());
 				if (!name.getText().toString().isEmpty()) {
 					itemDataBuilder.name(name.getText().toString());
 				}
