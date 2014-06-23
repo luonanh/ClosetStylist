@@ -439,6 +439,4 @@ public class ItemDatabaseHelper {
 		Uri path = Uri.parse("android.resource://com.example.closetstylist/" + resId);
 		return path;
 	}
-	
-
 }

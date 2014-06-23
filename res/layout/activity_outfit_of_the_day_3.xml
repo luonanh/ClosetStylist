@@ -64,4 +64,14 @@
         android:layout_below="@+id/outfit_label_top"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/outfit_value_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/outfit_btn_home"
+        android:layout_alignRight="@+id/outfit_btn_home"
+        android:layout_below="@+id/outfit_label_title"
+        android:text="Fahrenheit"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>
