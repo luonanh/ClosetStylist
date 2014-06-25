@@ -196,6 +196,24 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/view_item_value_material" />
 
+            <!-- dirty label/value pair -->
+
+            <TextView
+                android:id="@+id/view_item_label_dirty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/view_item_value_dirty"
+                android:layout_alignBottom="@+id/view_item_value_dirty"
+                android:layout_alignParentLeft="true"
+                android:text="@string/view_item_label_dirty" />
+
+            <TextView
+                android:id="@+id/view_item_value_dirty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/view_item_value_style" />
+            
             <!-- addImage label/value pair change android:layout_below="@+id/view_item_value_description" -->
 
             <TextView
@@ -212,7 +230,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/view_item_value_style"
+                android:layout_below="@+id/view_item_value_dirty"
                 android:text="@string/view_item_value_image_link" />
 
             <TextView

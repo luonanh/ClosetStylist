@@ -41,6 +41,7 @@ public class ViewItemActivity extends Activity {
 	private TextView age = null;
 	private TextView material = null;
 	private TextView style = null;
+	private TextView dirty = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,8 @@ public class ViewItemActivity extends Activity {
 		//material.setText(itemData.getMaterial());
 		
 		style = (TextView) findViewById(R.id.view_item_value_style);
+		
+		dirty = (TextView) findViewById(R.id.view_item_value_dirty);
 		
 		setViewItemActivityFromItemData(itemData); // set all the fields in this activity
 
@@ -188,6 +191,7 @@ public class ViewItemActivity extends Activity {
 		age.setText(Double.toString(item.getAge()));
 		material.setText(item.getMaterial());
 		style.setText(item.getStyle());
+		dirty.setText(String.valueOf(item.getDirty()));
 	}
 
 }

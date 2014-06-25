@@ -3,6 +3,7 @@ package com.example.closetstylist;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -27,6 +28,7 @@ public class ItemData implements Parcelable {
 	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adidas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans", "Rei", "Dockers", "Aeropostale", "KennethCole", "Diesel", "GordonCooper", "Arizona"));
 	private static ArrayList<String> ageArray = new ArrayList<String>();
 	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("Cotton or Cotton Blend", "Denim", "Down", "Jersey Knit", "Lace", "Leather", "Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", "Wool or Wool Blend"));
+	private static ArrayList<String> dirtyArray = new ArrayList<String>(Arrays.asList("false", "true"));
 	
 	private long id; // once added to database, this field will be populated
 	private String name; // optional
@@ -41,6 +43,13 @@ public class ItemData implements Parcelable {
 	private double age; // optional
 	private String material; // optional
 	private String style; // optional
+	private Boolean dirty = false; // optional
+	// As of June 24 2014, the following 3 instance variables for Laundry
+	// are not supposed to be modified by the customers. Hence, we will
+	// not advertise them in the add, edit, or view item activity.
+	private int wornTime = 0; // optional
+	private int maxWornTime = 1; // optional
+	private ArrayList<Date> wornHistory = new ArrayList<Date>(); // optional
 	
 	static {
 		// initialize temperature array for tempMin and tempMax spinner
@@ -72,6 +81,8 @@ public class ItemData implements Parcelable {
 		setAge(builder.age);
 		this.material = builder.material;
 		this.style = builder.style;
+		this.dirty = builder.dirty;
+		setMaxWornTimeFromStyle();
 	}
 
 	public String getCropImageLink() {
@@ -178,6 +189,53 @@ public class ItemData implements Parcelable {
 		this.style = style;
 	}
 
+	public Boolean getDirty() {
+		return dirty;
+	}
+
+	public void setDirty(Boolean dirty) {
+		this.dirty = dirty;
+	}
+
+	public int getWornTime() {
+		return wornTime;
+	}
+
+	public void incWornTime() {
+		this.wornTime++;
+	}
+
+	public void decWornTime() {
+		if (this.wornTime > 0) {
+			this.wornTime--;
+		}
+	}
+
+	public int getMaxWornTime() {
+		return maxWornTime;
+	}
+
+	public void setMaxWornTime(int maxWornTime) {
+		this.maxWornTime = maxWornTime;
+	}
+	
+	public void setMaxWornTimeFromStyle() {
+		if (this.style.equalsIgnoreCase("Coat and Jacket - Heavy")) {
+			this.maxWornTime = 7;
+		} else if ((this.style.equalsIgnoreCase("Coat and Jacket - Heavy")) 
+				|| (this.style.equalsIgnoreCase("Jeans"))) {
+			this.maxWornTime = 2;
+		}
+	}
+
+	public ArrayList<Date> getWornHistory() {
+		return wornHistory;
+	}
+
+	public void addWornHistory(Date d) {
+		this.wornHistory.add(d);
+	}
+
 	public int getCropHeight() {
 		//"jacket", "jeans", "shirt", "short", "t-shirt", "dress"
 		/*
@@ -237,8 +295,10 @@ public class ItemData implements Parcelable {
 				+ color + "; tempMin - " + Integer.toString(tempMin)
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
 				+ category + "; brand - " + brand + "; age - " + age
-				+ "; material - " + material + "; cropImageLink " + cropImageLink
-				+ "; style" + style;
+				+ "; material - " + material + "; cropImageLink - " + cropImageLink
+				+ "; style - " + style + "; dirty - " + dirty + "; wornTime - "
+				+ wornTime + "; maxWornTime - " + maxWornTime + "; List wornHistory - "
+				+ wornHistory.toString();
 	}
 	
 	// per http://developer.android.com/reference/java/util/Date.html and
@@ -275,6 +335,10 @@ public class ItemData implements Parcelable {
 		return styleArray;
 	}
 
+	public static ArrayList<String> getDirtyArray() {
+		return dirtyArray;
+	}
+
 	public static class ItemDataBuilder {
 		private long id; // once added to database, this field will be populated
 		private String name = ""; // optional
@@ -289,6 +353,10 @@ public class ItemData implements Parcelable {
 		private double age = 0; // optional
 		private String material = ""; // optional
 		private String style = ""; // optional
+		private Boolean dirty = false; // optional
+		private int wornTime = 0; // optional
+		private int maxWornTime = 1; // optional
+		private ArrayList<Date> wornHistory = new ArrayList<Date>(); // optional
 		
 		public ItemDataBuilder(String imageLink, String color, int tempMin, 
 				int tempMax, String category, String cropImageLink) {
@@ -348,6 +416,21 @@ public class ItemData implements Parcelable {
 			this.style = style;
 			return this;
 		}
+		
+		public ItemDataBuilder dirty(Boolean d) {
+			this.dirty = d;
+			return this;
+		}
+		
+		public ItemDataBuilder wornTime(int wt) {
+			this.wornTime = wt;
+			return this;
+		}
+		
+		public ItemDataBuilder maxWornTime(int mwt) {
+			this.maxWornTime = mwt;
+			return this;
+		}
 
 		public ItemData build() {
 			ItemData itemData = new ItemData(this);
@@ -385,6 +468,11 @@ public class ItemData implements Parcelable {
 		dest.writeString(material);
 		dest.writeString(cropImageLink);
 		dest.writeString(style);
+		dest.writeByte((byte) (dirty ? 1 : 0)); // there's no writeBoolean(dirty)
+		dest.writeInt(wornTime);
+		dest.writeInt(maxWornTime);
+		dest.writeList(wornHistory);
+		//dest.writeSerializable(wornHistory); // http://derekknox.com/daklab/2012/09/05/quick-tip-android-parcelable-example-with-arraylist/
 	}
 	
 	/*
@@ -418,5 +506,10 @@ public class ItemData implements Parcelable {
 		material = source.readString();
 		cropImageLink = source.readString();
 		style = source.readString();
+		dirty = (source.readByte() != 0);
+		wornTime = source.readInt();
+		maxWornTime = source.readInt();
+		wornHistory = source.readArrayList(Date.class.getClassLoader());
+		// wornHistory = (ArrayList<Date>) source.readSerializable(); // http://derekknox.com/daklab/2012/09/05/quick-tip-android-parcelable-example-with-arraylist/
 	}
 }

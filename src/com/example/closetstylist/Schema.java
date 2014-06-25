@@ -16,6 +16,9 @@ public class Schema {
 			public static final String AGE = "age";
 			public static final String MATERIAL = "material";
 			public static final String STYLE = "style";
+			public static final String DIRTY = "dirty";
+			public static final String WORN_TIME = "wornTime";
+			public static final String MAX_WORN_TIME = "maxWornTime";
 		}
 	}
 	

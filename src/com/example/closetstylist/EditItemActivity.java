@@ -66,6 +66,7 @@ public class EditItemActivity extends Activity {
 	private Spinner age = null;
 	private Spinner material = null;
 	private Spinner style = null;
+	private Spinner dirty = null;
 	private ArrayList<String> colorArray = null;
 	private ArrayList<String> temperatureArray = null;
 	private ArrayList<String> categoryArray = null;
@@ -73,6 +74,7 @@ public class EditItemActivity extends Activity {
 	private ArrayList<String> ageArray = null;
 	private ArrayList<String> materialArray = null;
 	private ArrayList<String> styleArray = null;
+	private ArrayList<String> dirtyArray = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +163,14 @@ public class EditItemActivity extends Activity {
 				R.layout.temperature_dropdown_item, styleArray);
 		// Apply the adapter to the spinner
 		style.setAdapter(styleAdapter);
+
+		dirtyArray = ItemData.getDirtyArray();
+		dirty = (Spinner) findViewById(R.id.edit_item_spinner_dirty);
+		// Create an ArrayAdapter using the string array and a default spinner layout
+		ArrayAdapter<String> dirtyAdapter = new ArrayAdapter<String>(this,
+				R.layout.temperature_dropdown_item, dirtyArray);
+		// Apply the adapter to the spinner
+		dirty.setAdapter(dirtyAdapter);
 
 		// Initialize temporary variables
 		newImagePath = null;
@@ -298,6 +308,7 @@ public class EditItemActivity extends Activity {
 				.age(Double.valueOf(age.getSelectedItem().toString()))
 				.material(material.getSelectedItem().toString())
 				.style(style.getSelectedItem().toString())
+				.dirty(Boolean.parseBoolean(dirty.getSelectedItem().toString()))
 				.name(name.getText().toString())
 				.description(description.getText().toString());
 				itemData = itemDataBuilder.build();
@@ -344,6 +355,7 @@ public class EditItemActivity extends Activity {
 		age.setSelection(ageArray.indexOf(Integer.toString((int)item.getAge())));
 		material.setSelection(materialArray.indexOf(item.getMaterial()));
 		style.setSelection(styleArray.indexOf(item.getStyle()));
+		dirty.setSelection(dirtyArray.indexOf(Boolean.toString(item.getDirty())));
 	}
 
 	@Override

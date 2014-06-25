@@ -54,7 +54,8 @@
     <string name="edit_item_label_brand">Brand</string>
     <string name="edit_item_label_material">Material</string>
     <string name="edit_item_label_crop_image_link">CropImageLink:</string>
-    <string name="edit_item_label_style">Style</string>    
+    <string name="edit_item_label_style">Style</string>
+    <string name="edit_item_label_dirty">Dirty</string>
     
     <string name="edit_item_btn_reset">Reset</string>
     <string name="edit_item_btn_save">Save</string>
@@ -82,6 +83,7 @@
     <string name="view_item_label_material">Material</string>
     <string name="view_item_label_crop_image_link">CropImageLink:</string>
     <string name="view_item_label_style">Style</string>
+    <string name="view_item_label_dirty">Dirty</string>
         
     <string name="view_item_btn_edit">Edit</string>
     <string name="view_item_btn_delete">Delete</string>

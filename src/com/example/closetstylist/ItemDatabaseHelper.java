@@ -53,54 +53,27 @@ public class ItemDatabaseHelper {
 	private static final ItemData[] PREDEFINED_ITEMS 
 	= {
 		// String imageLink (null), String color, int tempMin, int tempMax, String category, String cropImageLink (null)
-		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("Denim").style("Jeans").build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(2).material("Cotton or Cotton Blend").style("Polo").build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Bottom", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("Polyester").style("Shorts").build(),
-		new ItemData.ItemDataBuilder(null, "Green", 70, 120, "Bottom", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("Cotton or Cotton Blend").style("Shorts").build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").build(),
-		new ItemData.ItemDataBuilder(null, "Yellow", 70, 120, "Top", null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("Denim").style("Jeans").build(),
-		new ItemData.ItemDataBuilder(null, "Brown", 15, 100, "Bottom", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("Cotton or Cotton Blend").style("Pants").build(),
-		new ItemData.ItemDataBuilder(null, "Beige", 15, 100, "Bottom", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("Cotton or Cotton Blend").style("Pants").build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 15, 100, "Top", null).name("Adidas jacket").description("Adidas jacket").brand("Adidas").age(1).material("Polyester").style("Coat and Jacket - Light").build(),
-		new ItemData.ItemDataBuilder(null, "Green", 15, 100, "Top", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("Nylon").style("Coat and Jacket - Light").build(),
-		new ItemData.ItemDataBuilder(null, "Yellow", 15, 100, "Top", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("Down").style("Coat and Jacket - Heavy").build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Bottom", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("Polyester").style("Shorts").build(),
-		new ItemData.ItemDataBuilder(null, "Beige", 70, 120, "Bottom", null).name("AE short").description("AE short").brand("AE").age(7).material("Cotton or Cotton Blend").style("Shorts").build(),
-		new ItemData.ItemDataBuilder(null, "Green", 40, 120, "Top", null).name("Adidas t-shirt").description("Adidas t-shirt").brand("Adidas").age(0).material("Nylon").style("T-Shirt - Long Sleeve").build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(3).material("Cotton or Cotton Blend").style("Polo").build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Top", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("Cotton or Cotton Blend").style("Dress Shirt").build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("Cotton or Cotton Blend").style("Dress Shirt").build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").build()
+		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(2).material("Cotton or Cotton Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Bottom", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Green", 70, 120, "Bottom", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("Cotton or Cotton Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Yellow", 70, 120, "Top",null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Brown", 15, 100, "Bottom", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("Cotton or Cotton Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Beige", 15, 100, "Bottom", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("Cotton or Cotton Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 15, 100, "Top", null).name("Adidas jacket").description("Adidas jacket").brand("Adidas").age(1).material("Polyester").style("Coat and Jacket - Light").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Green", 15, 100, "Top", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("Nylon").style("Coat and Jacket - Light").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Yellow", 15, 100, "Top", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("Down").style("Coat and Jacket - Heavy").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Bottom", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Beige", 70, 120, "Bottom", null).name("AE short").description("AE short").brand("AE").age(7).material("Cotton or Cotton Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Green", 40, 120, "Top", null).name("Adidas t-shirt").description("Adidas t-shirt").brand("Adidas").age(0).material("Nylon").style("T-Shirt - Long Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(3).material("Cotton or Cotton Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Top", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("Cotton or Cotton Blend").style("Dress Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("Cotton or Cotton Blend").style("Dress Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").dirty(false).wornTime(0).maxWornTime(1).build()
 	};
-
-	/*
-	private static final ItemData[] PREDEFINED_ITEMS 
-			= {
-			// String imageLink (null), String color, int tempMin, int tempMax, String category, String cropImageLink (null)
-			new ItemData.ItemDataBuilder(null, "blue", 15, 100, "jeans", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("jeans").build(),
-			new ItemData.ItemDataBuilder(null, "blue", 40, 120, "t-shirt", null).name("Express polo").description("Express polo").brand("Express").age(2).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "white", 70, 120, "short", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "green", 70, 120, "short", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "black", 70, 120, "t-shirt", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "yellow", 70, 120, "t-shirt", null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "blue", 15, 100, "jeans", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("jeans").build(),
-			new ItemData.ItemDataBuilder(null, "brown", 15, 100, "pants", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "white", 15, 100, "pants", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "blue", 15, 100, "jacket", null).name("Adiddas jacket").description("Adiddas jacket").brand("Adiddas").age(1).material("nylon").build(),
-			new ItemData.ItemDataBuilder(null, "green", 15, 100, "jacket", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("nylon").build(),
-			new ItemData.ItemDataBuilder(null, "yellow", 15, 100, "jacket", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("nylon").build(),
-			new ItemData.ItemDataBuilder(null, "blue", 70, 120, "short", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "brown", 70, 120, "short", null).name("AE short").description("AE short").brand("AE").age(7).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "green", 40, 120, "t-shirt", null).name("Adiddas polo").description("Adiddas polo").brand("Adiddas").age(0).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "blue", 40, 120, "t-shirt", null).name("Express polo").description("Express polo").brand("Express").age(3).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "blue", 70, 120, "shirt", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "blue", 70, 120, "shirt", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "brown", 70, 120, "shirt", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("cotton").build(),
-			new ItemData.ItemDataBuilder(null, "white", 70, 120, "shirt", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("cotton").build()
-			};
-			*/
 	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);
 	private SQLiteDatabase database;
@@ -222,6 +195,9 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
 		contentValues.put(Schema.Item.Cols.CROP_IMAGE_LINK, item.getCropImageLink());
 		contentValues.put(Schema.Item.Cols.STYLE, item.getStyle());
+		contentValues.put(Schema.Item.Cols.DIRTY, item.getDirty().toString());
+		contentValues.put(Schema.Item.Cols.WORN_TIME, item.getWornTime());
+		contentValues.put(Schema.Item.Cols.MAX_WORN_TIME, item.getMaxWornTime());
 		database.insert(TABLE_NAME, null, contentValues);
 	}
 
@@ -234,10 +210,33 @@ public class ItemDatabaseHelper {
 	 * param ItemData must have a valid id field 
 	 */
 	public void updateItemDataRecord(ItemData item) {
+		// Update
 		Log.i(LOG_TAG, "updateRecord" + item.toString());
 		String[] whereArgs = { String.valueOf(item.getId()) };
 		Log.i(LOG_TAG, "Rows updated: " + database.update(TABLE_NAME, 
 				getContentValuesFromItemData(item), WHERE_CLAUSE, whereArgs));
+		
+		// Verify
+		Cursor c = queryItemFromId(item.getId());
+		ArrayList<ItemData> it = getItemDataArrayListFromCursor(c);
+		if (it.size() > 0) {
+			Log.i(LOG_TAG, "updateRecord" + it.get(0).toString());	
+		}
+	}
+	
+	/*
+	 * Query "top" items in the item database
+	 */
+	public Cursor queryItemFromId(long id) {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(TABLE_NAME);
+		qb.appendWhere(Schema.Item.Cols.ID + " IN (?)");
+		String[] whereArgs = {String.valueOf(id)};
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		
+		Cursor c = qb.query(database, null, null, whereArgs, null, null,
+				orderBy);
+		return c;
 	}
 
 	public Cursor getCursorToAllItemDataRecord() {
@@ -260,7 +259,6 @@ public class ItemDatabaseHelper {
 			}
 		}
 		return rValue;
-
 	}
 	
 	public void deleteMyCloset() {
@@ -287,6 +285,9 @@ public class ItemDatabaseHelper {
 		String material = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.MATERIAL));
 		String cropImageLink = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.CROP_IMAGE_LINK));
 		String style = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.STYLE));
+		String dirty = cursor.getString(cursor.getColumnIndex(Schema.Item.Cols.DIRTY));
+		int wornTime = cursor.getInt(cursor.getColumnIndex(Schema.Item.Cols.WORN_TIME));
+		int maxWornTime = cursor.getInt(cursor.getColumnIndex(Schema.Item.Cols.MAX_WORN_TIME));
 		/* Debug Log to dump all the fields read back from this row
 		Log.i(LOG_TAG, "The new ItemData: " + " id - " + rowID + " name - " + name + "; description - "
 				+ description + "; iamgeLink - " + imageLink + "; color - "
@@ -294,7 +295,9 @@ public class ItemDatabaseHelper {
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
 				+ category + "; brand - " + brand + "; age - " + age
 				+ "; material - " + material + "; cropImageLink " + cropImageLink + "; style - "
-				+ style);
+				+ style + "; dirty - " + dirty + "; wornTime - "
+				+ wornTime + "; maxWornTime - " + maxWornTime + "; List wornHistory - "
+				+ wornHistory.toString() );
 		*/
 		return new ItemData.ItemDataBuilder(imageLink, color, tempMin, tempMax, category, cropImageLink)
 			.id(rowID)	
@@ -304,6 +307,9 @@ public class ItemDatabaseHelper {
 			.name(name)
 			.brand(brand)
 			.style(style)
+			.dirty(Boolean.parseBoolean(dirty))
+			.wornTime(wornTime)
+			.maxWornTime(maxWornTime)
 			.build();
 	}
 	
@@ -325,6 +331,9 @@ public class ItemDatabaseHelper {
 		contentValues.put(Schema.Item.Cols.MATERIAL, item.getMaterial());
 		contentValues.put(Schema.Item.Cols.CROP_IMAGE_LINK, item.getCropImageLink());
 		contentValues.put(Schema.Item.Cols.STYLE, item.getStyle());
+		contentValues.put(Schema.Item.Cols.DIRTY, item.getDirty().toString());
+		contentValues.put(Schema.Item.Cols.WORN_TIME, item.getWornTime());
+		contentValues.put(Schema.Item.Cols.MAX_WORN_TIME, item.getMaxWornTime());
 		return contentValues;
 	}
 
@@ -427,7 +436,10 @@ public class ItemDatabaseHelper {
 					+ Schema.Item.Cols.AGE + " REAL, "
 					+ Schema.Item.Cols.MATERIAL + " TEXT, "
 					+ Schema.Item.Cols.CROP_IMAGE_LINK + " TEXT, "
-					+ Schema.Item.Cols.STYLE + " TEXT)");
+					+ Schema.Item.Cols.STYLE + " TEXT, "
+					+ Schema.Item.Cols.DIRTY + " TEXT, "
+					+ Schema.Item.Cols.WORN_TIME + " INTEGER, "
+					+ Schema.Item.Cols.MAX_WORN_TIME + " INTEGER)");
 			
 			Log.i(LOG_TAG, "DONE CREATE TABLE");
 		}
