@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-    <item
-        android:id="@+id/my_closet_menu_create_closet"
-        android:title="@string/my_closet_menu_create_closet"/>
-    
-    <item
-        android:id="@+id/my_closet_menu_etc"
-        android:title="@string/my_closet_menu_etc"/>
 
+    <item
+        android:id="@+id/my_closet_menu_create_default_closet_male"
+        android:title="@string/my_closet_menu_create_default_closet_male"/>
+    <item
+        android:id="@+id/my_closet_menu_create_default_closet_female"
+        android:title="@string/my_closet_menu_create_default_closet_female"/>
+    
 </menu>

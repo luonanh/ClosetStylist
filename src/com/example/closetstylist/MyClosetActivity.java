@@ -102,10 +102,12 @@ public class MyClosetActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.my_closet_menu_create_closet:
-			itemDatabaseHelper.createDefaultDatabase();
+		case R.id.my_closet_menu_create_default_closet_male:
+			itemDatabaseHelper.createDefaultDatabaseForMale();
 			return true;
-		case R.id.my_closet_menu_etc:
+		case R.id.my_closet_menu_create_default_closet_female:
+			itemDatabaseHelper.createDefaultDatabaseForFemale();
+			return true;			
 		default:
 			return super.onOptionsItemSelected(item);
 		}

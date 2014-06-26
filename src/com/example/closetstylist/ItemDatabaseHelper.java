@@ -470,7 +470,7 @@ public class ItemDatabaseHelper {
 	/*
 	 * Create a default database based on the preloaded images in the app.
 	 */
-	public void createDefaultDatabase() {
+	public void createDefaultDatabaseForMale() {
 		// ItemData database
 		for (int i = 0; i < PREDEFINED_RESID.length; i++) {
 			PREDEFINED_ITEMS[i].setImageLink(
@@ -487,7 +487,28 @@ public class ItemDatabaseHelper {
 						.laundryDay("Saturday");
 		saveUserProfileRecord(usrBuilder.build());		
 	}
-	
+
+	/*
+	 * Create a default database based on the preloaded images in the app.
+	 */
+	public void createDefaultDatabaseForFemale() {
+		// ItemData database
+		for (int i = 0; i < PREDEFINED_RESID.length; i++) {
+			PREDEFINED_ITEMS[i].setImageLink(
+					getUriFromResource(PREDEFINED_RESID[i]).toString());
+			PREDEFINED_ITEMS[i].setCropImageLink(
+					getUriFromResource(PREDEFINED_RESID[i]).toString());
+			saveItemDataRecord(PREDEFINED_ITEMS[i]);
+		}
+		
+		// UserProfile database
+		UserProfile.UserProfileBuilder usrBuilder 
+				= new UserProfile.UserProfileBuilder("an", "pwd", "F", 78717)
+						.laundrySchedule(1)
+						.laundryDay("Sunday");
+		saveUserProfileRecord(usrBuilder.build());		
+	}
+
 	public void deleteDatabase() {
 		deleteMyCloset();
 		deleteUserProfile();
