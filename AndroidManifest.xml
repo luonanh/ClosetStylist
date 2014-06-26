@@ -62,6 +62,9 @@
         <!-- THIS IS THE VIEW USER PROFILE ACTIVITY -->
         <activity android:name="com.example.closetstylist.ViewUserProfileActivity" >
         </activity>
+        <!-- THIS IS THE LAUNDRY BAG ACTIVITY -->
+        <activity android:name="com.example.closetstylist.LaundryBagActivity" >
+        </activity>
         
     </application>
 

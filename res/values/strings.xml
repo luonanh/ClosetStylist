@@ -11,6 +11,7 @@
     <string name="login_btn_login">Login</string>
     <string name="login_value_username_default_value">anh</string>
     <string name="login_value_password_default_value">****</string>
+    <string name="login_btn_laundry_bag">LaundryBag</string>
     
     <!-- Add Item Strings -->
     <string name="add_item_label_name">Name</string>
@@ -166,5 +167,14 @@
     <string name="view_user_profile_label_current_latitude">CurrentLatitude</string>
     <string name="view_user_profile_label_current_longtitude">CurrentLongtitude</string>
 
+    <!-- Laundry Bag Strings -->
+    <string name="laundry_bag_btn_dummy">Dummy</string>
+    
+    <string name="laundry_bag_label_item_name">Name: </string>
+    <string name="laundry_bag_value_item_name_default_value">No Name</string>
+    <string name="laundry_bag_label_item_description">Description: </string>
+    <string name="laundry_bag_value_item_description_default_value">No Description</string>
+    
+    <string name="laundry_bag_menu_etc">Etc</string>
     
 </resources>

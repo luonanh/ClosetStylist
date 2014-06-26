@@ -22,12 +22,12 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 
-		Button loginBtn = (Button) findViewById(R.id.login_btn_login);
+		Button loginBtn = (Button) findViewById(R.id.login_btn_laundry_bag);
 		loginBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent i1 = new Intent(MainActivity.this, AddItemActivity.class);
+				Intent i1 = new Intent(MainActivity.this, LaundryBagActivity.class);
 				startActivity(i1);
 			}
 		});

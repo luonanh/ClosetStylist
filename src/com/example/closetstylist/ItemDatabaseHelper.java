@@ -239,6 +239,21 @@ public class ItemDatabaseHelper {
 		return c;
 	}
 
+	/*
+	 * Query dirty items in the item database
+	 */
+	public Cursor queryDirtyItem(boolean dirty) {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(TABLE_NAME);
+		qb.appendWhere(Schema.Item.Cols.DIRTY + " IN (?)");
+		String[] whereArgs = {String.valueOf(dirty)};
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		
+		Cursor c = qb.query(database, null, null, whereArgs, null, null,
+				orderBy);
+		return c;
+	}
+
 	public Cursor getCursorToAllItemDataRecord() {
 		return database.rawQuery(
 				"SELECT * FROM " + TABLE_NAME, 
