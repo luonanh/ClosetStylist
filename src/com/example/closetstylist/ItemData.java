@@ -83,6 +83,8 @@ public class ItemData implements Parcelable {
 		this.style = builder.style;
 		this.dirty = builder.dirty;
 		setMaxWornTimeFromStyle();
+		setTempMinFromMaterial();
+		setTempMaxFromMaterial();
 	}
 
 	public String getCropImageLink() {
@@ -147,6 +149,31 @@ public class ItemData implements Parcelable {
 
 	public void setTempMax(int tempMax) {
 		this.tempMax = tempMax;
+	}
+	
+	public void setTempMaxFromMaterial() {
+		//("Cotton or Cotton Blend", "Denim", "Down", "Jersey Knit", "Lace", 
+		//"Leather", "Linen", "Nylon", "Performance", "Polyester", "Silk", 
+		//"Spandex", "Wool or Wool Blend"))
+		if ((this.material.equalsIgnoreCase("Nylon")) 
+				|| (this.material.equalsIgnoreCase("Spandex"))) {
+			this.tempMax = 70;
+		} else if ((this.material.equalsIgnoreCase("Wool or Wool Blend"))
+				|| (this.material.equalsIgnoreCase("Leather"))) {
+			this.tempMax = 50;
+		} else if (this.material.equalsIgnoreCase("Down")) {
+			this.tempMax = 40;
+		} else {
+			this.tempMax = Integer.MAX_VALUE;
+		}
+	}
+	
+	public void setTempMinFromMaterial() {
+		if (this.material.equalsIgnoreCase("Silk")) {
+			this.tempMin = 50;
+		} else {
+			this.tempMin = Integer.MIN_VALUE;
+		}
 	}
 
 	public String getCategory() {
@@ -337,6 +364,19 @@ public class ItemData implements Parcelable {
 
 	public static ArrayList<String> getDirtyArray() {
 		return dirtyArray;
+	}
+	
+	public static String getColorGroup(String color) {
+		if ((color.equalsIgnoreCase("Gray"))
+				|| (color.equalsIgnoreCase("White"))
+				|| (color.equalsIgnoreCase("Black"))
+				|| (color.equalsIgnoreCase("Brown"))
+				|| (color.equalsIgnoreCase("Beige"))
+				|| (color.equalsIgnoreCase("Jeans"))) {
+			return "Neutral";
+		} else {
+			return "Color";
+		}
 	}
 
 	public static class ItemDataBuilder {
