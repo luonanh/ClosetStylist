@@ -41,7 +41,7 @@ public class ViewUserProfileActivity extends Activity {
 
 	private TextView usr;
 	private TextView pwd;
-	private TextView sex;
+	private TextView gender;
 	private TextView zip;
 	private TextView schedule;
 	private TextView day;
@@ -71,8 +71,8 @@ public class ViewUserProfileActivity extends Activity {
 		pwd = (TextView) findViewById(R.id.view_user_profile_value_password);
 		pwd.setText(userList.get(0).getPwd());
 
-		sex = (TextView) findViewById(R.id.view_user_profile_value_sex);
-		sex.setText(userList.get(0).getSex());
+		gender = (TextView) findViewById(R.id.view_user_profile_value_gender);
+		gender.setText(userList.get(0).getGender());
 
 		zip = (TextView) findViewById(R.id.view_user_profile_value_zip);
 		zip.setText(Integer.toString(userList.get(0).getZip()));

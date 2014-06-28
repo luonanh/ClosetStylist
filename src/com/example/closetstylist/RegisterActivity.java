@@ -13,7 +13,7 @@ public class RegisterActivity extends Activity {
 	private final static String LOG_TAG = RegisterActivity.class.getCanonicalName();
 	private Context context = null;
 
-	private Spinner sex;
+	private Spinner gender;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +22,13 @@ public class RegisterActivity extends Activity {
 		
 		context = getApplicationContext();
 		
-		sex = (Spinner) findViewById(R.id.register_spinner_sex);
+		gender = (Spinner) findViewById(R.id.register_spinner_gender);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, 
-				R.array.register_spinner_sex, android.R.layout.simple_spinner_item);
+				R.array.register_spinner_gender, android.R.layout.simple_spinner_item);
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
-		sex.setAdapter(adapter);
+		gender.setAdapter(adapter);
 	}
 }

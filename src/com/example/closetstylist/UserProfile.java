@@ -10,7 +10,7 @@ public class UserProfile implements Parcelable {
 	private long id; // once added to database, this field will be populated
 	private String usr;
 	private String pwd;
-	private String sex;
+	private String gender;
 	private int zip;
 	private int laundrySchedule; // 0 - weekly, 1 - biweekly, 2 - monthly, 3 - random
 	private String laundryDay;
@@ -21,7 +21,7 @@ public class UserProfile implements Parcelable {
 	private UserProfile(UserProfileBuilder builder) {
 		this.usr = builder.usr;
 		this.pwd = builder.pwd;
-		this.sex = builder.sex;
+		this.gender = builder.gender;
 		this.zip = builder.zip;
 		this.laundrySchedule = builder.laundrySchedule;
 		this.laundryDay = builder.laundryDay;
@@ -51,12 +51,12 @@ public class UserProfile implements Parcelable {
 		this.pwd = pwd;
 	}
 
-	public String getSex() {
-		return sex;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public int getZip() {
@@ -89,22 +89,22 @@ public class UserProfile implements Parcelable {
 
 	public String toString() {
 		return "UserProfile toString: id - " + id + " ; username - " + usr
-				+ " ; password - " + pwd + " ; sex - " + sex + " ; zip - " + zip;
+				+ " ; password - " + pwd + " ; gender - " + gender + " ; zip - " + zip;
 	}
 	
 	public static class UserProfileBuilder {
 		private long id; // once added to database, this field will be populated
 		private String usr;
 		private String pwd;
-		private String sex;
+		private String gender;
 		private int zip;
 		private int laundrySchedule = 0; // 0 - weekly, 1 - biweekly, 2 - monthly, 3 - random
 		private String laundryDay = "Saturday";		
 
-		public UserProfileBuilder(String usr, String pwd, String sex, int zip) {
+		public UserProfileBuilder(String usr, String pwd, String gender, int zip) {
 			this.usr = usr;
 			this.pwd = pwd;
-			this.sex = sex;
+			this.gender = gender;
 			this.zip = zip;
 		}
 		
@@ -139,7 +139,7 @@ public class UserProfile implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeLong(id);
 		dest.writeString(usr);
-		dest.writeString(sex);
+		dest.writeString(gender);
 		dest.writeInt(zip);
 		dest.writeInt(laundrySchedule);
 		dest.writeString(laundryDay);
@@ -165,7 +165,7 @@ public class UserProfile implements Parcelable {
 		id = source.readLong();
 		usr = source.readString();
 		pwd = source.readString();
-		sex = source.readString();
+		gender = source.readString();
 		zip = source.readInt();
 		laundrySchedule = source.readInt();
 		laundryDay = source.readString();

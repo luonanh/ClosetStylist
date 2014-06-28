@@ -118,7 +118,7 @@
     <!-- Register Strings -->
     <string name="register_label_username">UserName</string>
     <string name="register_label_password">UserName</string>
-    <string name="register_label_sex">Sex</string>
+    <string name="register_label_gender">Gender</string>
     <string name="register_label_age">Age</string>
     <string name="register_label_location">Location</string>
     <string name="register_label_style">Style</string>
@@ -145,7 +145,7 @@
     <string name="register_btn_register">Register</string>
     <string name="register_btn_reset">Reset</string>
     
-    <string-array name="register_spinner_sex">
+    <string-array name="register_spinner_gender">
         <item>Male</item>
         <item>Female</item>
     </string-array>
@@ -155,8 +155,8 @@
     <string name="view_user_profile_value_username">UserName</string>
     <string name="view_user_profile_label_password">Password</string>
     <string name="view_user_profile_value_password">Password</string>
-    <string name="view_user_profile_label_sex">Sex</string>
-    <string name="view_user_profile_value_sex">Sex</string>
+    <string name="view_user_profile_label_gender">Gender</string>
+    <string name="view_user_profile_value_gender">Gender</string>
     <string name="view_user_profile_label_zip">Zip</string>
     <string name="view_user_profile_value_zip">Zip</string>
     <string name="view_user_profile_label_laundry_schedule">LaundrySchedule</string>

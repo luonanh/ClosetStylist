@@ -50,17 +50,17 @@
                 android:inputType="textPassword"
                 android:singleLine="true" />
 
-            <!-- Sex Label -->
+            <!-- Gender Label -->
 
             <TextView
-                android:id="@+id/view_user_profile_label_sex"
+                android:id="@+id/view_user_profile_label_gender"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/view_user_profile_label_sex"
+                android:text="@string/view_user_profile_label_gender"
                 android:textColor="#372c24" />
 
             <TextView
-                android:id="@+id/view_user_profile_value_sex"
+                android:id="@+id/view_user_profile_value_gender"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"

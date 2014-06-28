@@ -84,17 +84,17 @@
                 android:inputType="textPassword"
                 android:singleLine="true" />
 
-            <!-- Sex Label -->
+            <!-- Gender Label -->
 
             <TextView
-                android:id="@+id/register_label_sex"
+                android:id="@+id/register_label_gender"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/register_label_sex"
+                android:text="@string/register_label_gender"
                 android:textColor="#372c24" />
 
             <Spinner
-                android:id="@+id/register_spinner_sex"
+                android:id="@+id/register_spinner_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
