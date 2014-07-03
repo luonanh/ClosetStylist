@@ -1,7 +1,10 @@
 package com.example.closetstylist;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,6 +25,11 @@ public class ItemDatabaseHelper {
 	private static final String WHERE_CLAUSE = Schema.Item.Cols.ID + " = ? ";
 	private static final String TABLE_USER_PROFILE = "userProfile_db";
 	private static final String WHERE_USER_PROFILE_CLAUSE = Schema.UserProfile.Cols.ID + " = ? ";
+	private static final String TABLE_OCCASION_MATCHING_MALE = "occasionMatchingMale_db";
+	private static final String TABLE_OCCASION_MATCHING_FEMALE = "occasionMatchingFemale_db";
+	private static final String TABLE_PAIR_MATCHING_MALE = "pairMatchingMale_db";
+	private static final String TABLE_PAIR_MATCHING_FEMALE = "pairMatchingFemale_db";
+	private static final String TABLE_COLOR_MATCHING_DEFAULT = "colorMatchingDefault_db";
 	
 	/*
 	 * PREDEFINED_RESID and PREDEFINED_ITEMS must always match, otherwise, info
@@ -84,7 +92,75 @@ public class ItemDatabaseHelper {
 		mItemDataOpenHelper = new ItemDataOpenHelper(context);
 		database = mItemDataOpenHelper.getWritableDatabase();
 	}
+
+	/*
+	 * ************************************************************************
+	 * OccasionMatchingRecord
+	 * ************************************************************************	 * 
+	 */
+	// As of 7/1/2014, occasionMatchingRecordTable can be either
+	// TABLE_OCCASION_MATCHING_MALE or TABLE_OCCASION_MATCHING_FEMALE
+	public void saveOccasionMatchingRecord(OccasionMatchingRecord omr, String occasionMatchingRecordTable) {
+		ContentValues c = new ContentValues();
+		c.put(Schema.OccasionMatching.Cols.CATEGORY, omr.getCategory());
+		c.put(Schema.OccasionMatching.Cols.STYLE, omr.getStyle());
+		c.put(Schema.OccasionMatching.Cols.FORMAL, omr.getFormal());
+		c.put(Schema.OccasionMatching.Cols.SEMI_FORMAL, omr.getSemiFormal());
+		c.put(Schema.OccasionMatching.Cols.CASUAL, omr.getCasual());
+		c.put(Schema.OccasionMatching.Cols.DAY_OUT, omr.getDayOut());
+		c.put(Schema.OccasionMatching.Cols.NIGHT_OUT, omr.getNightOut());
+		database.insert(occasionMatchingRecordTable, null, c);
+	}
 	
+	public void deleteOccasionMatchingRecordTable() {
+		database.delete(TABLE_OCCASION_MATCHING_MALE, null, null);
+		database.delete(TABLE_OCCASION_MATCHING_FEMALE, null, null);
+	}
+
+	/*
+	 * ************************************************************************
+	 * PairnMatchingRecord
+	 * ************************************************************************	 * 
+	 */
+	
+	// As of 7/1/2014, pairMatchingRecordTable can be either
+	// TABLE_PAIR_MATCHING_MALE or TABLE_PAIR_MATCHING_FEMALE
+	public void savePairMatchingRecord(PairMatchingRecord pmr, String pairMatchingRecordTable) {
+		ContentValues c = new ContentValues();
+		c.put(Schema.PairMatching.Cols.BOTTOM, pmr.getBottom());
+		c.put(Schema.PairMatching.Cols.TOP, pmr.getTop());
+		c.put(Schema.PairMatching.Cols.POINT, pmr.getPoint());
+		c.put(Schema.PairMatching.Cols.OUTER, pmr.getOuter());
+		database.insert(pairMatchingRecordTable, null, c);
+	}
+
+	public void deletePairMatchingRecordTable() {
+		database.delete(TABLE_PAIR_MATCHING_MALE, null, null);
+		database.delete(TABLE_PAIR_MATCHING_FEMALE, null, null);
+	}
+	
+	/*
+	 * ************************************************************************
+	 * ColorMatchingRecord
+	 * ************************************************************************	 * 
+	 */
+	public void saveColorMatchingRecord(ColorMatchingRecord cmr) {
+		ContentValues c = new ContentValues();
+		c.put(Schema.ColorMatching.Cols.BOTTOM, cmr.getBottom());
+		c.put(Schema.ColorMatching.Cols.TOP, cmr.getTop());
+		c.put(Schema.ColorMatching.Cols.POINT, cmr.getPoint());
+		database.insert(TABLE_COLOR_MATCHING_DEFAULT, null, c);
+	}
+
+	public void deleteColorMatchingRecordTable() {
+		database.delete(TABLE_COLOR_MATCHING_DEFAULT, null, null);
+	}
+
+	/*
+	 * ************************************************************************
+	 * UserProfile
+	 * ************************************************************************	 * 
+	 */
 	public void saveUserProfileRecord(UserProfile usr) {
 		ContentValues c = new ContentValues();
 		c.put(Schema.UserProfile.Cols.USR, usr.getUsr());
@@ -456,6 +532,51 @@ public class ItemDatabaseHelper {
 					+ Schema.Item.Cols.WORN_TIME + " INTEGER, "
 					+ Schema.Item.Cols.MAX_WORN_TIME + " INTEGER)");
 			
+			Log.i(LOG_TAG, "CREATE TABLE " + TABLE_OCCASION_MATCHING_MALE);
+			db.execSQL("CREATE TABLE " + TABLE_OCCASION_MATCHING_MALE + "("
+					+ Schema.OccasionMatching.Cols.ID + " INTEGER PRIMARY KEY, "
+					+ Schema.OccasionMatching.Cols.CATEGORY + " TEXT, "
+					+ Schema.OccasionMatching.Cols.STYLE + " TEXT, "
+					+ Schema.OccasionMatching.Cols.FORMAL + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.SEMI_FORMAL + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.CASUAL + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.DAY_OUT + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.NIGHT_OUT + " INTEGER)");
+
+			Log.i(LOG_TAG, "CREATE TABLE " + TABLE_OCCASION_MATCHING_FEMALE);
+			db.execSQL("CREATE TABLE " + TABLE_OCCASION_MATCHING_FEMALE + "("
+					+ Schema.OccasionMatching.Cols.ID + " INTEGER PRIMARY KEY, "
+					+ Schema.OccasionMatching.Cols.CATEGORY + " TEXT, "
+					+ Schema.OccasionMatching.Cols.STYLE + " TEXT, "
+					+ Schema.OccasionMatching.Cols.FORMAL + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.SEMI_FORMAL + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.CASUAL + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.DAY_OUT + " INTEGER, "
+					+ Schema.OccasionMatching.Cols.NIGHT_OUT + " INTEGER)");
+
+			Log.i(LOG_TAG, "CREATE TABLE " + TABLE_PAIR_MATCHING_MALE);
+			db.execSQL("CREATE TABLE " + TABLE_PAIR_MATCHING_MALE + "("
+					+ Schema.PairMatching.Cols.ID + " INTEGER PRIMARY KEY, "
+					+ Schema.PairMatching.Cols.BOTTOM + " TEXT, "
+					+ Schema.PairMatching.Cols.TOP + " TEXT, "
+					+ Schema.PairMatching.Cols.POINT + " TEXT, "
+					+ Schema.PairMatching.Cols.OUTER + " INTEGER)");
+
+			Log.i(LOG_TAG, "CREATE TABLE " + TABLE_PAIR_MATCHING_FEMALE);
+			db.execSQL("CREATE TABLE " + TABLE_PAIR_MATCHING_FEMALE + "("
+					+ Schema.PairMatching.Cols.ID + " INTEGER PRIMARY KEY, "
+					+ Schema.PairMatching.Cols.BOTTOM + " TEXT, "
+					+ Schema.PairMatching.Cols.TOP + " TEXT, "
+					+ Schema.PairMatching.Cols.POINT + " TEXT, "
+					+ Schema.PairMatching.Cols.OUTER + " INTEGER)");
+
+			Log.i(LOG_TAG, "CREATE TABLE " + TABLE_COLOR_MATCHING_DEFAULT);
+			db.execSQL("CREATE TABLE " + TABLE_COLOR_MATCHING_DEFAULT + "("
+					+ Schema.ColorMatching.Cols.ID + " INTEGER PRIMARY KEY, "
+					+ Schema.ColorMatching.Cols.BOTTOM + " TEXT, "
+					+ Schema.ColorMatching.Cols.TOP + " TEXT, "
+					+ Schema.ColorMatching.Cols.POINT + " INTEGER)");
+
 			Log.i(LOG_TAG, "DONE CREATE TABLE");
 		}
 
@@ -485,7 +606,11 @@ public class ItemDatabaseHelper {
 				= new UserProfile.UserProfileBuilder("anh", "pwd", "M", 78758)
 						.laundrySchedule(0)
 						.laundryDay("Saturday");
-		saveUserProfileRecord(usrBuilder.build());		
+		saveUserProfileRecord(usrBuilder.build());
+		
+		createOccasionMatchingMaleDatabase();
+		createPairMatchingMaleDatabase();
+		createColorMatchingDefaultDatabase();
 	}
 
 	/*
@@ -506,12 +631,19 @@ public class ItemDatabaseHelper {
 				= new UserProfile.UserProfileBuilder("an", "pwd", "F", 78717)
 						.laundrySchedule(1)
 						.laundryDay("Sunday");
-		saveUserProfileRecord(usrBuilder.build());		
+		saveUserProfileRecord(usrBuilder.build());
+		
+		createOccasionMatchingFemaleDatabase();
+		createPairMatchingFemaleDatabase();
+		createColorMatchingDefaultDatabase();
 	}
 
 	public void deleteDatabase() {
 		deleteMyCloset();
 		deleteUserProfile();
+		deleteOccasionMatchingRecordTable();
+		deletePairMatchingRecordTable();
+		deleteColorMatchingRecordTable();
 	}
 	
 	/*
@@ -522,4 +654,121 @@ public class ItemDatabaseHelper {
 		Uri path = Uri.parse("android.resource://com.example.closetstylist/" + resId);
 		return path;
 	}
+	
+	private void createOccasionMatchingMaleDatabase() {
+		try {
+			InputStream is = mContext.getResources().openRawResource(R.raw.ocassionmatchingmalestripped);
+			BufferedReader reader =
+				new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			int i = 0;
+			line = reader.readLine();
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",");
+				OccasionMatchingRecord omr = new OccasionMatchingRecord(
+						parts[0], parts[1], Integer.parseInt(parts[2]), 
+						Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), 
+						Integer.parseInt(parts[5]), Integer.parseInt(parts[6]));
+				saveOccasionMatchingRecord(omr, TABLE_OCCASION_MATCHING_MALE);
+				i++;
+			}
+			Log.i(LOG_TAG, "Number of entries in the TABLE_OCCASION_MATCHING_MALE: " + i);
+			reader.close();
+		} catch (IOException e) {
+			Log.i(LOG_TAG, "Number of entries found: " + e);
+		}
+	}
+	
+	private void createOccasionMatchingFemaleDatabase() {
+		try {
+			InputStream is = mContext.getResources().openRawResource(R.raw.ocassionmatchingfemalestripped);
+			BufferedReader reader =
+				new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			int i = 0;
+			line = reader.readLine();
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",");
+				OccasionMatchingRecord omr = new OccasionMatchingRecord(
+						parts[0], parts[1], Integer.parseInt(parts[2]), 
+						Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), 
+						Integer.parseInt(parts[5]), Integer.parseInt(parts[6]));
+				saveOccasionMatchingRecord(omr, TABLE_OCCASION_MATCHING_FEMALE);
+				i++;
+			}
+			Log.i(LOG_TAG, "Number of entries in the TABLE_OCCASION_MATCHING_FEMALE: " + i);
+			reader.close();
+		} catch (IOException e) {
+			Log.i(LOG_TAG, "Number of entries found: " + e);
+		}
+	}
+	
+	private void createPairMatchingMaleDatabase() {
+		try {
+			InputStream is = mContext.getResources().openRawResource(R.raw.pairmatchingmalestripped);
+			BufferedReader reader =
+				new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			int i = 0;
+			line = reader.readLine();
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",");
+				PairMatchingRecord pmr = new PairMatchingRecord(
+						parts[0], parts[1], Integer.parseInt(parts[2]), parts[3]);
+				savePairMatchingRecord(pmr, TABLE_PAIR_MATCHING_MALE);
+				i++;
+			}
+			Log.i(LOG_TAG, "Number of entries in the TABLE_PAIR_MATCHING_MALE: " + i);
+			reader.close();
+		} catch (IOException e) {
+			Log.i(LOG_TAG, "Number of entries found: " + e);
+		}
+	}
+
+	private void createPairMatchingFemaleDatabase() {
+		try {
+			InputStream is = mContext.getResources().openRawResource(R.raw.pairmatchingfemalestripped);
+			BufferedReader reader =
+				new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			int i = 0;
+			line = reader.readLine();
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",");
+				PairMatchingRecord pmr = new PairMatchingRecord(
+						parts[0], parts[1], Integer.parseInt(parts[2]), parts[3]);
+				savePairMatchingRecord(pmr, TABLE_PAIR_MATCHING_FEMALE);
+				i++;
+			}
+			Log.i(LOG_TAG, "Number of entries in the TABLE_PAIR_MATCHING_FEMALE: " + i);
+			reader.close();
+		} catch (IOException e) {
+			Log.i(LOG_TAG, "Number of entries found: " + e);
+		}
+	}
+
+	private void createColorMatchingDefaultDatabase() {
+		try {
+			InputStream is = mContext.getResources().openRawResource(R.raw.colormatchingdefaultstripped);
+			BufferedReader reader =
+				new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			int i = 0;
+			line = reader.readLine();
+			Log.i(LOG_TAG, "Entries in TABLE_COLOR_MATCHING_DEFAULT: " + line);
+			while ((line = reader.readLine()) != null) {
+				Log.i(LOG_TAG, "Entries in TABLE_COLOR_MATCHING_DEFAULT: " + line);
+				String[] parts = line.split(",");
+				ColorMatchingRecord cmr = new ColorMatchingRecord(
+						parts[0], parts[1], Integer.parseInt(parts[2]));
+				saveColorMatchingRecord(cmr);
+				i++;
+			}
+			Log.i(LOG_TAG, "Number of entries in the TABLE_COLOR_MATCHING_DEFAULT: " + i);
+			reader.close();
+		} catch (IOException e) {
+			Log.i(LOG_TAG, "Number of entries found: " + e);
+		}
+	}
+
 }

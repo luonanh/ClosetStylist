@@ -33,4 +33,36 @@ public class Schema {
 			public static final String LAUNDRY_DAY = "laundryDay";
 		}
 	}
+	
+	public static class OccasionMatching {
+		public static class Cols {
+			public static final String ID = "_id";
+			public static final String CATEGORY = "Category";
+			public static final String STYLE = "Style";
+			public static final String FORMAL = "Formal";
+			public static final String SEMI_FORMAL = "Semi_Formal";
+			public static final String CASUAL = "Casual";
+			public static final String DAY_OUT = "Day_Out";
+			public static final String NIGHT_OUT = "Night_Out";
+		}
+	}
+	
+	public static class PairMatching {
+		public static class Cols {
+			public static final String ID = "_id";
+			public static final String BOTTOM = "Bottom";
+			public static final String TOP = "Top";
+			public static final String POINT = "Point";
+			public static final String OUTER = "Outer";
+		}
+	}
+	
+	public static class ColorMatching {
+		public static class Cols {
+			public static final String ID = "_id";
+			public static final String BOTTOM = "Bottom";
+			public static final String TOP = "Top";
+			public static final String POINT = "Point";
+		}
+	}
 }

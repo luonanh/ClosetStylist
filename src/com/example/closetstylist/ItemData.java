@@ -17,7 +17,7 @@ public class ItemData implements Parcelable {
 	public static final String INTENT = "ItemDataIntent";
 	public static final long INVALID_ID = -1;
 	
-	private static ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("Beige", "Black", "Blue", "Brown", "Gray", "Green", "Orange", "Pink", "Red", "Violet", "White", "Yellow", "MulticolorOrPattern"));
+	private static ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("Beige", "Black", "Blue", "Brown", "Gray", "Green", "Orange", "Pink", "Red", "Violet", "White", "Yellow", "Multicolor_Pattern"));
 	private static ArrayList<String> temperatureArray = new ArrayList<String>();
 	private static ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("Bottom", "Top"));
 	private static ArrayList<String> menTopStyleArray = new ArrayList<String>(Arrays.asList("Casual Button Down Shirt", "Coat and Jacket - Heavy", "Coat and Jacket - Light", "Dress Shirt", "Polo", "Sweater and Sweatshirt", "T-Shirt - Long Sleeve", "T-Shirt - Short Sleeve"));
