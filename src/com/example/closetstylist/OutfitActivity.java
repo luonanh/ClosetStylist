@@ -50,6 +50,9 @@ public class OutfitActivity extends Activity {
 	private WeatherInfo weatherInfo = null;
 	private ArrayList<ItemData> topList = null;
 	private ArrayList<ItemData> bottomList = null;
+	private UserProfile up = null;
+	List<Outfit> outfit;
+	int outfitIndex;
 	
 	// Current best location estimate
 	private Location mBestReading;
@@ -121,6 +124,7 @@ public class OutfitActivity extends Activity {
 			}
 		};
 		
+		/*
 		// Get all the "top" items from our database
 		topList = itemDatabaseHelper.getAllTop();
 		if (0 == topList.size()) {
@@ -136,6 +140,7 @@ public class OutfitActivity extends Activity {
 			topItem = topList.get(indexTop);
 			new ImageSubSampler(context).subSampleCroppedUri(topItem, top, context);
 		}
+		*/
 		
 		// obtain WeatherInfo from OpenWeatherMap.
 		// Can change to another provider like Yahoo by passing another instance
@@ -144,6 +149,7 @@ public class OutfitActivity extends Activity {
 		task.execute(String.valueOf(mBestReading.getLatitude()), 
 				String.valueOf(mBestReading.getLongitude()));
 
+		/*
 		// Get all the "bottom" items from our database
 		bottomList = itemDatabaseHelper.getAllBottom();
 		if (0 == bottomList.size()) {
@@ -159,17 +165,58 @@ public class OutfitActivity extends Activity {
 			bottomItem = bottomList.get(indexbottom);
 			new ImageSubSampler(context).subSampleCroppedUri(bottomItem, bottom, context);
 		}
+		*/
 		
 		buttonPrev = (ImageButton) findViewById(R.id.outfit_btn_prev);
 		buttonPrev.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (null == outfit) {
+					Toast.makeText(context, R.string.outfit_message_no_outfit, 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					if (outfitIndex <= 0) {
+						outfitIndex = outfit.size() - 1;
+					} else {
+						outfitIndex--;
+						topItem = outfit.get(outfitIndex).getTop();
+						new ImageSubSampler(context).subSampleCroppedUri(topItem, top, context);
+						bottomItem = outfit.get(outfitIndex).getBottom();
+						new ImageSubSampler(context).subSampleCroppedUri(bottomItem, bottom, context);
+						boolean outerFlag = (null == outfit.get(outfitIndex).getOuter());
+						if (outerFlag) {
+							Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is outer.");	
+						} else {
+							Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is NO outer.");
+						}						
+					}
+				}
 			}			
 		});
 		buttonNext = (ImageButton) findViewById(R.id.outfit_btn_next);
 		buttonNext.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (null == outfit) {
+					Toast.makeText(context, R.string.outfit_message_no_outfit, 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					if (outfitIndex >= (outfit.size() - 1)) {
+						outfitIndex = 0;
+					} else {
+						outfitIndex++;
+						topItem = outfit.get(outfitIndex).getTop();
+						new ImageSubSampler(context).subSampleCroppedUri(topItem, top, context);
+						bottomItem = outfit.get(outfitIndex).getBottom();
+						new ImageSubSampler(context).subSampleCroppedUri(bottomItem, bottom, context);
+						boolean outerFlag = (null == outfit.get(outfitIndex).getOuter());
+						if (outerFlag) {
+							Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is outer.");	
+						} else {
+							Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is NO outer.");
+						}
+					}
+				}
 			}			
 		});
 	}
@@ -272,7 +319,37 @@ public class OutfitActivity extends Activity {
 		protected void onPostExecute(WeatherInfo result) {
 			if (null != result) {
 				weatherInfo = result;
-				temperature.setText(String.valueOf(result.getTempCurrent()) + " " + FAHRENHEIT);				
+				temperature.setText(String.valueOf(result.getTempCurrent()) + " " + FAHRENHEIT);
+				
+				// obtain UserProfile
+				ArrayList<UserProfile> userList = itemDatabaseHelper.getAllUserProfile();
+				up = userList.get(0);
+				ClothesMatchingFactory cmf;
+				if (up.getGender().equals("M")) {
+					cmf = new ClothesMatchingFactoryMale();
+				} else {
+					// ALDBG change to ClothesMatchingFactoryFemale()
+					cmf = new ClothesMatchingFactoryMale();
+				}
+				ClothesMatching cm = cmf.createClothesMatching(itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);//new ClothesMatchingMale(null, itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);
+				outfit = cm.match(weatherInfo, itemDatabaseHelper, up);
+				outfitIndex = 0;
+				Log.i(LOG_TAG, "Total number of items in the List of Outfit is: " + outfit.size());
+				if (0 == outfit.size()) {
+					Toast.makeText(context, R.string.outfit_message_no_top, 
+							Toast.LENGTH_SHORT).show();						
+				} else {
+					topItem = outfit.get(outfitIndex).getTop();
+					new ImageSubSampler(context).subSampleCroppedUri(topItem, top, context);
+					bottomItem = outfit.get(outfitIndex).getBottom();
+					new ImageSubSampler(context).subSampleCroppedUri(bottomItem, bottom, context);
+					boolean outerFlag = (null == outfit.get(outfitIndex).getOuter());
+					if (outerFlag) {
+						Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is outer.");	
+					} else {
+						Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is NO outer.");
+					}
+				}
 			} else {
 				Toast.makeText(context, R.string.outfit_message_no_weather_info, 
 						Toast.LENGTH_SHORT).show();

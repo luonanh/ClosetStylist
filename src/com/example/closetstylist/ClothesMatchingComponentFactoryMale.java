@@ -1,0 +1,32 @@
+package com.example.closetstylist;
+
+public class ClothesMatchingComponentFactoryMale implements ClothesMatchingComponentFactory {
+	private ItemDatabaseHelper dbHelper;
+	private WeatherInfo wi;
+	private UserProfile up;
+	private OccasionEnum oe;
+
+	public ClothesMatchingComponentFactoryMale(ItemDatabaseHelper dbHelper,
+			WeatherInfo wi, UserProfile up, OccasionEnum oe) {
+		this.dbHelper = dbHelper;
+		this.wi = wi;
+		this.up = up;
+		this.oe = oe;
+	}
+	
+	@Override
+	public OccasionMatching createOccasionMatching() {
+		return new OccasionMatchingMale(dbHelper, wi, up, oe);
+	}
+
+	@Override
+	public PairMatching createPairMatching() {
+		return new PairMatchingMale(dbHelper, wi, up, oe);
+	}
+
+	@Override
+	public ColorMatching createColorMatching() {
+		return new ColorMatchingDefault(dbHelper, wi, up, oe);
+	}
+
+}

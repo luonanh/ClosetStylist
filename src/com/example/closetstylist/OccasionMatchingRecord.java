@@ -85,4 +85,21 @@ public class OccasionMatchingRecord {
 	public void setNightOut(int nightOut) {
 		this.nightOut = nightOut;
 	}
+	
+	public int getPoint(OccasionEnum oe) {
+		switch(oe) {
+		case Formal:
+			return formal;
+		case Semi_Formal:
+			return semiFormal;
+		case Casual:
+			return casual;
+		case Day_Out:
+			return dayOut;
+		case Night_Out:
+			return nightOut;
+		default:
+			return casual;
+		}
+	}
 }

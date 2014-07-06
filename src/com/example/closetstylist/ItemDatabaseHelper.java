@@ -63,24 +63,24 @@ public class ItemDatabaseHelper {
 		// String imageLink (null), String color, int tempMin, int tempMax, String category, String cropImageLink (null)
 		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(2).material("Cotton or Cotton Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Bottom", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Bottom", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Green", 70, 120, "Bottom", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("Cotton or Cotton Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Yellow", 70, 120, "Top",null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("Cotton or Cotton Blend").style("T-Shirt - Short Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("Cotton or Cotton Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Yellow", 70, 120, "Top",null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("Cotton or Cotton Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Brown", 15, 100, "Bottom", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("Cotton or Cotton Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Beige", 15, 100, "Bottom", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("Cotton or Cotton Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 15, 100, "Top", null).name("Adidas jacket").description("Adidas jacket").brand("Adidas").age(1).material("Polyester").style("Coat and Jacket - Light").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Green", 15, 100, "Top", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("Nylon").style("Coat and Jacket - Light").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Yellow", 15, 100, "Top", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("Down").style("Coat and Jacket - Heavy").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 15, 100, "Top", null).name("Adidas jacket").description("Adidas jacket").brand("Adidas").age(1).material("Polyester").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Green", 15, 100, "Top", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("Nylon").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Yellow", 15, 100, "Top", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("Down").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Bottom", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Beige", 70, 120, "Bottom", null).name("AE short").description("AE short").brand("AE").age(7).material("Cotton or Cotton Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Green", 40, 120, "Top", null).name("Adidas t-shirt").description("Adidas t-shirt").brand("Adidas").age(0).material("Nylon").style("T-Shirt - Long Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Green", 40, 120, "Top", null).name("Adidas t-shirt").description("Adidas t-shirt").brand("Adidas").age(0).material("Nylon").style("T-Shirt_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
 		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(3).material("Cotton or Cotton Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Top", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("Cotton or Cotton Blend").style("Dress Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("Cotton or Cotton Blend").style("Dress Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "MulticolorOrPattern", 70, 120, "Top", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("Cotton or Cotton Blend").style("Casual Button Down Shirt").dirty(false).wornTime(0).maxWornTime(1).build()
+		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Top", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("Cotton or Cotton Blend").style("Dress_Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("Cotton or Cotton Blend").style("Dress_Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("Cotton or Cotton Blend").style("Casual_Button_Down_Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
+		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("Cotton or Cotton Blend").style("Casual_Button_Down_Shirt").dirty(false).wornTime(0).maxWornTime(1).build()
 	};
 	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);
@@ -112,15 +112,69 @@ public class ItemDatabaseHelper {
 		database.insert(occasionMatchingRecordTable, null, c);
 	}
 	
+	public static OccasionMatchingRecord getOccasionMatchingRecordFromCursor(Cursor cursor) {
+		long id = cursor.getLong(cursor
+				.getColumnIndex(Schema.OccasionMatching.Cols.ID));
+		String category = cursor.getString(cursor.getColumnIndex(Schema.OccasionMatching.Cols.CATEGORY));
+		String style = cursor.getString(cursor.getColumnIndex(Schema.OccasionMatching.Cols.STYLE));
+		int formal = cursor.getInt(cursor.getColumnIndex(Schema.OccasionMatching.Cols.FORMAL));
+		int semiFormal = cursor.getInt(cursor.getColumnIndex(Schema.OccasionMatching.Cols.SEMI_FORMAL));
+		int casual = cursor.getInt(cursor.getColumnIndex(Schema.OccasionMatching.Cols.CASUAL));
+		int dayOut = cursor.getInt(cursor.getColumnIndex(Schema.OccasionMatching.Cols.DAY_OUT));
+		int nightOut = cursor.getInt(cursor.getColumnIndex(Schema.OccasionMatching.Cols.NIGHT_OUT));
+		OccasionMatchingRecord result = new OccasionMatchingRecord(category, style, formal, semiFormal, casual, dayOut, nightOut);
+		result.setId(id);
+		return result;
+	}
+	
 	public void deleteOccasionMatchingRecordTable() {
 		database.delete(TABLE_OCCASION_MATCHING_MALE, null, null);
 		database.delete(TABLE_OCCASION_MATCHING_FEMALE, null, null);
+	}
+	
+	private Cursor queryOccasionMatchingRecord(OccasionEnum oe, String occasionMatchingRecordTable) {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		//String[] columns = {Schema.OccasionMatching.Cols.ID, Schema.OccasionMatching.Cols.CATEGORY, Schema.OccasionMatching.Cols.STYLE, oe.toString()};
+		qb.setTables(occasionMatchingRecordTable);
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		/*
+		Cursor c = qb.query(database, columns, null, null, null, null,
+				orderBy);
+				*/
+		Cursor c = qb.query(database, null, null, null, null, null, orderBy);
+		return c;
+	}
+
+	public ArrayList<OccasionMatchingRecord> getOccasionMatchingRecordMale(OccasionEnum oe) {
+		ArrayList<OccasionMatchingRecord> result = new ArrayList<OccasionMatchingRecord>();
+		Cursor c = queryOccasionMatchingRecord(oe, TABLE_OCCASION_MATCHING_MALE);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					result.add(getOccasionMatchingRecordFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return result;
+	}
+
+	public ArrayList<OccasionMatchingRecord> getOccasionMatchingRecordFemale(OccasionEnum oe) {
+		ArrayList<OccasionMatchingRecord> result = new ArrayList<OccasionMatchingRecord>();
+		Cursor c = queryOccasionMatchingRecord(oe, TABLE_OCCASION_MATCHING_FEMALE);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					result.add(getOccasionMatchingRecordFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return result;
 	}
 
 	/*
 	 * ************************************************************************
 	 * PairnMatchingRecord
-	 * ************************************************************************	 * 
+	 * ************************************************************************ 
 	 */
 	
 	// As of 7/1/2014, pairMatchingRecordTable can be either
@@ -139,10 +193,56 @@ public class ItemDatabaseHelper {
 		database.delete(TABLE_PAIR_MATCHING_FEMALE, null, null);
 	}
 	
+	public static PairMatchingRecord getPairMatchingRecordFromCursor(Cursor cursor) {
+		long id = cursor.getLong(cursor
+				.getColumnIndex(Schema.PairMatching.Cols.ID));
+		String bottom = cursor.getString(cursor.getColumnIndex(Schema.PairMatching.Cols.BOTTOM));
+		String top = cursor.getString(cursor.getColumnIndex(Schema.PairMatching.Cols.TOP));
+		int point = cursor.getInt(cursor.getColumnIndex(Schema.PairMatching.Cols.POINT));
+		String outer = cursor.getString(cursor.getColumnIndex(Schema.PairMatching.Cols.OUTER));
+		PairMatchingRecord result = new PairMatchingRecord(bottom, top, point, outer);
+		result.setId(id);
+		return result;
+	}
+	
+	private Cursor queryPairMatchingRecord(String pairRecordTable) {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(pairRecordTable);
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		Cursor c = qb.query(database, null, null, null, null, null, orderBy);
+		return c;
+	}
+	
+	public ArrayList<PairMatchingRecord> getPairMatchingRecordMale() {
+		ArrayList<PairMatchingRecord> result = new ArrayList<PairMatchingRecord>();
+		Cursor c = queryPairMatchingRecord(TABLE_PAIR_MATCHING_MALE);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					result.add(getPairMatchingRecordFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<PairMatchingRecord> getPairMatchingRecordFemale() {
+		ArrayList<PairMatchingRecord> result = new ArrayList<PairMatchingRecord>();
+		Cursor c = queryPairMatchingRecord(TABLE_PAIR_MATCHING_FEMALE);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					result.add(getPairMatchingRecordFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return result;
+	}
+	
 	/*
 	 * ************************************************************************
 	 * ColorMatchingRecord
-	 * ************************************************************************	 * 
+	 * ************************************************************************ 
 	 */
 	public void saveColorMatchingRecord(ColorMatchingRecord cmr) {
 		ContentValues c = new ContentValues();
@@ -155,11 +255,43 @@ public class ItemDatabaseHelper {
 	public void deleteColorMatchingRecordTable() {
 		database.delete(TABLE_COLOR_MATCHING_DEFAULT, null, null);
 	}
+	
+	public static ColorMatchingRecord getColorMatchingRecordFromCursor(Cursor cursor) {
+		long id = cursor.getLong(cursor
+				.getColumnIndex(Schema.ColorMatching.Cols.ID));
+		String bottom = cursor.getString(cursor.getColumnIndex(Schema.ColorMatching.Cols.BOTTOM));
+		String top = cursor.getString(cursor.getColumnIndex(Schema.ColorMatching.Cols.TOP));
+		int point = cursor.getInt(cursor.getColumnIndex(Schema.ColorMatching.Cols.POINT));
+		ColorMatchingRecord result = new ColorMatchingRecord(bottom, top, point);
+		result.setId(id);
+		return result;
+	}
+	
+	private Cursor queryColorMatchingRecord(String colorRecordTable) {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(colorRecordTable);
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		Cursor c = qb.query(database, null, null, null, null, null, orderBy);
+		return c;
+	}
+	
+	public ArrayList<ColorMatchingRecord> getColorMatchingRecordDefault() {
+		ArrayList<ColorMatchingRecord> result = new ArrayList<ColorMatchingRecord>();
+		Cursor c = queryColorMatchingRecord(TABLE_COLOR_MATCHING_DEFAULT);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					result.add(getColorMatchingRecordFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return result;
+	}
 
 	/*
 	 * ************************************************************************
 	 * UserProfile
-	 * ************************************************************************	 * 
+	 * ************************************************************************ 
 	 */
 	public void saveUserProfileRecord(UserProfile usr) {
 		ContentValues c = new ContentValues();
@@ -251,7 +383,7 @@ public class ItemDatabaseHelper {
 	/*
 	 * ************************************************************************
 	 * ItemData
-	 * ************************************************************************	 * 
+	 * ************************************************************************ 
 	 */
 
 	/*
@@ -496,6 +628,69 @@ public class ItemDatabaseHelper {
 		return bottoms;
 	}
 
+
+	/*
+	 * Query "top" items in the item database that are clean and within the 
+	 * range of temperature.
+	 * SELECT * FROM itemData_db WHERE dirty = 'false' AND TempMax > 70 AND TempMin < 60;
+	 * category is either "Top" or "Bottom"
+	 */
+	public Cursor queryItemCleanTemperature(String category, int tempMax, int tempMin) {
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		qb.setTables(TABLE_NAME);
+		//qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?,?,?)");
+		//String[] whereArgs = {"jacket", "shirt", "t-shirt"};
+		qb.appendWhere(Schema.Item.Cols.CATEGORY + " IN (?) AND "
+				+ Schema.Item.Cols.DIRTY + " IN (?) AND " 
+				+ Schema.Item.Cols.TEMPERATUTRE_MAX + " >= (?) AND "
+				+ Schema.Item.Cols.TEMPERATUTRE_MIN + " <= (?)");
+		String[] whereArgs = {category, "false", String.valueOf(tempMax), String.valueOf(tempMin)};
+		String orderBy = Schema.Item.Cols.ID + " DESC";
+		
+		Cursor c = qb.query(database, null, null, whereArgs, null, null,
+				orderBy);
+		return c;
+		/*
+		return database.rawQuery(
+				"SELECT * FROM " + TABLE_NAME + " WHERE " + Schema.Item.Cols.DIRTY 
+				+ " = false AND " + Schema.Item.Cols.CATEGORY + " = Top AND "
+				+ Schema.Item.Cols.TEMPERATUTRE_MAX + " > " + tempMax
+				+ Schema.Item.Cols.TEMPERATUTRE_MIN + " < " + tempMin, 
+				null);
+				*/
+	}
+	
+	public ArrayList<ItemData> getTopCleanTemperature(int tempMax, int tempMin) {
+		ArrayList<ItemData> tops = new ArrayList<ItemData>();
+		Cursor c = queryItemCleanTemperature("Top", tempMax, tempMin);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					tops.add(getItemDataFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return tops;
+	}
+	
+	public ArrayList<ItemData> getBottomCleanTemperature(int tempMax, int tempMin) {
+		ArrayList<ItemData> tops = new ArrayList<ItemData>();
+		Cursor c = queryItemCleanTemperature("Bottom", tempMax, tempMin);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				do {
+					tops.add(getItemDataFromCursor(c));
+				} while (true == c.moveToNext());
+			}
+		}
+		return tops;
+	}
+
+	/*
+	 * ************************************************************************
+	 * ItemDataOpenHelper
+	 * ************************************************************************ 
+	 */
 	private class ItemDataOpenHelper extends SQLiteOpenHelper {
 		public ItemDataOpenHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -755,9 +950,9 @@ public class ItemDatabaseHelper {
 			String line = null;
 			int i = 0;
 			line = reader.readLine();
-			Log.i(LOG_TAG, "Entries in TABLE_COLOR_MATCHING_DEFAULT: " + line);
+			//Log.i(LOG_TAG, "Entries in TABLE_COLOR_MATCHING_DEFAULT: " + line);
 			while ((line = reader.readLine()) != null) {
-				Log.i(LOG_TAG, "Entries in TABLE_COLOR_MATCHING_DEFAULT: " + line);
+				//Log.i(LOG_TAG, "Entries in TABLE_COLOR_MATCHING_DEFAULT: " + line);
 				String[] parts = line.split(",");
 				ColorMatchingRecord cmr = new ColorMatchingRecord(
 						parts[0], parts[1], Integer.parseInt(parts[2]));
