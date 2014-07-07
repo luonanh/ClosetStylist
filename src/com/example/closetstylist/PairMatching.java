@@ -12,10 +12,10 @@ public abstract class PairMatching {
 	protected WeatherInfo wi;
 	
 	// The following instance variables need not to be initialized in constructor.
-	protected List<ItemDataOccasion> topPairList;		// created by setInternalList
-	protected List<ItemDataOccasion> bottomPairList;	// created by setInternalList
-	protected List<ItemDataOccasion> outerPairList;	// created by setInternalList
-	protected ArrayList<Outfit> pairMatchingList;		// created by getPairScoreList
+	private List<ItemDataOccasion> topPairList;		// created by setInternalList
+	private List<ItemDataOccasion> bottomPairList;	// created by setInternalList
+	private List<ItemDataOccasion> outerPairList;	// created by setInternalList
+	private ArrayList<Outfit> pairMatchingList;		// created by getPairScoreList
 	
 	// calculate points for a particular combination of top, bottom, outer 
 	// (optional) and return a new Outfit.
@@ -61,14 +61,7 @@ public abstract class PairMatching {
 	protected abstract List<ItemDataOccasion> getOuterList(List<ItemDataOccasion> top);
 	
 	protected abstract List<ItemDataOccasion> getTopList(List<ItemDataOccasion> top);
-	
-	private void setInternalLists(List<ItemDataOccasion> topList, 
-			List<ItemDataOccasion> bottomList) {
-		topPairList = getTopList(topList);
-		outerPairList = getOuterList(topList);
-		bottomPairList = bottomList;
-	}
-	
+		
 	public List<Outfit> getPairScoreList(List<ItemDataOccasion> topList, 
 			List<ItemDataOccasion> bottomList) {
 		if (null != pairMatchingList) {
@@ -87,19 +80,53 @@ public abstract class PairMatching {
 				for (ItemDataOccasion outer: outerPairList) {
 					o = getOutfitFromTopBottomOuter(top, bottom, outer);
 					if (null != o) {
-						pairMatchingList.add(o);
+						if (!pairMatchingList.contains(o)) {
+							pairMatchingList.add(o);
+						}
 					}
 				}
 				
 				// For outfit with no add-on
 				o = getOutfitFromTopBottomOuter(top, bottom, null);
 				if (null != o) {
-					pairMatchingList.add(o);
-				}
-				
+					if (!pairMatchingList.contains(o)) {
+						pairMatchingList.add(o);
+					}
+				}	
 			}
 		}
 		
+		/*
+		 * The above for loops will create many duplicated element in the List
+		 * due to some combinations of top and bottom do not need outer.
+		 */
+		/*
+		for (int i = 0; i < pairMatchingList.size(); i++) {
+			Outfit o1 = pairMatchingList.get(i);
+			ItemData top1 = o1.getTop();
+			ItemData bottom1 = o1.getBottom();
+			ItemData outer1 = o1.getOuter();
+			int score1 = o1.getScore();
+			for (int j = i; j < pairMatchingList.size(); j++) {
+				Outfit o2 = pairMatchingList.get(j);
+				ItemData top2 = o2.getTop();
+				ItemData bottom2 = o2.getBottom();
+				ItemData outer2 = o2.getOuter();
+				int score2 = o2.getScore();
+				if (score1 == score2) {
+					pairMatchingList.remove(j);
+				}
+			}
+		}
+		*/
+		
 		return pairMatchingList;
+	}
+	
+	private void setInternalLists(List<ItemDataOccasion> topList, 
+			List<ItemDataOccasion> bottomList) {
+		topPairList = getTopList(topList);
+		outerPairList = getOuterList(topList);
+		bottomPairList = bottomList;
 	}
 }

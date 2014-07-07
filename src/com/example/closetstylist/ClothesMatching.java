@@ -40,13 +40,13 @@ public abstract class ClothesMatching {
 	}
 	
 	public List<Outfit> match(WeatherInfo wi, ItemDatabaseHelper itemDatabaseHelper, UserProfile up) {
-		ArrayList<ItemData> topList = itemDatabaseHelper.getTopCleanTemperature(
+		topLaundryTemperatureList = itemDatabaseHelper.getTopCleanTemperature(
 				wi.getTempMax(), wi.getTempMin());
-		ArrayList<ItemData> bottomList = itemDatabaseHelper.getBottomCleanTemperature(
+		bottomLaundryTemperatureList = itemDatabaseHelper.getBottomCleanTemperature(
 				wi.getTempMax(), wi.getTempMin());
 		
 		// Occasion Matching
-		matchOccasion(topList, bottomList);
+		matchOccasion(topLaundryTemperatureList, bottomLaundryTemperatureList);
 		
 		// Pair Matching
 		matchPair();
@@ -55,17 +55,5 @@ public abstract class ClothesMatching {
 		matchColor();
 		
 		return colorList;
-		
-		/*
-		// Occasion Matching
-		List<ItemDataOccasion> topOccasionList = om.getOccasionScoreList(top);
-		List<ItemDataOccasion> bottomOccasionList = om.getOccasionScoreList(bottom);
-		
-		// Pair Matching
-		List<Outfit> pairList = pm.getPairScoreList();
-		
-		// Color Matching
-		List<Outfit> colorList = cm.getColorScoreList();
-		*/ 
 	}
 }

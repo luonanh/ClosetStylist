@@ -113,8 +113,8 @@ public class OpenWeatherMapProvider implements WeatherProviderInterface {
 	}
 	
 	public static int kelvinToFahrenheit(double k) {
-		double f = (k - (double)273.15); // to celcius
-		f = (f * (9/5)) + 32;
+		double f = (k - (double)273.15); // to celsius
+		f = (f * 9)/5 + 32;
 		return (int) f;
 	}
 
@@ -127,10 +127,14 @@ public class OpenWeatherMapProvider implements WeatherProviderInterface {
 	public WeatherInfo getWeatherInfoFromWeatherData(String data) {
 		try {
 			OpenWeatherMapWeather w = getWeather(data);
+			Log.i(LOG_TAG, "w.temperature.getTemp() - " 
+					+ String.valueOf(w.temperature.getTemp()));
 			WeatherInfo wi = new WeatherInfo(
 					kelvinToFahrenheit(w.temperature.getMaxTemp()), 
 					kelvinToFahrenheit(w.temperature.getMinTemp()), 
 					kelvinToFahrenheit(w.temperature.getTemp()));
+			Log.i(LOG_TAG, "kelvinToFahrenheit(w.temperature.getMaxTemp()) - " 
+					+ String.valueOf(kelvinToFahrenheit(w.temperature.getMaxTemp())));
 			if (w.rain.getAmmount() > 0) {
 				wi.setRainAmount(w.rain.getAmmount());
 			}

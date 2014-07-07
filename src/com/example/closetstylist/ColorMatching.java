@@ -11,7 +11,7 @@ public abstract class ColorMatching {
 	protected ArrayList<ColorMatchingRecord> colorMatchingRecordTable;
 	protected ItemDatabaseHelper dbHelper;
 	
-	ArrayList<Outfit> colorMatchingList;
+	private ArrayList<Outfit> colorMatchingList;
 	
 	protected abstract Outfit calculateColorScore(Outfit o);
 	

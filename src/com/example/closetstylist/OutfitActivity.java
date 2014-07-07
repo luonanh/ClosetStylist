@@ -47,6 +47,8 @@ public class OutfitActivity extends Activity {
 	private ImageButton buttonPrev = null;
 	private ImageButton buttonNext = null;
 	private TextView temperature = null;
+	private TextView score = null;
+	private TextView rank = null;
 	private WeatherInfo weatherInfo = null;
 	private ArrayList<ItemData> topList = null;
 	private ArrayList<ItemData> bottomList = null;
@@ -74,6 +76,10 @@ public class OutfitActivity extends Activity {
 		top = (ImageView) findViewById(R.id.outfit_label_top);
 		bottom = (ImageView) findViewById(R.id.outfit_label_bottom);
 		temperature = (TextView) findViewById(R.id.outfit_value_temperature);
+		score = (TextView) findViewById(R.id.outfit_value_score);
+		score.setTextColor(Color.MAGENTA);
+		rank = (TextView) findViewById(R.id.outfit_value_rank);
+		rank.setTextColor(Color.GREEN);
 		
 		// Acquire reference to the LocationManager
 		if (null == (mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE)))
@@ -188,7 +194,9 @@ public class OutfitActivity extends Activity {
 							Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is outer.");	
 						} else {
 							Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is NO outer.");
-						}						
+						}
+						score.setText(String.valueOf(outfit.get(outfitIndex).getScore()));
+						rank.setText(String.valueOf(outfitIndex) + "|" + String.valueOf(outfit.size()));
 					}
 				}
 			}			
@@ -215,6 +223,8 @@ public class OutfitActivity extends Activity {
 						} else {
 							Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is NO outer.");
 						}
+						score.setText(String.valueOf(outfit.get(outfitIndex).getScore()));
+						rank.setText(String.valueOf(outfitIndex) + "|" + String.valueOf(outfit.size()));
 					}
 				}
 			}			
@@ -312,7 +322,7 @@ public class OutfitActivity extends Activity {
 			String data = weatherProvider.getWeatherDataFromLatLong(lat, lon);
 			return weatherProvider.getWeatherInfoFromWeatherData(data);
 			// use mock to avoid reaching the query limit of OpenWeatherMap 
-			// return weatherProvider.getWeatherInfoFromWeatherData(OpenWeatherMapMockFeed.rawText());
+			//return weatherProvider.getWeatherInfoFromWeatherData(OpenWeatherMapMockFeed.rawText());
 		}
 
 		@Override
@@ -349,6 +359,8 @@ public class OutfitActivity extends Activity {
 					} else {
 						Log.i(LOG_TAG, "Score of the current outfit: " + outfit.get(outfitIndex).getScore() + ". There is NO outer.");
 					}
+					score.setText(String.valueOf(outfit.get(outfitIndex).getScore()));
+					rank.setText(String.valueOf(outfitIndex) + "|" + String.valueOf(outfit.size()));
 				}
 			} else {
 				Toast.makeText(context, R.string.outfit_message_no_weather_info, 

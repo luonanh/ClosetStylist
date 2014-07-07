@@ -109,4 +109,32 @@ public class Outfit implements Comparable<Outfit> {
 			return 0;
 		}
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		
+		if (!(obj instanceof Outfit)) {
+			return false;
+		}
+		
+		Outfit other = (Outfit) obj;
+		
+		if (this.score == other.score) {
+			if (this.top.getId() == other.getTop().getId()) {
+				if (this.bottom.getId() == other.getBottom().getId()) {
+					/*
+					if ((null == this.outer) || (null == other.getOuter())) {
+						return true;
+					}
+					*/
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 }
