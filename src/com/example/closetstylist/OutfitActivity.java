@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
@@ -309,10 +310,22 @@ public class OutfitActivity extends Activity {
 	
 	public class WeatherServiceTask extends AsyncTask<String, Void, WeatherInfo>{
 		private WeatherProviderInterface weatherProvider; // an interface can be swapped at run time
+		private ProgressDialog dialog;
 		
 		public WeatherServiceTask(WeatherProviderInterface wp) {
 			super();
 			weatherProvider = wp;
+			
+			// get exception when passed in context to the ProgressDialog
+			// constructor. Change to OutfitActivity.this per 
+			// http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application
+			dialog = new ProgressDialog(OutfitActivity.this);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			dialog.setMessage("Obtaining WeatherInfo");
+			dialog.show();
 		}
 
 		@Override
@@ -330,6 +343,9 @@ public class OutfitActivity extends Activity {
 			if (null != result) {
 				weatherInfo = result;
 				temperature.setText(String.valueOf(result.getTempCurrent()) + " " + FAHRENHEIT);
+				
+				this.dialog.setMessage("Matching clothes");
+				this.dialog.show();
 				
 				// obtain UserProfile
 				ArrayList<UserProfile> userList = itemDatabaseHelper.getAllUserProfile();
@@ -361,6 +377,10 @@ public class OutfitActivity extends Activity {
 					}
 					score.setText(String.valueOf(outfit.get(outfitIndex).getScore()));
 					rank.setText(String.valueOf(outfitIndex) + "|" + String.valueOf(outfit.size()));
+				}
+				
+				if (this.dialog.isShowing()) {
+					dialog.dismiss();
 				}
 			} else {
 				Toast.makeText(context, R.string.outfit_message_no_weather_info, 

@@ -90,6 +90,7 @@ public class Outfit implements Comparable<Outfit> {
 	 * Compares this object with the specified object for order. Returns a 
 	 * negative integer, zero, or a positive integer as this object is less 
 	 * than, equal to, or greater than the specified object.
+	 * Follow http://stackoverflow.com/questions/2849450/how-to-remove-duplicates-from-a-list
 	 */
 	@Override
 	public int compareTo(Outfit another) {
@@ -136,5 +137,10 @@ public class Outfit implements Comparable<Outfit> {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return top.hashCode() + bottom.hashCode() + score;
 	}
 }
