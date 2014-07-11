@@ -22,12 +22,12 @@ public class ItemData implements Parcelable {
 	private static ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("Bottom", "Top"));
 	private static ArrayList<String> menTopStyleArray = new ArrayList<String>(Arrays.asList("Casual_Button_Down_Shirt", "Coat_And_Jacket_Heavy", "Coat_And_Jacket_Light", "Dress_Shirt", "Polo", "Sweater_And_Sweatshirt", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve"));
 	private static ArrayList<String> menBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Pants", "Shorts"));
-	private static ArrayList<String> womenTopStyleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "Tee_Long_Sleeve", "Tee_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest"));
+	private static ArrayList<String> womenTopStyleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest"));
 	private static ArrayList<String> womenBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Legging_Skinny", "Pants", "Shorts", "Skirts"));
-	private static ArrayList<String> styleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "Tee_Long_Sleeve", "Tee_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest", "Casual_Button_Down_Shirt", "Dress_Shirt", "Polo", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Jeans", "Legging_Skinny", "Pants", "Shorts", "Skirts"));
+	private static ArrayList<String> styleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest", "Casual_Button_Down_Shirt", "Dress_Shirt", "Polo", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Jeans", "Legging_Skinny", "Pants", "Shorts", "Skirts"));
 	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adidas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans", "Rei", "Dockers", "Aeropostale", "KennethCole", "Diesel", "GordonCooper", "Arizona"));
 	private static ArrayList<String> ageArray = new ArrayList<String>();
-	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("Cotton or Cotton Blend", "Denim", "Down", "Jersey Knit", "Lace", "Leather", "Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", "Wool or Wool Blend"));
+	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("Cotton_Or_Cotton_Blend", "Denim", "Down", "Jersey_Knit", "Leather", "Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", "Wool_Or_Wool_Blend"));
 	private static ArrayList<String> dirtyArray = new ArrayList<String>(Arrays.asList("false", "true"));
 	
 	private long id; // once added to database, this field will be populated
@@ -152,13 +152,13 @@ public class ItemData implements Parcelable {
 	}
 	
 	public void setTempMaxFromMaterial() {
-		//("Cotton or Cotton Blend", "Denim", "Down", "Jersey Knit", "Lace", 
-		//"Leather", "Linen", "Nylon", "Performance", "Polyester", "Silk", 
-		//"Spandex", "Wool or Wool Blend"))
+		//"Cotton_Or_Cotton_Blend", "Denim", "Down", "Jersey_Knit", "Leather", 
+		//"Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", 
+		//"Wool_Or_Wool_Blend"
 		if ((this.material.equalsIgnoreCase("Nylon")) 
 				|| (this.material.equalsIgnoreCase("Spandex"))) {
 			this.tempMax = 70;
-		} else if ((this.material.equalsIgnoreCase("Wool or Wool Blend"))
+		} else if ((this.material.equalsIgnoreCase("Wool_Or_Wool_Blend"))
 				|| (this.material.equalsIgnoreCase("Leather"))) {
 			this.tempMax = 50;
 		} else if (this.material.equalsIgnoreCase("Down")) {
@@ -167,12 +167,76 @@ public class ItemData implements Parcelable {
 			this.tempMax = Integer.MAX_VALUE;
 		}
 	}
-	
+
 	public void setTempMinFromMaterial() {
 		if (this.material.equalsIgnoreCase("Silk")) {
 			this.tempMin = 50;
 		} else {
 			this.tempMin = Integer.MIN_VALUE;
+		}
+	}
+
+	public void setTempMaxFromStyleMale() {
+		if ((this.style.equalsIgnoreCase("Dress_Shirt"))
+				&& (this.tempMax > 75)) {
+			this.tempMax = 75;
+		} else if (((this.style.equalsIgnoreCase("Pants"))
+				|| (this.style.equalsIgnoreCase("Jeans"))
+				|| (this.style.equalsIgnoreCase("T-Shirt_Long_Sleeve"))
+				|| (this.style.equalsIgnoreCase("Sweater_And_Sweatshirt"))
+				|| (this.style.equalsIgnoreCase("Coat_And_Jacket_Light")))
+				&& (this.tempMax > 65)) {
+			this.tempMax = 65;
+		} else if ((this.style.equalsIgnoreCase("Coat_And_Jacket_Heavy"))
+				&& (this.tempMax > 40)) {
+			this.tempMax = 40;
+		}
+	}
+	
+	public void setTempMinFromMale() {
+		if ((this.style.equalsIgnoreCase("Shorts"))
+				&& (this.tempMin < 65)) {
+			this.tempMin = 65;
+		} else if ((this.style.equalsIgnoreCase("T-Shirt_Short_Sleeve"))
+				&& (this.tempMin < 60)) {
+			this.tempMin = 60;
+		}
+	}
+
+	public void setTempMaxFromStyleFemale() {
+		if ((this.style.equalsIgnoreCase("Vest"))
+				&& (this.tempMax > 70)) {
+			this.tempMax = 70;
+		} else if (((this.style.equalsIgnoreCase("Pants"))
+				|| (this.style.equalsIgnoreCase("Jeans"))
+				|| (this.style.equalsIgnoreCase("Blouse_Short_Sleeve"))
+				|| (this.style.equalsIgnoreCase("T-Shirt_Long_Sleeve"))
+				|| (this.style.equalsIgnoreCase("Pull-over"))
+				|| (this.style.equalsIgnoreCase("Cardigan"))
+				|| (this.style.equalsIgnoreCase("Sweater_And_Sweatshirt"))
+				|| (this.style.equalsIgnoreCase("Coat_And_Jacket_Light")))
+				&& (this.tempMax > 65)) {
+			this.tempMax = 65;
+		} else if ((this.style.equalsIgnoreCase("Coat_And_Jacket_Heavy"))
+				&& (this.tempMax > 40)) {
+			this.tempMax = 40;
+		}
+	}
+	
+	public void setTempMinFromFemale() {
+		if ((this.style.equalsIgnoreCase("Tank_Camisoles"))
+				&& (this.tempMin < 70)) {
+			this.tempMin = 70;
+		} else if (((this.style.equalsIgnoreCase("Shorts"))
+				|| (this.style.equalsIgnoreCase("Skirts"))
+				|| (this.style.equalsIgnoreCase("Blouse_Sleeveless"))
+				|| (this.style.equalsIgnoreCase("Tunic")))
+				&& (this.tempMin < 65)) {
+			this.tempMin = 65;
+		} else if (((this.style.equalsIgnoreCase("Blouse_Long_Sleeve"))
+				|| (this.style.equalsIgnoreCase("T-Shirt_Short_Sleeve")))
+				&& (this.tempMin < 60)) {
+			this.tempMin = 60;
 		}
 	}
 
