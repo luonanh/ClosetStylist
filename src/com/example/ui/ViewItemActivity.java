@@ -1,4 +1,12 @@
-package com.example.closetstylist;
+package com.example.ui;
+
+import com.example.closetstylist.ImageSubSampler;
+import com.example.closetstylist.ItemData;
+import com.example.closetstylist.ItemDatabaseHelper;
+import com.example.closetstylist.R;
+import com.example.closetstylist.R.id;
+import com.example.closetstylist.R.layout;
+import com.example.closetstylist.R.string;
 
 import android.app.Activity;
 import android.app.AlertDialog;

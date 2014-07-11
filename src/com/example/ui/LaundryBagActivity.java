@@ -1,4 +1,10 @@
-package com.example.closetstylist;
+package com.example.ui;
+
+import com.example.closetstylist.ItemDataAdapter;
+import com.example.closetstylist.ItemDatabaseHelper;
+import com.example.closetstylist.R;
+import com.example.closetstylist.R.id;
+import com.example.closetstylist.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;

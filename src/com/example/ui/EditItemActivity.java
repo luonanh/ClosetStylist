@@ -1,10 +1,19 @@
-package com.example.closetstylist;
+package com.example.ui;
 
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.example.closetstylist.ImageSubSampler;
+import com.example.closetstylist.ItemData;
+import com.example.closetstylist.ItemDatabaseHelper;
+import com.example.closetstylist.R;
+import com.example.closetstylist.ItemData.ItemDataBuilder;
+import com.example.closetstylist.R.id;
+import com.example.closetstylist.R.layout;
+import com.example.closetstylist.R.string;
 
 import android.app.Activity;
 import android.app.AlertDialog;

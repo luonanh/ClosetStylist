@@ -1,7 +1,12 @@
-package com.example.closetstylist;
+package com.example.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import com.example.closetstylist.R;
+import com.example.closetstylist.R.array;
+import com.example.closetstylist.R.id;
+import com.example.closetstylist.R.layout;
 
 import android.app.Activity;
 import android.content.Context;

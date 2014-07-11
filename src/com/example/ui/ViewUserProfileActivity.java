@@ -1,4 +1,4 @@
-package com.example.closetstylist;
+package com.example.ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import com.example.closetstylist.ItemDatabaseHelper;
+import com.example.closetstylist.R;
+import com.example.closetstylist.UserProfile;
+import com.example.closetstylist.R.id;
+import com.example.closetstylist.R.layout;
 
 import android.app.Activity;
 import android.content.Context;

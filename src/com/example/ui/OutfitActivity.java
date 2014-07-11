@@ -1,10 +1,27 @@
-package com.example.closetstylist;
+package com.example.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import com.example.closetstylist.ClothesMatching;
+import com.example.closetstylist.ClothesMatchingFactory;
+import com.example.closetstylist.ClothesMatchingFactoryMale;
+import com.example.closetstylist.ImageSubSampler;
+import com.example.closetstylist.ItemData;
+import com.example.closetstylist.ItemDatabaseHelper;
+import com.example.closetstylist.OccasionEnum;
+import com.example.closetstylist.OpenWeatherMapProvider;
+import com.example.closetstylist.Outfit;
+import com.example.closetstylist.R;
+import com.example.closetstylist.UserProfile;
+import com.example.closetstylist.WeatherInfo;
+import com.example.closetstylist.WeatherProviderInterface;
+import com.example.closetstylist.R.id;
+import com.example.closetstylist.R.layout;
+import com.example.closetstylist.R.string;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
