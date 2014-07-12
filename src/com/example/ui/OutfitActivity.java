@@ -374,7 +374,7 @@ public class OutfitActivity extends Activity {
 					// ALDBG change to ClothesMatchingFactoryFemale()
 					cmf = new ClothesMatchingFactoryMale();
 				}
-				ClothesMatching cm = cmf.createClothesMatching(itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);//new ClothesMatchingMale(null, itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);
+				ClothesMatching cm = cmf.newInstance(itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);//new ClothesMatchingMale(null, itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);
 				outfit = cm.match(weatherInfo, itemDatabaseHelper, up);
 				outfitIndex = 0;
 				Log.i(LOG_TAG, "Total number of items in the List of Outfit is: " + outfit.size());

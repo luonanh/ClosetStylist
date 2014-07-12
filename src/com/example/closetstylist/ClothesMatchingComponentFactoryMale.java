@@ -15,17 +15,17 @@ public class ClothesMatchingComponentFactoryMale implements ClothesMatchingCompo
 	}
 	
 	@Override
-	public OccasionMatching createOccasionMatching() {
+	public OccasionMatching newOccasionMatching() {
 		return new OccasionMatchingMale(dbHelper, wi, up, oe);
 	}
 
 	@Override
-	public PairMatching createPairMatching() {
+	public PairMatching newPairMatching() {
 		return new PairMatchingMale(dbHelper, wi, up, oe);
 	}
 
 	@Override
-	public ColorMatching createColorMatching() {
+	public ColorMatching newColorMatching() {
 		return new ColorMatchingDefault(dbHelper, wi, up, oe);
 	}
 

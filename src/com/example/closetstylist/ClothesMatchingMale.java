@@ -7,8 +7,8 @@ public class ClothesMatchingMale extends ClothesMatching {
 			ItemDatabaseHelper dbHelper, WeatherInfo wi, UserProfile up, OccasionEnum oe) {*/
 	public ClothesMatchingMale(ClothesMatchingComponentFactory cmcf) {		
 		this.cmcf = cmcf;
-		this.om = cmcf.createOccasionMatching();
-		this.pm = cmcf.createPairMatching();
-		this.cm = cmcf.createColorMatching();
+		this.om = cmcf.newOccasionMatching();
+		this.pm = cmcf.newPairMatching();
+		this.cm = cmcf.newColorMatching();
 	}
 }

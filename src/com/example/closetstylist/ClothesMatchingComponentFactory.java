@@ -7,7 +7,7 @@ public interface ClothesMatchingComponentFactory {
 	public PairMatching createPairMatching(ItemDatabaseHelper dbHelper, WeatherInfo wi);
 	public ColorMatching createColorMatching(ItemDatabaseHelper dbHelper);
 	*/
-	public OccasionMatching createOccasionMatching();
-	public PairMatching createPairMatching();
-	public ColorMatching createColorMatching();
+	public OccasionMatching newOccasionMatching();
+	public PairMatching newPairMatching();
+	public ColorMatching newColorMatching();
 }
