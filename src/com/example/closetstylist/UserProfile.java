@@ -10,7 +10,7 @@ public class UserProfile implements Parcelable {
 	private long id; // once added to database, this field will be populated
 	private String usr;
 	private String pwd;
-	private String gender;
+	private Gender gender;
 	private int zip;
 	private int laundrySchedule; // 0 - weekly, 1 - biweekly, 2 - monthly, 3 - random
 	private String laundryDay;
@@ -51,11 +51,11 @@ public class UserProfile implements Parcelable {
 		this.pwd = pwd;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -89,19 +89,20 @@ public class UserProfile implements Parcelable {
 
 	public String toString() {
 		return "UserProfile toString: id - " + id + " ; username - " + usr
-				+ " ; password - " + pwd + " ; gender - " + gender + " ; zip - " + zip;
+				+ " ; password - " + pwd + " ; gender - " + gender.toString() 
+				+ " ; zip - " + zip;
 	}
 	
 	public static class UserProfileBuilder {
 		private long id; // once added to database, this field will be populated
 		private String usr;
 		private String pwd;
-		private String gender;
+		private Gender gender;
 		private int zip;
 		private int laundrySchedule = 0; // 0 - weekly, 1 - biweekly, 2 - monthly, 3 - random
 		private String laundryDay = "Saturday";		
 
-		public UserProfileBuilder(String usr, String pwd, String gender, int zip) {
+		public UserProfileBuilder(String usr, String pwd, Gender gender, int zip) {
 			this.usr = usr;
 			this.pwd = pwd;
 			this.gender = gender;
@@ -139,7 +140,7 @@ public class UserProfile implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeLong(id);
 		dest.writeString(usr);
-		dest.writeString(gender);
+		dest.writeInt(gender.ordinal());
 		dest.writeInt(zip);
 		dest.writeInt(laundrySchedule);
 		dest.writeString(laundryDay);
@@ -165,10 +166,9 @@ public class UserProfile implements Parcelable {
 		id = source.readLong();
 		usr = source.readString();
 		pwd = source.readString();
-		gender = source.readString();
+		gender = Gender.values()[source.readInt()];
 		zip = source.readInt();
 		laundrySchedule = source.readInt();
 		laundryDay = source.readString();
 	}
-
 }

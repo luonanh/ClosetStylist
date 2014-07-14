@@ -78,7 +78,7 @@ public class ViewUserProfileActivity extends Activity {
 		pwd.setText(userList.get(0).getPwd());
 
 		gender = (TextView) findViewById(R.id.view_user_profile_value_gender);
-		gender.setText(userList.get(0).getGender());
+		gender.setText(userList.get(0).getGender().toString());
 
 		zip = (TextView) findViewById(R.id.view_user_profile_value_zip);
 		zip.setText(Integer.toString(userList.get(0).getZip()));

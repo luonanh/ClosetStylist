@@ -297,7 +297,7 @@ public class ItemDatabaseHelper {
 		ContentValues c = new ContentValues();
 		c.put(Schema.UserProfile.Cols.USR, usr.getUsr());
 		c.put(Schema.UserProfile.Cols.PWD, usr.getPwd());
-		c.put(Schema.UserProfile.Cols.GENDER, usr.getGender());
+		c.put(Schema.UserProfile.Cols.GENDER, usr.getGender().ordinal());
 		c.put(Schema.UserProfile.Cols.ZIP, usr.getZip());
 		c.put(Schema.UserProfile.Cols.LAUNDRY_SCHEDULE, usr.getLaundrySchedule());
 		c.put(Schema.UserProfile.Cols.LAUNDRY_DAY, usr.getLaundryDay());
@@ -334,11 +334,11 @@ public class ItemDatabaseHelper {
 				.getColumnIndex(Schema.UserProfile.Cols.ID));
 		String usr = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.USR));
 		String pwd = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.PWD));
-		String gender = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.GENDER));
+		int gender = cursor.getInt(cursor.getColumnIndex(Schema.UserProfile.Cols.GENDER));
 		int zip = cursor.getInt(cursor.getColumnIndex(Schema.UserProfile.Cols.ZIP));
 		int laundrySchedule = cursor.getInt(cursor.getColumnIndex(Schema.UserProfile.Cols.LAUNDRY_SCHEDULE));
 		String laundryDay = cursor.getString(cursor.getColumnIndex(Schema.UserProfile.Cols.LAUNDRY_DAY));
-		return new UserProfile.UserProfileBuilder(usr, pwd, gender, zip)
+		return new UserProfile.UserProfileBuilder(usr, pwd, Gender.values()[gender], zip)
 			.id(rowID)
 			.laundrySchedule(laundrySchedule)
 			.laundryDay(laundryDay)
@@ -352,7 +352,7 @@ public class ItemDatabaseHelper {
 		ContentValues c = new ContentValues();
 		c.put(Schema.UserProfile.Cols.USR, usr.getUsr());
 		c.put(Schema.UserProfile.Cols.PWD, usr.getPwd());
-		c.put(Schema.UserProfile.Cols.GENDER, usr.getGender());
+		c.put(Schema.UserProfile.Cols.GENDER, usr.getGender().ordinal());
 		c.put(Schema.UserProfile.Cols.ZIP, usr.getZip());
 		c.put(Schema.UserProfile.Cols.LAUNDRY_SCHEDULE, usr.getLaundrySchedule());
 		c.put(Schema.UserProfile.Cols.LAUNDRY_DAY, usr.getLaundryDay());
@@ -703,7 +703,7 @@ public class ItemDatabaseHelper {
 					+ Schema.UserProfile.Cols.ID + " INTEGER PRIMARY KEY, "
 					+ Schema.UserProfile.Cols.USR + " TEXT, "
 					+ Schema.UserProfile.Cols.PWD + " TEXT, "
-					+ Schema.UserProfile.Cols.GENDER + " TEXT, "
+					+ Schema.UserProfile.Cols.GENDER + " INTEGER, "
 					+ Schema.UserProfile.Cols.ZIP + " INTEGER, "
 					+ Schema.UserProfile.Cols.LAUNDRY_SCHEDULE + " INTEGER, "
 					+ Schema.UserProfile.Cols.LAUNDRY_DAY + " TEXT)");
@@ -798,7 +798,7 @@ public class ItemDatabaseHelper {
 		
 		// UserProfile database
 		UserProfile.UserProfileBuilder usrBuilder 
-				= new UserProfile.UserProfileBuilder("anh", "pwd", "M", 78758)
+				= new UserProfile.UserProfileBuilder("anh", "pwd", Gender.MALE, 78758)
 						.laundrySchedule(0)
 						.laundryDay("Saturday");
 		saveUserProfileRecord(usrBuilder.build());
@@ -823,7 +823,7 @@ public class ItemDatabaseHelper {
 		
 		// UserProfile database
 		UserProfile.UserProfileBuilder usrBuilder 
-				= new UserProfile.UserProfileBuilder("an", "pwd", "F", 78717)
+				= new UserProfile.UserProfileBuilder("an", "pwd", Gender.FEMALE, 78717)
 						.laundrySchedule(1)
 						.laundryDay("Sunday");
 		saveUserProfileRecord(usrBuilder.build());

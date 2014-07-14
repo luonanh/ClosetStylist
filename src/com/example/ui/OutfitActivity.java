@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.example.closetstylist.ClothesMatching;
 import com.example.closetstylist.ClothesMatchingFactory;
+import com.example.closetstylist.ClothesMatchingFactoryFemale;
 import com.example.closetstylist.ClothesMatchingFactoryMale;
 import com.example.closetstylist.ImageSubSampler;
 import com.example.closetstylist.ItemData;
@@ -368,11 +369,16 @@ public class OutfitActivity extends Activity {
 				ArrayList<UserProfile> userList = itemDatabaseHelper.getAllUserProfile();
 				up = userList.get(0);
 				ClothesMatchingFactory cmf;
-				if (up.getGender().equals("M")) {
+				switch (up.getGender()) {
+				case MALE:
 					cmf = new ClothesMatchingFactoryMale();
-				} else {
-					// ALDBG change to ClothesMatchingFactoryFemale()
+					break;
+				case FEMALE:
+					cmf = new ClothesMatchingFactoryFemale();
+					break;
+				default:
 					cmf = new ClothesMatchingFactoryMale();
+					break;
 				}
 				ClothesMatching cm = cmf.newInstance(itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);//new ClothesMatchingMale(null, itemDatabaseHelper, weatherInfo, up, OccasionEnum.Casual);
 				outfit = cm.match(weatherInfo, itemDatabaseHelper, up);
