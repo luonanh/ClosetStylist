@@ -4,6 +4,9 @@ import com.example.closetstylist.ImageSubSampler;
 import com.example.closetstylist.ItemData;
 import com.example.closetstylist.ItemDatabaseHelper;
 import com.example.closetstylist.R;
+import com.example.closetstylist.SDCardStorageFactory;
+import com.example.closetstylist.StorageFactory;
+import com.example.closetstylist.StorageInterface;
 import com.example.closetstylist.R.id;
 import com.example.closetstylist.R.layout;
 import com.example.closetstylist.R.string;
@@ -25,12 +28,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class ViewItemActivity extends Activity {
-	private final static String LOG_TAG = AddItemActivity.class.getCanonicalName();
+	private final static String LOG_TAG = ViewItemActivity.class.getCanonicalName();
 	static final int EDIT_ITEM_REQUEST = 1;
 	
 	private ItemDatabaseHelper itemDatabaseHelper = null;
 	private ItemData itemData = null;
 	private Context context = null;
+	private StorageInterface storage = null;
 	
 	private Uri imagePath = null;
 	private TextView imageLocation = null;
@@ -57,6 +61,8 @@ public class ViewItemActivity extends Activity {
 		setContentView(R.layout.activity_view_item);
 		
 		context = getApplicationContext();
+		StorageFactory storageFactory = new SDCardStorageFactory();
+		storage = storageFactory.getInstance();
 		
 		// Restore ItemData passed in by MyCloset activity
 		itemDatabaseHelper = new ItemDatabaseHelper(this);
@@ -138,7 +144,7 @@ public class ViewItemActivity extends Activity {
 											int which) {
 										try {
 											// delete original image and cropped image from SD card
-											AddItemActivity.deleteItemImagesFromSd(itemData);
+											storage.deleteItemImagesFromStorage(itemData);
 											
 											// delete the entry in the item database
 											itemDatabaseHelper.deleteItemDataRecord(itemData);

@@ -10,6 +10,9 @@ import com.example.closetstylist.ImageSubSampler;
 import com.example.closetstylist.ItemData;
 import com.example.closetstylist.ItemDatabaseHelper;
 import com.example.closetstylist.R;
+import com.example.closetstylist.SDCardStorageFactory;
+import com.example.closetstylist.StorageFactory;
+import com.example.closetstylist.StorageInterface;
 import com.example.closetstylist.ItemData.ItemDataBuilder;
 import com.example.closetstylist.R.id;
 import com.example.closetstylist.R.layout;
@@ -44,6 +47,7 @@ public class EditItemActivity extends Activity {
 	private ItemDatabaseHelper itemDatabaseHelper = null;
 	private ItemData itemData = null;
 	private Context context = null;
+	private StorageInterface storage = null;
 
 	static final int CAMERA_PIC_REQUEST = 1;
 	static final int CROP_FROM_CAMERA = 2;
@@ -91,6 +95,8 @@ public class EditItemActivity extends Activity {
 		setContentView(R.layout.activity_edit_item);
 
 		context = getApplicationContext();
+		StorageFactory storageFactory = new SDCardStorageFactory();
+		storage = storageFactory.getInstance();
 
 		// Restore ItemData passed in by MyCloset activity
 		itemDatabaseHelper = new ItemDatabaseHelper(this);
@@ -341,7 +347,7 @@ public class EditItemActivity extends Activity {
 
 	private void launchCameraIntent() {
 		Intent i1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		newImagePath = AddItemActivity.getOutputMediaFileUri(
+		newImagePath = storage.getOutputImageFileUri(
 				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, false);
 		i1.putExtra(MediaStore.EXTRA_OUTPUT, newImagePath);
 		startActivityForResult(i1, EditItemActivity.CAMERA_PIC_REQUEST);
@@ -459,7 +465,7 @@ public class EditItemActivity extends Activity {
 			return;
 		} else {
 			if (PICK_FROM_GALLERY == type) {
-				newCropGalleryImagePath = AddItemActivity.getOutputMediaFileUri(
+				newCropGalleryImagePath = storage.getOutputImageFileUri(
 						MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
 				intent.setData(newGalleryImagePath) // set the input to the picture in gallery
 				.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
@@ -478,7 +484,7 @@ public class EditItemActivity extends Activity {
 						res.activityInfo.name));        	
 				startActivityForResult(i, CROP_FROM_GALLERY);
 			} else if (CAMERA_PIC_REQUEST == type) {
-				newCropImagePath = AddItemActivity.getOutputMediaFileUri(
+				newCropImagePath = storage.getOutputImageFileUri(
 						MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
 				intent.setData(newImagePath) // set the input to the picture taken by camera
 				.putExtra("outputX", 150) // equal to R.dimen.crop_bottom_width
@@ -514,7 +520,7 @@ public class EditItemActivity extends Activity {
 
 			return;
 		} else {
-			newEditImagePath = AddItemActivity.getOutputMediaFileUri(
+			newEditImagePath = storage.getOutputImageFileUri(
 					MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
 			Uri oldUri = null;
 			if (null == newImagePath) {

@@ -17,6 +17,9 @@ import com.example.closetstylist.ItemData.ItemDataBuilder;
 import com.example.closetstylist.R.id;
 import com.example.closetstylist.R.layout;
 import com.example.closetstylist.R.string;
+import com.example.closetstylist.SDCardStorageFactory;
+import com.example.closetstylist.StorageFactory;
+import com.example.closetstylist.StorageInterface;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -42,6 +45,7 @@ public class AddItemActivity extends Activity {
 	private final static String LOG_TAG = AddItemActivity.class.getCanonicalName();
 	private ItemDatabaseHelper itemDatabaseHelper = null;
 	private Context context = null;
+	private StorageInterface storage = null;
 	
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	
@@ -84,6 +88,8 @@ public class AddItemActivity extends Activity {
 		
 		context = getApplicationContext();
 		itemDatabaseHelper = new ItemDatabaseHelper(this);
+		StorageFactory storageFactory = new SDCardStorageFactory();
+		storage = storageFactory.getInstance();
 		
 		imageLocation = (TextView) findViewById(
 				R.id.add_item_value_image_location);
@@ -336,7 +342,7 @@ public class AddItemActivity extends Activity {
 		// TODO - Set the imagePath for this image file using the pre-made function
 		// getOutputMediaFile to create a new filename for this specific image;
 		//ALDBG we must use the whole getOutputMediaFileUri and Uri here, otherwise, image will not be displayed File newFile = getOutputMediaFile(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
-		Uri newFileUri = getOutputMediaFileUri(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, false);
+		Uri newFileUri = storage.getOutputImageFileUri(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, false);
 
 		
 		// TODO - Add the filename to the Intent as an extra. Use the Intent-extra name
@@ -350,10 +356,6 @@ public class AddItemActivity extends Activity {
 		// code CAMERA_PIC_REQUEST
 		startActivityForResult(i1, AddItemActivity.CAMERA_PIC_REQUEST);
 		// ALDBG should  we finish activity here finish();
-	}
-	
-	protected static Uri getOutputMediaFileUri(int type, boolean isCrop) {
-		return Uri.fromFile(getOutputMediaFile(type, isCrop));
 	}
 	
 	private static File getOutputMediaFile(int type, boolean isCrop) {
@@ -397,109 +399,6 @@ public class AddItemActivity extends Activity {
 		return mediaFile;
 	}
 	
-	protected static void deleteItemImagesFromSd(ItemData item) {
-		if (!item.getImageLink().isEmpty()) { // delete if the image exists
-			Log.d(LOG_TAG, "Search for " + item.getImageLink());
-			// File file = new File(imagePath.toString()) ALDBG doesn't work,
-			// don't know detail
-			File file = new File(URI.create(item.getImageLink()));
-			if (file.exists()) { // only delete if the image was stored on SD
-									// card
-				Log.d(LOG_TAG, item.getImageLink() + " exists");
-				/*
-				 * ALDBG follows stackoverFlow but doesn't work
-				 * sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-				 * Uri.parse(imagePath.toString())));
-				 */
-				if (file.delete()) {
-					Log.d(LOG_TAG,
-							"Successfully to delete file "
-									+ item.getImageLink());
-				} else {
-					Log.d(LOG_TAG, "Fail delete file " + item.getImageLink());
-				}
-			} else {
-				Log.d(LOG_TAG, "Cannot find file " + item.getImageLink());
-			}
-		}
-
-		if (!item.getCropImageLink().isEmpty()) { // delete if the cropped image exists
-			Log.d(LOG_TAG, "Search for " + item.getCropImageLink());
-			File file = new File(URI.create(item.getCropImageLink()));
-			if (file.exists()) { // only delete if the image was stored on SD
-				// card
-				Log.d(LOG_TAG, item.getCropImageLink() + " exists");
-				/*
-				 * ALDBG follows stackoverFlow but doesn't work
-				 * sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-				 * Uri.parse(imagePath.toString())));
-				 */
-				if (file.delete()) {
-					Log.d(LOG_TAG,
-							"Successfully to delete file "
-									+ item.getCropImageLink());
-				} else {
-					Log.d(LOG_TAG, "Fail delete file " + item.getCropImageLink());
-				}
-			} else {
-				Log.d(LOG_TAG, "Cannot find file " + item.getCropImageLink());
-			}
-
-		}
-	}
-
-	protected static void deleteItemOriginalImageFromSd(ItemData item) {
-		if (!item.getImageLink().isEmpty()) { // delete if the image exists
-			Log.d(LOG_TAG, "Search for " + item.getImageLink());
-			// File file = new File(imagePath.toString()) ALDBG doesn't work,
-			// don't know detail
-			File file = new File(URI.create(item.getImageLink()));
-			if (file.exists()) { // only delete if the image was stored on SD
-									// card
-				Log.d(LOG_TAG, item.getImageLink() + " exists");
-				/*
-				 * ALDBG follows stackoverFlow but doesn't work
-				 * sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-				 * Uri.parse(imagePath.toString())));
-				 */
-				if (file.delete()) {
-					Log.d(LOG_TAG,
-							"Successfully to delete file "
-									+ item.getImageLink());
-				} else {
-					Log.d(LOG_TAG, "Fail delete file " + item.getImageLink());
-				}
-			} else {
-				Log.d(LOG_TAG, "Cannot find file " + item.getImageLink());
-			}
-		}
-	}
-	
-	protected static void deleteItemCropImageFromSd(ItemData item) {
-		if (!item.getCropImageLink().isEmpty()) { // delete if the cropped image exists
-			Log.d(LOG_TAG, "Search for " + item.getCropImageLink());
-			File file = new File(URI.create(item.getCropImageLink()));
-			if (file.exists()) { // only delete if the image was stored on SD
-				// card
-				Log.d(LOG_TAG, item.getCropImageLink() + " exists");
-				/*
-				 * ALDBG follows stackoverFlow but doesn't work
-				 * sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-				 * Uri.parse(imagePath.toString())));
-				 */
-				if (file.delete()) {
-					Log.d(LOG_TAG,
-							"Successfully to delete file "
-									+ item.getCropImageLink());
-				} else {
-					Log.d(LOG_TAG, "Fail delete file " + item.getCropImageLink());
-				}
-			} else {
-				Log.d(LOG_TAG, "Cannot find file " + item.getCropImageLink());
-			}
-		}
-	}
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d(LOG_TAG, "CreateFragment onActivtyResult called. requestCode: "
@@ -582,7 +481,7 @@ public class AddItemActivity extends Activity {
             return;
         } else {
     		// generate a new Uri for the new cropped image
-        	cropImagePath = getOutputMediaFileUri(
+        	cropImagePath = storage.getOutputImageFileUri(
     				MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE, true);
         	
         	intent.setData(imagePath) // set the input to the picture taken by camera
