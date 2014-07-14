@@ -358,47 +358,6 @@ public class AddItemActivity extends Activity {
 		// ALDBG should  we finish activity here finish();
 	}
 	
-	private static File getOutputMediaFile(int type, boolean isCrop) {
-		Log.d(LOG_TAG, "getOutputMediaFile() type:" + type);
-		// To be safe, you should check that the SDCard is mounted
-		// using Environment.getExternalStorageState() before doing this.
-
-		// For future implementation: store videos in a separate directory
-		File mediaStorageDir = new File(
-				Environment
-						.getExternalStorageDirectory(),
-				"ClosetStylist");
-		// This location works best if you want the created images to be shared
-		// between applications and persist after your app has been uninstalled.
-
-		// Create the storage directory if it does not exist
-		if (!mediaStorageDir.exists()) {
-			if (!mediaStorageDir.mkdirs()) {
-				Log.d("MyCameraApp", "failed to create directory");
-				return null;
-			}
-		}
-
-		// Create a media file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
-				.format(new Date());
-		File mediaFile;
-		if (type == MEDIA_TYPE_IMAGE) {
-			if (isCrop) {
-				mediaFile = new File(mediaStorageDir.getPath() + File.separator
-						+ "CROP_IMG_" + timeStamp + ".jpg");				
-			} else {
-				mediaFile = new File(mediaStorageDir.getPath() + File.separator
-						+ "IMG_" + timeStamp + ".jpg");				
-			}
-		} else {
-			Log.e(LOG_TAG, "typ of media file not supported: type was:" + type);
-			return null;
-		}
-
-		return mediaFile;
-	}
-	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d(LOG_TAG, "CreateFragment onActivtyResult called. requestCode: "
