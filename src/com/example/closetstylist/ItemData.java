@@ -151,7 +151,7 @@ public class ItemData implements Parcelable {
 		this.tempMax = tempMax;
 	}
 	
-	public void setTempMaxFromMaterial() {
+	private void setTempMaxFromMaterial() {
 		//"Cotton_Or_Cotton_Blend", "Denim", "Down", "Jersey_Knit", "Leather", 
 		//"Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", 
 		//"Wool_Or_Wool_Blend"
@@ -168,7 +168,7 @@ public class ItemData implements Parcelable {
 		}
 	}
 
-	public void setTempMinFromMaterial() {
+	private void setTempMinFromMaterial() {
 		if (this.material.equalsIgnoreCase("Silk")) {
 			this.tempMin = 50;
 		} else {
@@ -176,7 +176,7 @@ public class ItemData implements Parcelable {
 		}
 	}
 
-	public void setTempMaxFromStyleMale() {
+	private void setTempMaxFromStyleMale() {
 		if ((this.style.equalsIgnoreCase("Dress_Shirt"))
 				&& (this.tempMax > 75)) {
 			this.tempMax = 75;
@@ -193,7 +193,7 @@ public class ItemData implements Parcelable {
 		}
 	}
 	
-	public void setTempMinFromMale() {
+	private void setTempMinFromStyleMale() {
 		if ((this.style.equalsIgnoreCase("Shorts"))
 				&& (this.tempMin < 65)) {
 			this.tempMin = 65;
@@ -203,7 +203,7 @@ public class ItemData implements Parcelable {
 		}
 	}
 
-	public void setTempMaxFromStyleFemale() {
+	private void setTempMaxFromStyleFemale() {
 		if ((this.style.equalsIgnoreCase("Vest"))
 				&& (this.tempMax > 70)) {
 			this.tempMax = 70;
@@ -223,7 +223,7 @@ public class ItemData implements Parcelable {
 		}
 	}
 	
-	public void setTempMinFromFemale() {
+	private void setTempMinFromStyleFemale() {
 		if ((this.style.equalsIgnoreCase("Tank_Camisoles"))
 				&& (this.tempMin < 70)) {
 			this.tempMin = 70;
@@ -543,6 +543,21 @@ public class ItemData implements Parcelable {
 				throw new IllegalStateException("Age out of range");
 			}
 			*/
+			return itemData;
+		}
+		
+		public ItemData buildByGender(UserProfile up) {
+			ItemData itemData = new ItemData(this);
+			switch (up.getGender()) {
+			case FEMALE:
+				itemData.setTempMinFromStyleFemale();
+				itemData.setTempMaxFromStyleFemale();
+				break;
+			default: // MALE
+				itemData.setTempMinFromStyleMale();
+				itemData.setTempMaxFromStyleMale();
+				break;
+			}
 			return itemData;
 		}
 	}

@@ -44,6 +44,7 @@ public class ViewUserProfileActivity extends Activity {
 	
 	private ItemDatabaseHelper mItemDatabaseHelper = null;
 	private Context mContext = null;
+	private UserProfile up = null;
 
 	private TextView usr;
 	private TextView pwd;
@@ -69,25 +70,25 @@ public class ViewUserProfileActivity extends Activity {
 		
 		mContext = getApplicationContext();
 		mItemDatabaseHelper = new ItemDatabaseHelper(this);
-		ArrayList<UserProfile> userList = mItemDatabaseHelper.getAllUserProfile();
+		up = mItemDatabaseHelper.getCurrentUserProfile();
 		
 		usr = (TextView) findViewById(R.id.view_user_profile_value_username);
-		usr.setText(userList.get(0).getUsr());
+		usr.setText(up.getUsr());
 		
 		pwd = (TextView) findViewById(R.id.view_user_profile_value_password);
-		pwd.setText(userList.get(0).getPwd());
+		pwd.setText(up.getPwd());
 
 		gender = (TextView) findViewById(R.id.view_user_profile_value_gender);
-		gender.setText(userList.get(0).getGender().toString());
+		gender.setText(up.getGender().toString());
 
 		zip = (TextView) findViewById(R.id.view_user_profile_value_zip);
-		zip.setText(Integer.toString(userList.get(0).getZip()));
+		zip.setText(Integer.toString(up.getZip()));
 		
 		schedule = (TextView) findViewById(R.id.view_user_profile_value_laundry_schedule);
-		schedule.setText(Integer.toString(userList.get(0).getLaundrySchedule()));
+		schedule.setText(Integer.toString(up.getLaundrySchedule()));
 
 		day = (TextView) findViewById(R.id.view_user_profile_value_laundry_day);
-		day.setText(userList.get(0).getLaundryDay());
+		day.setText(up.getLaundryDay());
 		
 		latLocation = (TextView) findViewById(R.id.view_user_profile_label_current_latitude);
 		longLocation = (TextView) findViewById(R.id.view_user_profile_label_current_longtitude);

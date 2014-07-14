@@ -366,8 +366,7 @@ public class OutfitActivity extends Activity {
 				this.dialog.show();
 				
 				// obtain UserProfile
-				ArrayList<UserProfile> userList = itemDatabaseHelper.getAllUserProfile();
-				up = userList.get(0);
+				up = itemDatabaseHelper.getCurrentUserProfile();
 				ClothesMatchingFactory cmf;
 				switch (up.getGender()) {
 				case MALE:

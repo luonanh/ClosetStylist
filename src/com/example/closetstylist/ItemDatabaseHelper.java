@@ -380,6 +380,16 @@ public class ItemDatabaseHelper {
 		return tops;
 	}
 	
+	public UserProfile getCurrentUserProfile() {
+		Cursor c = getCursorToAllUserProfileRecord();
+		if (c != null) {
+			if (c.moveToFirst()) {
+				return getUserProfileFromCursor(c);
+			}
+		}
+		return null;
+	}
+	
 	/*
 	 * ************************************************************************
 	 * ItemData

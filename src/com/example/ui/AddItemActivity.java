@@ -20,6 +20,7 @@ import com.example.closetstylist.R.string;
 import com.example.closetstylist.SDCardStorageFactory;
 import com.example.closetstylist.StorageFactory;
 import com.example.closetstylist.StorageInterface;
+import com.example.closetstylist.UserProfile;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -52,6 +53,7 @@ public class AddItemActivity extends Activity {
 	static final int CAMERA_PIC_REQUEST = 1;
 	static final int CROP_FROM_CAMERA = 2;
 	
+	private UserProfile up = null;
 	private Uri imagePath = null;
 	private Uri cropImagePath = null;
 	private TextView imageLocation = null;
@@ -90,6 +92,7 @@ public class AddItemActivity extends Activity {
 		itemDatabaseHelper = new ItemDatabaseHelper(this);
 		StorageFactory storageFactory = new SDCardStorageFactory();
 		storage = storageFactory.getInstance();
+		up = itemDatabaseHelper.getCurrentUserProfile();
 		
 		imageLocation = (TextView) findViewById(
 				R.id.add_item_value_image_location);
@@ -240,7 +243,7 @@ public class AddItemActivity extends Activity {
 				 * information and send it back to MyCloset activity. 
 				 */
 				Intent i1 = new Intent();
-				i1.putExtra(ItemData.INTENT, itemDataBuilder.build());
+				i1.putExtra(ItemData.INTENT, itemDataBuilder.buildByGender(up));
 				
 				// Set Activity's result with result code RESULT_OK
 				setResult(Activity.RESULT_OK, i1);
@@ -389,7 +392,7 @@ public class AddItemActivity extends Activity {
 				if (!description.getText().toString().isEmpty()) {
 					itemDataBuilder.description(description.getText().toString());
 				}
-				new ImageSubSampler(context).subSampleOriginalUri(itemDataBuilder.build(), image, context);
+				new ImageSubSampler(context).subSampleOriginalUri(itemDataBuilder.buildByGender(up), image, context);
 
 				launchCropIntent();
 			} else if (resultCode == AddItemActivity.RESULT_CANCELED) {
@@ -421,7 +424,7 @@ public class AddItemActivity extends Activity {
 				if (!description.getText().toString().isEmpty()) {
 					itemDataBuilder.description(description.getText().toString());
 				}
-				new ImageSubSampler(context).subSampleCroppedUri(itemDataBuilder.build(), cropImage, context);
+				new ImageSubSampler(context).subSampleCroppedUri(itemDataBuilder.buildByGender(up), cropImage, context);
 			}
 		}
 	}
