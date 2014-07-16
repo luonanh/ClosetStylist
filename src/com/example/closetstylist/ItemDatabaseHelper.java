@@ -284,6 +284,7 @@ public class ItemDatabaseHelper {
 		mContext = context;
 		mItemDataOpenHelper = new ItemDataOpenHelper(context);
 		database = mItemDataOpenHelper.getWritableDatabase();
+		populateMatchingTables();
 	}
 
 	/*
@@ -976,14 +977,6 @@ public class ItemDatabaseHelper {
 					+ Schema.ColorMatching.Cols.POINT + " INTEGER)");
 
 			Log.i(LOG_TAG, "DONE CREATE TABLE");
-			
-			/* Populate tables
-			createOccasionMatchingMaleDatabase();
-			createOccasionMatchingFemaleDatabase();
-			createPairMatchingMaleDatabase();			
-			createPairMatchingFemaleDatabase();
-			createColorMatchingDefaultDatabase();
-			*/
 		}
 
 		@Override
@@ -992,6 +985,14 @@ public class ItemDatabaseHelper {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_PROFILE + "");
 			onCreate(database);
 		}
+	}
+	
+	private void populateMatchingTables() {
+		createOccasionMatchingMaleDatabase();
+		createOccasionMatchingFemaleDatabase();
+		createPairMatchingMaleDatabase();			
+		createPairMatchingFemaleDatabase();
+		createColorMatchingDefaultDatabase();
 	}
 	
 	/*
@@ -1009,10 +1010,6 @@ public class ItemDatabaseHelper {
 		
 		// UserProfile database
 		saveUserProfileRecord(defaultMaleUserProfile);
-
-		createOccasionMatchingMaleDatabase();
-		createPairMatchingMaleDatabase();
-		createColorMatchingDefaultDatabase();
 	}
 
 	/*
@@ -1031,10 +1028,6 @@ public class ItemDatabaseHelper {
 		
 		// UserProfile database
 		saveUserProfileRecord(defaultFemaleUserProfile);
-		
-		createOccasionMatchingFemaleDatabase();
-		createPairMatchingFemaleDatabase();
-		createColorMatchingDefaultDatabase();
 	}
 
 	public void deleteDatabase() {
