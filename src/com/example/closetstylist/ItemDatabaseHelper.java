@@ -30,12 +30,24 @@ public class ItemDatabaseHelper {
 	private static final String TABLE_PAIR_MATCHING_MALE = "pairMatchingMale_db";
 	private static final String TABLE_PAIR_MATCHING_FEMALE = "pairMatchingFemale_db";
 	private static final String TABLE_COLOR_MATCHING_DEFAULT = "colorMatchingDefault_db";
+
+	private UserProfile defaultMaleUserProfile 
+			= new UserProfile.UserProfileBuilder("anh", "pwd", Gender.MALE, 78758)
+					.laundrySchedule(0)
+					.laundryDay("Saturday")
+					.build();
+
+	private UserProfile defaultFemaleUserProfile 
+			= new UserProfile.UserProfileBuilder("an", "pwd", Gender.FEMALE, 78717)
+					.laundrySchedule(1)
+					.laundryDay("Sunday")
+					.build();
 	
 	/*
 	 * PREDEFINED_RESID and PREDEFINED_ITEMS must always match, otherwise, info
 	 * will be wrong. If we change one later, MUST change the other one as well.
 	 */
-	private static final int[] PREDEFINED_RESID 
+	private final int[] PREDEFINED_RESID_MALE 
 			= {
 			R.drawable.jeans_blue_solid,
 			R.drawable.polo_blue_solid,
@@ -58,29 +70,210 @@ public class ItemDatabaseHelper {
 			R.drawable.shirt_brown_stripe,
 			R.drawable.shirt_white_blue_stripe
 			};
-	private static final ItemData[] PREDEFINED_ITEMS 
+	private final ItemData[] PREDEFINED_ITEMS_MALE 
 	= {
 		// String imageLink (null), String color, int tempMin, int tempMax, String category, String cropImageLink (null)
-		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(2).material("Cotton_Or_Cotton_Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Bottom", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Green", 70, 120, "Bottom", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("Cotton_Or_Cotton_Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Yellow", 70, 120, "Top",null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Brown", 15, 100, "Bottom", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Beige", 15, 100, "Bottom", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 15, 100, "Top", null).name("Adidas jacket").description("Adidas jacket").brand("Adidas").age(1).material("Polyester").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Green", 15, 100, "Top", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("Nylon").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Yellow", 15, 100, "Top", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("Down").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Bottom", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Beige", 70, 120, "Bottom", null).name("AE short").description("AE short").brand("AE").age(7).material("Cotton_Or_Cotton_Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Green", 40, 120, "Top", null).name("Adidas t-shirt").description("Adidas t-shirt").brand("Adidas").age(0).material("Nylon").style("T-Shirt_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(3).material("Cotton_Or_Cotton_Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Top", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("Cotton_Or_Cotton_Blend").style("Dress_Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("Cotton_Or_Cotton_Blend").style("Dress_Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("Cotton_Or_Cotton_Blend").style("Casual_Button_Down_Shirt").dirty(false).wornTime(0).maxWornTime(1).build(),
-		new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("Cotton_Or_Cotton_Blend").style("Casual_Button_Down_Shirt").dirty(false).wornTime(0).maxWornTime(1).build()
+			new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Banana jean").description("Banana jean").brand("Banana").age(1).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(2).material("Cotton_Or_Cotton_Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Bottom", null).name("DKNY short").description("DKNY short").brand("DKNY").age(1).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 70, 120, "Bottom", null).name("FrenchConnection short").description("FrenchConnection short").brand("FrenchConnection").age(3).material("Cotton_Or_Cotton_Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("AE t-shirt").description("AE t-shirt").brand("AE").age(2).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Yellow", 70, 120, "Top",null).name("JCrew t-shirt").description("JCrew t-shirt").brand("JCrew").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 15, 100, "Bottom", null).name("Arizona jean").description("Arizona jean").brand("Arizona").age(5).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Brown", 15, 100, "Bottom", null).name("Aeropostale pants").description("Aeropostale pants").brand("Aeropostale").age(4).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 15, 100, "Bottom", null).name("Dockers pants").description("Dockers pants").brand("Dockers").age(3).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 15, 100, "Top", null).name("Adidas jacket").description("Adidas jacket").brand("Adidas").age(1).material("Polyester").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 15, 100, "Top", null).name("AE jacket").description("AE jacket").brand("AE").age(1).material("Nylon").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Yellow", 15, 100, "Top", null).name("Rei jacket").description("Rei jacket").brand("Rei").age(1).material("Down").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Bottom", null).name("GordonCooper short").description("GordonCooper short").brand("GordonCooper").age(0).material("Polyester").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 70, 120, "Bottom", null).name("AE short").description("AE short").brand("AE").age(7).material("Cotton_Or_Cotton_Blend").style("Shorts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 40, 120, "Top", null).name("Adidas t-shirt").description("Adidas t-shirt").brand("Adidas").age(0).material("Nylon").style("T-Shirt_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 40, 120, "Top", null).name("Express polo").description("Express polo").brand("Express").age(3).material("Cotton_Or_Cotton_Blend").style("Polo").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 70, 120, "Top", null).name("KennethCole shirt").description("KennethCole shirt").brand("KennethCole").age(4).material("Cotton_Or_Cotton_Blend").style("Dress_Shirt").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("RalphLauren shirt").description("RalphLauren shirt").brand("RalphLauren").age(9).material("Cotton_Or_Cotton_Blend").style("Dress_Shirt").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("Diesel shirt").description("Diesel shirt").brand("Diesel").age(7).material("Cotton_Or_Cotton_Blend").style("Casual_Button_Down_Shirt").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 70, 120, "Top", null).name("AE shirt").description("AE shirt").brand("AE").age(6).material("Cotton_Or_Cotton_Blend").style("Casual_Button_Down_Shirt").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultMaleUserProfile)
+	};
+	
+	
+	private final int[] PREDEFINED_RESID_FEMALE
+	= {
+			R.drawable.iphone_6_22_14_009,
+			R.drawable.iphone_6_22_14_010,
+			R.drawable.iphone_6_22_14_011,
+			R.drawable.iphone_6_22_14_012,
+			R.drawable.iphone_6_22_14_013,
+			R.drawable.iphone_6_22_14_014,
+			R.drawable.iphone_6_22_14_015,
+			R.drawable.iphone_6_22_14_016,
+			R.drawable.iphone_6_22_14_017,
+			R.drawable.iphone_6_22_14_018,
+			R.drawable.iphone_6_22_14_019,
+			R.drawable.iphone_6_22_14_020,
+			R.drawable.iphone_6_22_14_021,
+			R.drawable.iphone_6_22_14_022,
+			R.drawable.iphone_6_22_14_023,
+			R.drawable.iphone_6_22_14_024,
+			R.drawable.iphone_6_22_14_025,
+			R.drawable.iphone_6_22_14_026,
+			R.drawable.iphone_6_22_14_027,
+			R.drawable.iphone_6_22_14_028,
+			R.drawable.iphone_6_22_14_029,
+			R.drawable.iphone_6_22_14_030,
+			R.drawable.iphone_6_22_14_031,
+			R.drawable.iphone_6_22_14_032,
+			R.drawable.iphone_6_22_14_033,
+			R.drawable.iphone_6_22_14_034,
+			R.drawable.iphone_6_22_14_035,
+			R.drawable.iphone_6_22_14_036,
+			R.drawable.iphone_6_22_14_037,
+			R.drawable.iphone_6_22_14_038,
+			R.drawable.iphone_6_22_14_039,
+			R.drawable.iphone_6_22_14_040,
+			R.drawable.iphone_6_22_14_041,
+			R.drawable.iphone_6_22_14_042,
+			R.drawable.iphone_6_22_14_043,
+			R.drawable.iphone_6_22_14_044,
+			R.drawable.iphone_6_22_14_045,
+			R.drawable.iphone_6_22_14_046,
+			R.drawable.iphone_6_22_14_047,
+			R.drawable.iphone_6_22_14_048,
+			R.drawable.iphone_6_22_14_049,
+			R.drawable.iphone_6_22_14_050,
+			R.drawable.iphone_6_22_14_051,
+			R.drawable.iphone_6_22_14_052,
+			R.drawable.iphone_6_22_14_053,
+			R.drawable.iphone_6_22_14_054,
+			R.drawable.iphone_6_22_14_055,
+			R.drawable.iphone_6_22_14_056,
+			R.drawable.iphone_6_22_14_057,
+			R.drawable.iphone_6_22_14_058,
+			R.drawable.iphone_6_22_14_059,
+			R.drawable.iphone_6_22_14_060,
+			R.drawable.iphone_6_22_14_061,
+			R.drawable.iphone_6_22_14_062,
+			R.drawable.iphone_6_22_14_063,
+			R.drawable.iphone_6_22_14_064,
+			R.drawable.iphone_6_22_14_065,
+			R.drawable.iphone_6_22_14_066,
+			R.drawable.iphone_6_22_14_067,
+			R.drawable.iphone_6_22_14_068,
+			R.drawable.iphone_6_22_14_069,
+			R.drawable.iphone_6_22_14_070,
+			R.drawable.iphone_6_22_14_071,
+			R.drawable.iphone_6_22_14_072,
+			R.drawable.iphone_6_22_14_073,
+			R.drawable.iphone_6_22_14_074,
+			R.drawable.iphone_6_22_14_075,
+			R.drawable.iphone_6_22_14_076,
+			R.drawable.iphone_6_22_14_077,
+			R.drawable.iphone_6_22_14_078,
+			R.drawable.iphone_6_22_14_079,
+			R.drawable.iphone_6_22_14_080,
+			R.drawable.iphone_6_22_14_081,
+			R.drawable.iphone_6_22_14_082,
+			R.drawable.iphone_6_22_14_083,
+			R.drawable.iphone_6_22_14_084,
+			R.drawable.iphone_6_22_14_085,
+			R.drawable.iphone_6_22_14_087,
+			R.drawable.iphone_6_22_14_088,
+			R.drawable.iphone_6_22_14_089,
+			R.drawable.iphone_6_22_14_090,
+			R.drawable.iphone_6_22_14_091,
+			R.drawable.iphone_6_22_14_092,
+			R.drawable.iphone_6_22_14_093,
+			R.drawable.iphone_6_22_14_094,
+			R.drawable.iphone_6_22_14_095
+	};
+	
+	private final ItemData[] PREDEFINED_ITEMS_FEMALE
+	= {
+			new ItemData.ItemDataBuilder(null, "Green", 0, 0, "Top", null).name("VS_Tunic_Green").description("VS_Tunic_Green").brand("VS").age(1).material("Cotton_Or_Cotton_Blend").style("Tunic").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Violet", 0, 0, "Top", null).name("JC_Blouse_Sleeveless_Violet").description("JC_Blouse_Sleeveless_Violet").brand("JC").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("VS_Blouse_Long_Sleeve_White").description("VS_Blouse_Long_Sleeve_White").brand("VS").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("JC_Blouse_Short_Sleeve_Multicolor_Pattern").description("JC_Blouse_Short_Sleeve_Multicolor_Pattern").brand("JC").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Pink", 0, 0, "Top", null).name("Misc_Blouse_Short_Sleeve_Pink").description("Misc_Blouse_Short_Sleeve_Pink").brand("Misc").age(1).material("Silk").style("Blouse_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("BR_Blouse_Long_Sleeve_Multicolor_Pattern").description("BR_Blouse_Long_Sleeve_Multicolor_Pattern").brand("BR").age(1).material("Silk").style("Blouse_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("Guess_Blouse_Sleeveless_White").description("Guess_Blouse_Sleeveless_White").brand("Guess").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("HM_Collared_And_Button-down_White").description("HM_Collared_And_Button-down_White").brand("HM").age(1).material("Cotton_Or_Cotton_Blend").style("Collared_And_Button-down").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Violet", 0, 0, "Top", null).name("CK_Party_Top_Violet").description("CK_Party_Top_Violet").brand("CK").age(1).material("Nylon").style("Party_Top").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("HM_Collared_And_Button-down_Blue").description("HM_Collared_And_Button-down_Blue").brand("HM").age(1).material("Denim").style("Collared_And_Button-down").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Orange", 0, 0, "Top", null).name("JC_T-Shirt_Long_Sleeve_Orange").description("JC_T-Shirt_Long_Sleeve_Orange").brand("JC").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 0, 0, "Top", null).name("Loft_Blouse_Short_Sleeve_Green").description("Loft_Blouse_Short_Sleeve_Green").brand("Loft").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Brown", 0, 0, "Top", null).name("AP_Coat_And_Jacket_Light_Brown").description("AP_Coat_And_Jacket_Light_Brown").brand("AP").age(1).material("Wool_Or_Wool_Blend").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 0, 0, "Top", null).name("BR_Party_Top_Beige").description("BR_Party_Top_Beige").brand("BR").age(1).material("Silk").style("Party_Top").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("UO_Party_Top_Multicolor_Pattern").description("UO_Party_Top_Multicolor_Pattern").brand("UO").age(1).material("Cotton_Or_Cotton_Blend").style("Party_Top").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Violet", 0, 0, "Top", null).name("JC_Cardigan_Violet").description("JC_Cardigan_Violet").brand("JC").age(1).material("Cotton_Or_Cotton_Blend").style("Cardigan").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("Guess_Vest_Blue").description("Guess_Vest_Blue").brand("Guess").age(1).material("Denim").style("Vest").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("AP_T-Shirt_Short_Sleeve_Black").description("AP_T-Shirt_Short_Sleeve_Black").brand("AP").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Red", 0, 0, "Top", null).name("AE_Tunic_Red").description("AE_Tunic_Red").brand("AE").age(1).material("Nylon").style("Tunic").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("AP_T-Shirt_Short_Sleeve_Multicolor_Pattern").description("AP_T-Shirt_Short_Sleeve_Multicolor_Pattern").brand("AP").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("ON_Blouse_Sleeveless_Black").description("ON_Blouse_Sleeveless_Black").brand("ON").age(1).material("Silk").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("UO_Party_Top_Blue").description("UO_Party_Top_Blue").brand("UO").age(1).material("Cotton_Or_Cotton_Blend").style("Party_Top").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("JC_T-Shirt_Long_Sleeve_Blue").description("JC_T-Shirt_Long_Sleeve_Blue").brand("JC").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 0, 0, "Top", null).name("EX_Tunic_Beige").description("EX_Tunic_Beige").brand("EX").age(1).material("Cotton_Or_Cotton_Blend").style("Tunic").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("UO_Blouse_Sleeveless_Multicolor_Pattern").description("UO_Blouse_Sleeveless_Multicolor_Pattern").brand("UO").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("JC_Collared_And_Button-down_White").description("JC_Collared_And_Button-down_White").brand("JC").age(1).material("Cotton_Or_Cotton_Blend").style("Collared_And_Button-down").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("BR_Blouse_Sleeveless_Multicolor_Pattern").description("BR_Blouse_Sleeveless_Multicolor_Pattern").brand("BR").age(1).material("Nylon").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Gray", 0, 0, "Top", null).name("AP_T-Shirt_Short_Sleeve_Gray").description("AP_T-Shirt_Short_Sleeve_Gray").brand("AP").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Yellow", 0, 0, "Top", null).name("AP_T-Shirt_Short_Sleeve_Yellow").description("AP_T-Shirt_Short_Sleeve_Yellow").brand("AP").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("KC_Blouse_Sleeveless_Black").description("KC_Blouse_Sleeveless_Black").brand("KC").age(1).material("Polyester").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("UO_Collared_And_Button-down_White").description("UO_Collared_And_Button-down_White").brand("UO").age(1).material("Cotton_Or_Cotton_Blend").style("Collared_And_Button-down").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Yellow", 0, 0, "Top", null).name("HM_Blouse_Sleeveless_Yellow").description("HM_Blouse_Sleeveless_Yellow").brand("HM").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Pink", 0, 0, "Top", null).name("BR_Blouse_Sleeveless_Pink").description("BR_Blouse_Sleeveless_Pink").brand("BR").age(1).material("Polyester").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 0, 0, "Top", null).name("Misc_Party_Top_Green").description("Misc_Party_Top_Green").brand("Misc").age(1).material("Nylon").style("Party_Top").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 0, 0, "Top", null).name("UO_Vest_Green").description("UO_Vest_Green").brand("UO").age(1).material("Wool_Or_Wool_Blend").style("Vest").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("BR_T-Shirt_Long_Sleeve_Multicolor_Pattern").description("BR_T-Shirt_Long_Sleeve_Multicolor_Pattern").brand("BR").age(1).material("Wool_Or_Wool_Blend").style("T-Shirt_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Gray", 0, 0, "Top", null).name("OK_Tunic_Gray").description("OK_Tunic_Gray").brand("OK").age(1).material("Cotton_Or_Cotton_Blend").style("Tunic").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Yellow", 0, 0, "Top", null).name("Misc_Cardigan_Yellow").description("Misc_Cardigan_Yellow").brand("Misc").age(1).material("Wool_Or_Wool_Blend").style("Cardigan").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("JC_Cardigan_Black").description("JC_Cardigan_Black").brand("JC").age(1).material("Wool_Or_Wool_Blend").style("Cardigan").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Orange", 0, 0, "Top", null).name("BR_Blouse_Sleeveless_Orange").description("BR_Blouse_Sleeveless_Orange").brand("BR").age(1).material("Polyester").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("KC_Coat_And_Jacket_Light_Black").description("KC_Coat_And_Jacket_Light_Black").brand("KC").age(1).material("Nylon").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 0, 0, "Bottom", null).name("Guess_Legging_Skinny_Beige").description("Guess_Legging_Skinny_Beige").brand("Guess").age(1).material("Denim").style("Legging_Skinny").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Bottom", null).name("Misc_Jeans_Blue").description("Misc_Jeans_Blue").brand("Misc").age(1).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Bottom", null).name("LV_Legging_Skinny_Multicolor_Pattern").description("LV_Legging_Skinny_Multicolor_Pattern").brand("LV").age(1).material("Denim").style("Legging_Skinny").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Bottom", null).name("Misc_Pants_Black").description("Misc_Pants_Black").brand("Misc").age(1).material("Wool_Or_Wool_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Bottom", null).name("BR_Skirts_Blue").description("BR_Skirts_Blue").brand("BR").age(1).material("Denim").style("Skirts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Orange", 0, 0, "Bottom", null).name("JC_Pants_Orange").description("JC_Pants_Orange").brand("JC").age(1).material("Nylon").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Bottom", null).name("Misc_Skirts_Black").description("Misc_Skirts_Black").brand("Misc").age(1).material("Wool_Or_Wool_Blend").style("Skirts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Bottom", null).name("Loft_Skirts_Blue").description("Loft_Skirts_Blue").brand("Loft").age(1).material("Nylon").style("Skirts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Bottom", null).name("EX_Skirts_Blue").description("EX_Skirts_Blue").brand("EX").age(1).material("Denim").style("Skirts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Bottom", null).name("AP_Skirts_Black").description("AP_Skirts_Black").brand("AP").age(1).material("Cotton_Or_Cotton_Blend").style("Skirts").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 0, 0, "Bottom", null).name("Loft_Pants_Beige").description("Loft_Pants_Beige").brand("Loft").age(1).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Bottom", null).name("EX_Legging_Skinny_Blue").description("EX_Legging_Skinny_Blue").brand("EX").age(1).material("Denim").style("Legging_Skinny").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Bottom", null).name("Guess_Legging_Skinny_White").description("Guess_Legging_Skinny_White").brand("Guess").age(1).material("Denim").style("Legging_Skinny").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Bottom", null).name("EX_Jeans_Blue").description("EX_Jeans_Blue").brand("EX").age(1).material("Denim").style("Jeans").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Orange", 0, 0, "Bottom", null).name("Guess_Legging_Skinny_Orange").description("Guess_Legging_Skinny_Orange").brand("Guess").age(1).material("Spandex").style("Legging_Skinny").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Gray", 0, 0, "Bottom", null).name("BR_Pants_Gray").description("BR_Pants_Gray").brand("BR").age(1).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Brown", 0, 0, "Bottom", null).name("BR_Pants_Brown").description("BR_Pants_Brown").brand("BR").age(1).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Bottom", null).name("BCBG_Pants_Black").description("BCBG_Pants_Black").brand("BCBG").age(1).material("Polyester").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 0, 0, "Bottom", null).name("BR_Pants_Beige").description("BR_Pants_Beige").brand("BR").age(1).material("Cotton_Or_Cotton_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Bottom", null).name("EX_Pants_Black").description("EX_Pants_Black").brand("EX").age(1).material("Wool_Or_Wool_Blend").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 0, 0, "Bottom", null).name("VS_Pants_Green").description("VS_Pants_Green").brand("VS").age(1).material("Linen").style("Pants").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("EX_Blouse_Long_Sleeve_Black").description("EX_Blouse_Long_Sleeve_Black").brand("EX").age(1).material("Nylon").style("Blouse_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Multicolor_Pattern", 0, 0, "Top", null).name("Misc_Collared_And_Button-down_Multicolor_Pattern").description("Misc_Collared_And_Button-down_Multicolor_Pattern").brand("Misc").age(1).material("Polyester").style("Collared_And_Button-down").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("EX_Coat_And_Jacket_Light_Black").description("EX_Coat_And_Jacket_Light_Black").brand("EX").age(1).material("Polyester").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("AF_Coat_And_Jacket_Heavy_White").description("AF_Coat_And_Jacket_Heavy_White").brand("AF").age(1).material("Down").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("KC_Coat_And_Jacket_Heavy_Blue").description("KC_Coat_And_Jacket_Heavy_Blue").brand("KC").age(1).material("Down").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Orange", 0, 0, "Top", null).name("NF_Coat_And_Jacket_Heavy_Orange").description("NF_Coat_And_Jacket_Heavy_Orange").brand("NF").age(1).material("Down").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 0, 0, "Top", null).name("EX_Coat_And_Jacket_Heavy_Beige").description("EX_Coat_And_Jacket_Heavy_Beige").brand("EX").age(1).material("Leather").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 0, 0, "Top", null).name("BR_Coat_And_Jacket_Heavy_Green").description("BR_Coat_And_Jacket_Heavy_Green").brand("BR").age(1).material("Nylon").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Brown", 0, 0, "Top", null).name("EX_Coat_And_Jacket_Heavy_Brown").description("EX_Coat_And_Jacket_Heavy_Brown").brand("EX").age(1).material("Nylon").style("Coat_And_Jacket_Heavy").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Yellow", 0, 0, "Top", null).name("AP_Coat_And_Jacket_Light_Yellow").description("AP_Coat_And_Jacket_Light_Yellow").brand("AP").age(1).material("Polyester").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("AA_T-Shirt_Short_Sleeve_Blue").description("AA_T-Shirt_Short_Sleeve_Blue").brand("AA").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Orange", 0, 0, "Top", null).name("JC_T-Shirt_Short_Sleeve_Orange").description("JC_T-Shirt_Short_Sleeve_Orange").brand("JC").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Black", 0, 0, "Top", null).name("AA_T-Shirt_Short_Sleeve_Black").description("AA_T-Shirt_Short_Sleeve_Black").brand("AA").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Green", 0, 0, "Top", null).name("AA_T-Shirt_Short_Sleeve_Green").description("AA_T-Shirt_Short_Sleeve_Green").brand("AA").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Gray", 0, 0, "Top", null).name("EX_T-Shirt_Long_Sleeve_Gray").description("EX_T-Shirt_Long_Sleeve_Gray").brand("EX").age(1).material("Cotton_Or_Cotton_Blend").style("T-Shirt_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("EX_Blouse_Sleeveless_Blue").description("EX_Blouse_Sleeveless_Blue").brand("EX").age(1).material("Denim").style("Blouse_Sleeveless").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("EX_Cardigan_White").description("EX_Cardigan_White").brand("EX").age(1).material("Wool_Or_Wool_Blend").style("Cardigan").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Brown", 0, 0, "Top", null).name("EX_Blouse_Long_Sleeve_Brown").description("EX_Blouse_Long_Sleeve_Brown").brand("EX").age(1).material("Wool_Or_Wool_Blend").style("Blouse_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("EX_Coat_And_Jacket_Light_White").description("EX_Coat_And_Jacket_Light_White").brand("EX").age(1).material("Nylon").style("Coat_And_Jacket_Light").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Beige", 0, 0, "Top", null).name("EX_Blouse_Long_Sleeve_Beige").description("EX_Blouse_Long_Sleeve_Beige").brand("EX").age(1).material("Wool_Or_Wool_Blend").style("Blouse_Long_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("VS_Blouse_Short_Sleeve_White").description("VS_Blouse_Short_Sleeve_White").brand("VS").age(1).material("Cotton_Or_Cotton_Blend").style("Blouse_Short_Sleeve").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("VS_Tunic_White").description("VS_Tunic_White").brand("VS").age(1).material("Cotton_Or_Cotton_Blend").style("Tunic").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "White", 0, 0, "Top", null).name("EX_Collared_And_Button-down_White").description("EX_Collared_And_Button-down_White").brand("EX").age(1).material("Cotton_Or_Cotton_Blend").style("Collared_And_Button-down").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile),
+			new ItemData.ItemDataBuilder(null, "Blue", 0, 0, "Top", null).name("VS_Tank_Camisoles_Blue").description("VS_Tank_Camisoles_Blue").brand("VS").age(1).material("Wool_Or_Wool_Blend").style("Tank_Camisoles").dirty(false).wornTime(0).maxWornTime(1).buildByGender(defaultFemaleUserProfile)
 	};
 	
 	final private Context mContext; // used to mContext.deleteDatabase(DATABASE_NAME);
@@ -783,6 +976,14 @@ public class ItemDatabaseHelper {
 					+ Schema.ColorMatching.Cols.POINT + " INTEGER)");
 
 			Log.i(LOG_TAG, "DONE CREATE TABLE");
+			
+			/* Populate tables
+			createOccasionMatchingMaleDatabase();
+			createOccasionMatchingFemaleDatabase();
+			createPairMatchingMaleDatabase();			
+			createPairMatchingFemaleDatabase();
+			createColorMatchingDefaultDatabase();
+			*/
 		}
 
 		@Override
@@ -798,21 +999,17 @@ public class ItemDatabaseHelper {
 	 */
 	public void createDefaultDatabaseForMale() {
 		// ItemData database
-		for (int i = 0; i < PREDEFINED_RESID.length; i++) {
-			PREDEFINED_ITEMS[i].setImageLink(
-					getUriFromResource(PREDEFINED_RESID[i]).toString());
-			PREDEFINED_ITEMS[i].setCropImageLink(
-					getUriFromResource(PREDEFINED_RESID[i]).toString());
-			saveItemDataRecord(PREDEFINED_ITEMS[i]);
+		for (int i = 0; i < PREDEFINED_RESID_MALE.length; i++) {
+			PREDEFINED_ITEMS_MALE[i].setImageLink(
+					getUriFromResource(PREDEFINED_RESID_MALE[i]).toString());
+			PREDEFINED_ITEMS_MALE[i].setCropImageLink(
+					getUriFromResource(PREDEFINED_RESID_MALE[i]).toString());
+			saveItemDataRecord(PREDEFINED_ITEMS_MALE[i]);
 		}
 		
 		// UserProfile database
-		UserProfile.UserProfileBuilder usrBuilder 
-				= new UserProfile.UserProfileBuilder("anh", "pwd", Gender.MALE, 78758)
-						.laundrySchedule(0)
-						.laundryDay("Saturday");
-		saveUserProfileRecord(usrBuilder.build());
-		
+		saveUserProfileRecord(defaultMaleUserProfile);
+
 		createOccasionMatchingMaleDatabase();
 		createPairMatchingMaleDatabase();
 		createColorMatchingDefaultDatabase();
@@ -823,20 +1020,17 @@ public class ItemDatabaseHelper {
 	 */
 	public void createDefaultDatabaseForFemale() {
 		// ItemData database
-		for (int i = 0; i < PREDEFINED_RESID.length; i++) {
-			PREDEFINED_ITEMS[i].setImageLink(
-					getUriFromResource(PREDEFINED_RESID[i]).toString());
-			PREDEFINED_ITEMS[i].setCropImageLink(
-					getUriFromResource(PREDEFINED_RESID[i]).toString());
-			saveItemDataRecord(PREDEFINED_ITEMS[i]);
+		for (int i = 0; i < PREDEFINED_RESID_FEMALE.length; i++) {
+			PREDEFINED_ITEMS_FEMALE[i].setImageLink(
+					getUriFromResource(PREDEFINED_RESID_FEMALE[i]).toString());
+			PREDEFINED_ITEMS_FEMALE[i].setCropImageLink(
+					getUriFromResource(PREDEFINED_RESID_FEMALE[i]).toString());
+			//Log.i(LOG_TAG, "Entry number of PREDEFINED_RESID_FEMALE: " + i);
+			saveItemDataRecord(PREDEFINED_ITEMS_FEMALE[i]);
 		}
 		
 		// UserProfile database
-		UserProfile.UserProfileBuilder usrBuilder 
-				= new UserProfile.UserProfileBuilder("an", "pwd", Gender.FEMALE, 78717)
-						.laundrySchedule(1)
-						.laundryDay("Sunday");
-		saveUserProfileRecord(usrBuilder.build());
+		saveUserProfileRecord(defaultFemaleUserProfile);
 		
 		createOccasionMatchingFemaleDatabase();
 		createPairMatchingFemaleDatabase();
