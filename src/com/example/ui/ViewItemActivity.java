@@ -203,7 +203,7 @@ public class ViewItemActivity extends Activity {
 		category.setText(item.getCategory().toString());
 		brand.setText(item.getBrand());
 		age.setText(Double.toString(item.getAge()));
-		material.setText(item.getMaterial());
+		material.setText(item.getMaterial().toString());
 		style.setText(item.getStyle());
 		dirty.setText(String.valueOf(item.getDirty()));
 	}

@@ -11,6 +11,7 @@ import com.example.closetstylist.ItemCategoryEnum;
 import com.example.closetstylist.ItemColorEnum;
 import com.example.closetstylist.ItemData;
 import com.example.closetstylist.ItemDatabaseHelper;
+import com.example.closetstylist.ItemMaterialEnum;
 import com.example.closetstylist.R;
 import com.example.closetstylist.SDCardStorageFactory;
 import com.example.closetstylist.StorageFactory;
@@ -323,7 +324,7 @@ public class EditItemActivity extends Activity {
 				.id(itemData.getId())
 				.brand(brand.getSelectedItem().toString())
 				.age(Double.valueOf(age.getSelectedItem().toString()))
-				.material(material.getSelectedItem().toString())
+				.material(ItemMaterialEnum.valueOf(material.getSelectedItem().toString()))
 				.style(style.getSelectedItem().toString())
 				.dirty(Boolean.parseBoolean(dirty.getSelectedItem().toString()))
 				.name(name.getText().toString())

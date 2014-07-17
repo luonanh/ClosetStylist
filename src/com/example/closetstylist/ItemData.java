@@ -41,7 +41,7 @@ public class ItemData implements Parcelable {
 	private ItemCategoryEnum category; // required
 	private String brand; // optional
 	private double age; // optional
-	private String material; // optional
+	private ItemMaterialEnum material; // optional
 	private String style; // optional
 	private Boolean dirty = false; // optional
 	// As of June 24 2014, the following 3 instance variables for Laundry
@@ -155,13 +155,13 @@ public class ItemData implements Parcelable {
 		//"Cotton_Or_Cotton_Blend", "Denim", "Down", "Jersey_Knit", "Leather", 
 		//"Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", 
 		//"Wool_Or_Wool_Blend"
-		if ((this.material.equalsIgnoreCase("Nylon")) 
-				|| (this.material.equalsIgnoreCase("Spandex"))) {
+		if ((this.material == ItemMaterialEnum.Nylon) 
+				|| (this.material == ItemMaterialEnum.Spandex)) {
 			this.tempMax = 70;
-		} else if ((this.material.equalsIgnoreCase("Wool_Or_Wool_Blend"))
-				|| (this.material.equalsIgnoreCase("Leather"))) {
+		} else if ((this.material == ItemMaterialEnum.Wool_Or_Wool_Blend)
+				|| (this.material == ItemMaterialEnum.Leather)) {
 			this.tempMax = 50;
-		} else if (this.material.equalsIgnoreCase("Down")) {
+		} else if (this.material == ItemMaterialEnum.Down) {
 			this.tempMax = 40;
 		} else {
 			this.tempMax = Integer.MAX_VALUE;
@@ -169,7 +169,7 @@ public class ItemData implements Parcelable {
 	}
 
 	private void setTempMinFromMaterial() {
-		if (this.material.equalsIgnoreCase("Silk")) {
+		if (this.material == ItemMaterialEnum.Silk) {
 			this.tempMin = 50;
 		} else {
 			this.tempMin = Integer.MIN_VALUE;
@@ -264,11 +264,11 @@ public class ItemData implements Parcelable {
 		this.age = (getCurrentYear() - age);
 	}
 
-	public String getMaterial() {
+	public ItemMaterialEnum getMaterial() {
 		return material;
 	}
 
-	public void setMaterial(String material) {
+	public void setMaterial(ItemMaterialEnum material) {
 		this.material = material;
 	}
 	
@@ -426,7 +426,7 @@ public class ItemData implements Parcelable {
 		private final ItemCategoryEnum category; // required
 		private String brand; // optional
 		private double age = 0; // optional
-		private String material = ""; // optional
+		private ItemMaterialEnum material = ItemMaterialEnum.values()[0]; // optional
 		private String style = ""; // optional
 		private Boolean dirty = false; // optional
 		private int wornTime = 0; // optional
@@ -477,7 +477,7 @@ public class ItemData implements Parcelable {
 			return this;
 		}
 
-		public ItemDataBuilder material(String material) {
+		public ItemDataBuilder material(ItemMaterialEnum material) {
 			this.material = material;
 			return this;
 		}
@@ -555,7 +555,7 @@ public class ItemData implements Parcelable {
 		dest.writeInt(category.ordinal());
 		dest.writeString(brand);
 		dest.writeDouble(age);
-		dest.writeString(material);
+		dest.writeInt(material.ordinal());
 		dest.writeString(cropImageLink);
 		dest.writeString(style);
 		dest.writeByte((byte) (dirty ? 1 : 0)); // there's no writeBoolean(dirty)
@@ -593,7 +593,7 @@ public class ItemData implements Parcelable {
 		category = ItemCategoryEnum.values()[source.readInt()];
 		brand = source.readString();
 		age = source.readDouble();
-		material = source.readString();
+		material = ItemMaterialEnum.values()[source.readInt()];
 		cropImageLink = source.readString();
 		style = source.readString();
 		dirty = (source.readByte() != 0);
