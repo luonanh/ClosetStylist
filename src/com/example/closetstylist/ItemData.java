@@ -38,7 +38,7 @@ public class ItemData implements Parcelable {
 	private ItemColorEnum color; // required
 	private int tempMin; // required
 	private int tempMax; // required
-	private String category; // required
+	private ItemCategoryEnum category; // required
 	private String brand; // optional
 	private double age; // optional
 	private String material; // optional
@@ -240,11 +240,11 @@ public class ItemData implements Parcelable {
 		}
 	}
 
-	public String getCategory() {
+	public ItemCategoryEnum getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(ItemCategoryEnum category) {
 		this.category = category;
 	}
 	
@@ -327,55 +327,26 @@ public class ItemData implements Parcelable {
 		this.wornHistory.add(d);
 	}
 
+	// Can change later to be based on Style
 	public int getCropHeight() {
-		//"jacket", "jeans", "shirt", "short", "t-shirt", "dress"
-		/*
-		switch(category) {
-		case "jacket":
-		case "shirt":
-		case "t-shirt":
+		switch (category) {
+		case Top:
 			return 100;
-		case "jeans":
-		case "short":
-		case "dress":
+		case Bottom:
 			return 100;
 		default:
-			return 100;
-		}
-		*/
-		if (category.equalsIgnoreCase("jacket") || category.equalsIgnoreCase("shirt")
-				|| category.equalsIgnoreCase("t-shirt")) {
-			return 100;
-		} else if (category.equalsIgnoreCase("jeans") || category.equalsIgnoreCase("short")
-				|| category.equalsIgnoreCase("dress")) {
-			return 100;
-		} else {
 			return 100;
 		}
 	}
 	
+	// Can change later to be based on Style
 	public int getCropWidth() {
-		/*
-		switch(category) {
-		case "jacket":
-		case "shirt":
-		case "t-shirt":
+		switch (category) {
+		case Top:
 			return 100;
-		case "jeans":
-		case "short":
-		case "dress":
+		case Bottom:
 			return 100;
 		default:
-			return 100;
-		}
-		*/
-		if ((category.equalsIgnoreCase("jacket")) || (category.equalsIgnoreCase("shirt"))
-				|| (category.equalsIgnoreCase("t-shirt"))) {
-			return 100;
-		} else if (category.equalsIgnoreCase("jeans") || category.equalsIgnoreCase("short")
-				|| category.equalsIgnoreCase("dress")) {
-			return 100;
-		} else {
 			return 100;
 		}
 	}
@@ -383,9 +354,9 @@ public class ItemData implements Parcelable {
 	public String toString() {
 		return "ItemData toString: id - " + id + " name - " + name + "; description - "
 				+ description + "; iamgeLink - " + imageLink + "; color - "
-				+ color + "; tempMin - " + Integer.toString(tempMin)
+				+ color.toString() + "; tempMin - " + Integer.toString(tempMin)
 				+ "; tempMax - " + Integer.toString(tempMax) + "; category - "
-				+ category + "; brand - " + brand + "; age - " + age
+				+ category.toString() + "; brand - " + brand + "; age - " + age
 				+ "; material - " + material + "; cropImageLink - " + cropImageLink
 				+ "; style - " + style + "; dirty - " + dirty + "; wornTime - "
 				+ wornTime + "; maxWornTime - " + maxWornTime + "; List wornHistory - "
@@ -430,15 +401,15 @@ public class ItemData implements Parcelable {
 		return dirtyArray;
 	}
 	
-	public static String getColorGroup(String color) {
-		if ((color.equalsIgnoreCase("Gray"))
-				|| (color.equalsIgnoreCase("White"))
-				|| (color.equalsIgnoreCase("Black"))
-				|| (color.equalsIgnoreCase("Brown"))
-				|| (color.equalsIgnoreCase("Beige"))
-				|| (color.equalsIgnoreCase("Jeans"))) {
+	public static String getColorGroup(ItemColorEnum color) {
+		switch (color) {
+		case Beige:
+		case Black:
+		case Brown:
+		case Gray:
+		case White:
 			return "Neutral";
-		} else {
+		default:
 			return "Color";
 		}
 	}
@@ -452,7 +423,7 @@ public class ItemData implements Parcelable {
 		private final ItemColorEnum color; // required
 		private final int tempMin; // required
 		private final int tempMax; // required
-		private final String category; // required
+		private final ItemCategoryEnum category; // required
 		private String brand; // optional
 		private double age = 0; // optional
 		private String material = ""; // optional
@@ -463,7 +434,7 @@ public class ItemData implements Parcelable {
 		private ArrayList<Date> wornHistory = new ArrayList<Date>(); // optional
 		
 		public ItemDataBuilder(String imageLink, ItemColorEnum color, int tempMin, 
-				int tempMax, String category, String cropImageLink) {
+				int tempMax, ItemCategoryEnum category, String cropImageLink) {
 			this.imageLink = imageLink;
 			this.color = color;
 			this.tempMin = tempMin;
@@ -478,7 +449,7 @@ public class ItemData implements Parcelable {
 			this.color = ItemColorEnum.values()[0];
 			this.tempMin = 10;
 			this.tempMax = 25;
-			this.category = "";
+			this.category = ItemCategoryEnum.values()[0];
 			this.cropImageLink = "";
 		}
 
@@ -581,7 +552,7 @@ public class ItemData implements Parcelable {
 		dest.writeInt(color.ordinal());
 		dest.writeInt(tempMin);
 		dest.writeInt(tempMax);
-		dest.writeString(category);
+		dest.writeInt(category.ordinal());
 		dest.writeString(brand);
 		dest.writeDouble(age);
 		dest.writeString(material);
@@ -619,7 +590,7 @@ public class ItemData implements Parcelable {
 		color = ItemColorEnum.values()[source.readInt()];
 		tempMin = source.readInt();
 		tempMax = source.readInt();
-		category = source.readString();
+		category = ItemCategoryEnum.values()[source.readInt()];
 		brand = source.readString();
 		age = source.readDouble();
 		material = source.readString();

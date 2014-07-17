@@ -13,10 +13,10 @@ public abstract class OccasionMatching {
 	
 	// Calculate score of a particular ItemData and returns ItemDataOccasion object 
 	private ItemDataOccasion getItemDataOccasionFromItemData(ItemData item) {
-		String category = item.getCategory();
+		ItemCategoryEnum category = item.getCategory();
 		String style = item.getStyle();
 		for (OccasionMatchingRecord omr: occasionMatchingRecordTable) {
-			if ((item.getCategory().equalsIgnoreCase(category))
+			if ((item.getCategory() == category)
 					&& item.getStyle().equalsIgnoreCase(style)) {
 				ItemDataOccasion ido = new ItemDataOccasion(item, omr.getPoint(oe));
 				return ido;

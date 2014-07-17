@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.example.closetstylist.ImageSubSampler;
+import com.example.closetstylist.ItemCategoryEnum;
 import com.example.closetstylist.ItemColorEnum;
 import com.example.closetstylist.ItemData;
 import com.example.closetstylist.ItemDatabaseHelper;
@@ -215,7 +216,7 @@ public class AddItemActivity extends Activity {
 						ItemColorEnum.valueOf(color.getSelectedItem().toString()), 
 						Integer.valueOf(tempMin.getSelectedItem().toString()), 
 						Integer.valueOf(tempMax.getSelectedItem().toString()), 
-						category.getSelectedItem().toString(),
+						ItemCategoryEnum.valueOf(category.getSelectedItem().toString()),
 						cropImagePath.toString())
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
@@ -381,7 +382,7 @@ public class AddItemActivity extends Activity {
 						ItemColorEnum.valueOf(color.getSelectedItem().toString()), 
 						Integer.valueOf(tempMin.getSelectedItem().toString()), 
 						Integer.valueOf(tempMax.getSelectedItem().toString()), 
-						category.getSelectedItem().toString(),
+						ItemCategoryEnum.valueOf(category.getSelectedItem().toString()),
 						null)//cropImagePath.toString())
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
@@ -413,7 +414,7 @@ public class AddItemActivity extends Activity {
 						ItemColorEnum.valueOf(color.getSelectedItem().toString()), 
 						Integer.valueOf(tempMin.getSelectedItem().toString()), 
 						Integer.valueOf(tempMax.getSelectedItem().toString()), 
-						category.getSelectedItem().toString(),
+						ItemCategoryEnum.valueOf(category.getSelectedItem().toString()),
 						cropImagePath.toString())
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))

@@ -73,7 +73,7 @@ public class PairMatchingMale extends PairMatching {
 	protected List<ItemDataOccasion> getOuterList(List<ItemDataOccasion> top) {
 		ArrayList<ItemDataOccasion> result = new ArrayList<ItemDataOccasion>();
 		for (ItemDataOccasion ido: top) {
-			if ((ido.getItemData().getCategory().equalsIgnoreCase("Top"))
+			if ((ido.getItemData().getCategory() == ItemCategoryEnum.Top)
 					&& (isOuter(ido.getItemData().getStyle()))) {
 				result.add(ido);
 			}
@@ -85,7 +85,7 @@ public class PairMatchingMale extends PairMatching {
 	protected List<ItemDataOccasion> getTopList(List<ItemDataOccasion> top) {
 		ArrayList<ItemDataOccasion> result = new ArrayList<ItemDataOccasion>();
 		for (ItemDataOccasion ido: top) {
-			if ((ido.getItemData().getCategory().equalsIgnoreCase("Top"))
+			if ((ido.getItemData().getCategory() == ItemCategoryEnum.Top)
 					&& (isTop(ido.getItemData().getStyle()))) {
 				result.add(ido);
 			}

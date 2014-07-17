@@ -200,7 +200,7 @@ public class ViewItemActivity extends Activity {
 		color.setText(item.getColor().toString());
 		tempMin.setText(Integer.toString(item.getTempMin()));
 		tempMax.setText(Integer.toString(item.getTempMax()));
-		category.setText(item.getCategory());
+		category.setText(item.getCategory().toString());
 		brand.setText(item.getBrand());
 		age.setText(Double.toString(item.getAge()));
 		material.setText(item.getMaterial());
