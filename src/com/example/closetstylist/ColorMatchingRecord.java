@@ -3,11 +3,11 @@ package com.example.closetstylist;
 public class ColorMatchingRecord {
 
 	private long id;
-	private String bottom;
-	private String top;
+	private ItemColorEnum bottom;
+	private ItemColorEnum top;
 	private int point;
 	
-	public ColorMatchingRecord(String bottom, String top, int point) {
+	public ColorMatchingRecord(ItemColorEnum bottom, ItemColorEnum top, int point) {
 		this.bottom = bottom;
 		this.top = top;
 		this.point = point;
@@ -21,19 +21,19 @@ public class ColorMatchingRecord {
 		this.id = id;
 	}
 
-	public String getBottom() {
+	public ItemColorEnum getBottom() {
 		return bottom;
 	}
 
-	public void setBottom(String bottom) {
+	public void setBottom(ItemColorEnum bottom) {
 		this.bottom = bottom;
 	}
 
-	public String getTop() {
+	public ItemColorEnum getTop() {
 		return top;
 	}
 
-	public void setTop(String top) {
+	public void setTop(ItemColorEnum top) {
 		this.top = top;
 	}
 

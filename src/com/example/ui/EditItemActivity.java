@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.closetstylist.ImageSubSampler;
+import com.example.closetstylist.ItemColorEnum;
 import com.example.closetstylist.ItemData;
 import com.example.closetstylist.ItemDatabaseHelper;
 import com.example.closetstylist.R;
@@ -313,7 +314,7 @@ public class EditItemActivity extends Activity {
 				 */
 				ItemData.ItemDataBuilder itemDataBuilder = new ItemData.ItemDataBuilder(
 						itemData.getImageLink(), 
-						color.getSelectedItem().toString(), 
+						ItemColorEnum.valueOf(color.getSelectedItem().toString()), 
 						Integer.valueOf(tempMin.getSelectedItem().toString()), 
 						Integer.valueOf(tempMax.getSelectedItem().toString()), 
 						category.getSelectedItem().toString(),

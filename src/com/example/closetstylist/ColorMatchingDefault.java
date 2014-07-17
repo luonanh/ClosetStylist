@@ -10,11 +10,11 @@ public class ColorMatchingDefault extends ColorMatching {
 
 	@Override
 	protected Outfit calculateColorScore(Outfit o) {
-		String topColor = o.getTop().getColor();
-		String bottomColor = o.getBottom().getColor();
+		ItemColorEnum topColor = o.getTop().getColor();
+		ItemColorEnum bottomColor = o.getBottom().getColor();
 		for (ColorMatchingRecord cmr: colorMatchingRecordTable) {
-			if ((topColor.equalsIgnoreCase(cmr.getTop()))
-					&& (bottomColor.equalsIgnoreCase(cmr.getBottom()))) {
+			if ((topColor == cmr.getTop())
+					&& (bottomColor == cmr.getBottom())) {
 				o.setScore(o.getScore() + cmr.getPoint());
 			}
 		}

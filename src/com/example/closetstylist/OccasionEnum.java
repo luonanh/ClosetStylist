@@ -19,11 +19,11 @@ public enum OccasionEnum {
 	/*
 	 * This can be used to populate the Spinner in OutfitOfTheDay activity. 
 	 */
-	public ArrayList<String> getAllOccasionEnumString() {
-		ArrayList<OccasionEnum> oel = new ArrayList<OccasionEnum>(Arrays.asList(OccasionEnum.values()));
+	public static ArrayList<String> getAllOccasionEnumString() {
+		ArrayList<OccasionEnum> enumList = new ArrayList<OccasionEnum>(Arrays.asList(OccasionEnum.values()));
 		ArrayList<String> result = new ArrayList<String>();
-		for (OccasionEnum oe: oel) {
-			result.add(oe.toString());
+		for (OccasionEnum enumType: enumList) {
+			result.add(enumType.toString());
 		}
 		return result;
 	}

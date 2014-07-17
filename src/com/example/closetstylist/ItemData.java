@@ -17,17 +17,17 @@ public class ItemData implements Parcelable {
 	public static final String INTENT = "ItemDataIntent";
 	public static final long INVALID_ID = -1;
 	
-	private static ArrayList<String> colorArray = new ArrayList<String>(Arrays.asList("Beige", "Black", "Blue", "Brown", "Gray", "Green", "Orange", "Pink", "Red", "Violet", "White", "Yellow", "Multicolor_Pattern"));
+	private static ArrayList<String> colorArray = ItemColorEnum.getAllItemColorEnumString();
 	private static ArrayList<String> temperatureArray = new ArrayList<String>();
-	private static ArrayList<String> categoryArray = new ArrayList<String>(Arrays.asList("Bottom", "Top"));
+	private static ArrayList<String> categoryArray = ItemCategoryEnum.getAllItemCategoryEnumString();
 	private static ArrayList<String> menTopStyleArray = new ArrayList<String>(Arrays.asList("Casual_Button_Down_Shirt", "Coat_And_Jacket_Heavy", "Coat_And_Jacket_Light", "Dress_Shirt", "Polo", "Sweater_And_Sweatshirt", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve"));
 	private static ArrayList<String> menBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Pants", "Shorts"));
 	private static ArrayList<String> womenTopStyleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest"));
 	private static ArrayList<String> womenBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Legging_Skinny", "Pants", "Shorts", "Skirts"));
 	private static ArrayList<String> styleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest", "Casual_Button_Down_Shirt", "Dress_Shirt", "Polo", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Jeans", "Legging_Skinny", "Pants", "Shorts", "Skirts"));
-	private static ArrayList<String> brandArray = new ArrayList<String>(Arrays.asList("Banana", "Express", "RalphLauren", "CK", "Adidas", "Nike", "Guess", "Oakley", "DKNY", "FrenchConnection", "JCrew", "AE", "AF", "LuckyBrands", "7Jeans", "Rei", "Dockers", "Aeropostale", "KennethCole", "Diesel", "GordonCooper", "Arizona"));
+	private static ArrayList<String> brandArray = ItemBrandEnum.getAllItemBrandEnumString();
 	private static ArrayList<String> ageArray = new ArrayList<String>();
-	private static ArrayList<String> materialArray = new ArrayList<String>(Arrays.asList("Cotton_Or_Cotton_Blend", "Denim", "Down", "Jersey_Knit", "Leather", "Linen", "Nylon", "Performance", "Polyester", "Silk", "Spandex", "Wool_Or_Wool_Blend"));
+	private static ArrayList<String> materialArray = ItemMaterialEnum.getAllItemMaterialEnumString();
 	private static ArrayList<String> dirtyArray = new ArrayList<String>(Arrays.asList("false", "true"));
 	
 	private long id; // once added to database, this field will be populated
@@ -35,7 +35,7 @@ public class ItemData implements Parcelable {
 	private String description; // optional
 	private String imageLink; // required
 	private String cropImageLink; // required
-	private String color; // required
+	private ItemColorEnum color; // required
 	private int tempMin; // required
 	private int tempMax; // required
 	private String category; // required
@@ -127,11 +127,11 @@ public class ItemData implements Parcelable {
 		this.imageLink = imageLink;
 	}
 
-	public String getColor() {
+	public ItemColorEnum getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(ItemColorEnum color) {
 		this.color = color;
 	}
 
@@ -449,7 +449,7 @@ public class ItemData implements Parcelable {
 		private String description = ""; // optional
 		private final String imageLink; // required cropImageLink
 		private final String cropImageLink; // required
-		private final String color; // required
+		private final ItemColorEnum color; // required
 		private final int tempMin; // required
 		private final int tempMax; // required
 		private final String category; // required
@@ -462,7 +462,7 @@ public class ItemData implements Parcelable {
 		private int maxWornTime = 1; // optional
 		private ArrayList<Date> wornHistory = new ArrayList<Date>(); // optional
 		
-		public ItemDataBuilder(String imageLink, String color, int tempMin, 
+		public ItemDataBuilder(String imageLink, ItemColorEnum color, int tempMin, 
 				int tempMax, String category, String cropImageLink) {
 			this.imageLink = imageLink;
 			this.color = color;
@@ -475,7 +475,7 @@ public class ItemData implements Parcelable {
 
 		public ItemDataBuilder() {
 			this.imageLink = "";
-			this.color = "";
+			this.color = ItemColorEnum.values()[0];
 			this.tempMin = 10;
 			this.tempMax = 25;
 			this.category = "";
@@ -578,7 +578,7 @@ public class ItemData implements Parcelable {
 		dest.writeString(name);
 		dest.writeString(description);
 		dest.writeString(imageLink);
-		dest.writeString(color);
+		dest.writeInt(color.ordinal());
 		dest.writeInt(tempMin);
 		dest.writeInt(tempMax);
 		dest.writeString(category);
@@ -616,7 +616,7 @@ public class ItemData implements Parcelable {
 		name = source.readString();
 		description = source.readString();
 		imageLink = source.readString();
-		color = source.readString();
+		color = ItemColorEnum.values()[source.readInt()];
 		tempMin = source.readInt();
 		tempMax = source.readInt();
 		category = source.readString();
