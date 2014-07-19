@@ -20,11 +20,11 @@ public class ItemData implements Parcelable {
 	private static ArrayList<String> colorArray = ItemColorEnum.getAllItemColorEnumString();
 	private static ArrayList<String> temperatureArray = new ArrayList<String>();
 	private static ArrayList<String> categoryArray = ItemCategoryEnum.getAllItemCategoryEnumString();
-	private static ArrayList<String> menTopStyleArray = new ArrayList<String>(Arrays.asList("Casual_Button_Down_Shirt", "Coat_And_Jacket_Heavy", "Coat_And_Jacket_Light", "Dress_Shirt", "Polo", "Sweater_And_Sweatshirt", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve"));
-	private static ArrayList<String> menBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Pants", "Shorts"));
-	private static ArrayList<String> womenTopStyleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest"));
-	private static ArrayList<String> womenBottomStyleArray = new ArrayList<String>(Arrays.asList("Jeans", "Legging_Skinny", "Pants", "Shorts", "Skirts"));
-	private static ArrayList<String> styleArray = new ArrayList<String>(Arrays.asList("Collared_And_Button-down", "Blouse_Short_Sleeve", "Blouse_Long_Sleeve", "Blouse_Sleeveless", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Tank_Camisoles", "Party_Top", "Tunic", "Pull-over", "Sweater_And_Sweatshirt", "Coat_And_Jacket_Light", "Cardigan", "Coat_And_Jacket_Heavy", "Vest", "Casual_Button_Down_Shirt", "Dress_Shirt", "Polo", "T-Shirt_Long_Sleeve", "T-Shirt_Short_Sleeve", "Jeans", "Legging_Skinny", "Pants", "Shorts", "Skirts"));
+	private static ArrayList<String> menTopStyleArray = ItemStyleEnum.getAllTopItemStyleEnumPerGender(Gender.MALE);
+	private static ArrayList<String> menBottomStyleArray = ItemStyleEnum.getAllBottomItemStyleEnumPerGender(Gender.FEMALE);
+	private static ArrayList<String> womenTopStyleArray = ItemStyleEnum.getAllTopItemStyleEnumPerGender(Gender.FEMALE);
+	private static ArrayList<String> womenBottomStyleArray = ItemStyleEnum.getAllBottomItemStyleEnumPerGender(Gender.FEMALE);
+	private static ArrayList<String> styleArray = ItemStyleEnum.getAllItemStyleEnumString();
 	private static ArrayList<String> brandArray = ItemBrandEnum.getAllItemBrandEnumString();
 	private static ArrayList<String> ageArray = new ArrayList<String>();
 	private static ArrayList<String> materialArray = ItemMaterialEnum.getAllItemMaterialEnumString();
