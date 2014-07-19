@@ -42,7 +42,7 @@ public class ItemData implements Parcelable {
 	private String brand; // optional
 	private double age; // optional
 	private ItemMaterialEnum material; // optional
-	private String style; // optional
+	private ItemStyleEnum style; // optional
 	private Boolean dirty = false; // optional
 	// As of June 24 2014, the following 3 instance variables for Laundry
 	// are not supposed to be modified by the customers. Hence, we will
@@ -177,64 +177,64 @@ public class ItemData implements Parcelable {
 	}
 
 	private void setTempMaxFromStyleMale() {
-		if ((this.style.equalsIgnoreCase("Dress_Shirt"))
+		if ((this.style == ItemStyleEnum.Dress_Shirt)
 				&& (this.tempMax > 75)) {
 			this.tempMax = 75;
-		} else if (((this.style.equalsIgnoreCase("Pants"))
-				|| (this.style.equalsIgnoreCase("Jeans"))
-				|| (this.style.equalsIgnoreCase("T-Shirt_Long_Sleeve"))
-				|| (this.style.equalsIgnoreCase("Sweater_And_Sweatshirt"))
-				|| (this.style.equalsIgnoreCase("Coat_And_Jacket_Light")))
+		} else if (((this.style == ItemStyleEnum.Pants)
+				|| (this.style == ItemStyleEnum.Jeans)
+				|| (this.style == ItemStyleEnum.T_Shirt_Long_Sleeve)
+				|| (this.style == ItemStyleEnum.Sweater_And_Sweatshirt)
+				|| (this.style == ItemStyleEnum.Coat_And_Jacket_Light))
 				&& (this.tempMax > 65)) {
 			this.tempMax = 65;
-		} else if ((this.style.equalsIgnoreCase("Coat_And_Jacket_Heavy"))
+		} else if ((this.style == ItemStyleEnum.Coat_And_Jacket_Heavy)
 				&& (this.tempMax > 40)) {
 			this.tempMax = 40;
 		}
 	}
 	
 	private void setTempMinFromStyleMale() {
-		if ((this.style.equalsIgnoreCase("Shorts"))
+		if ((this.style == ItemStyleEnum.Shorts)
 				&& (this.tempMin < 65)) {
 			this.tempMin = 65;
-		} else if ((this.style.equalsIgnoreCase("T-Shirt_Short_Sleeve"))
+		} else if ((this.style == ItemStyleEnum.T_Shirt_Short_Sleeve)
 				&& (this.tempMin < 60)) {
 			this.tempMin = 60;
 		}
 	}
 
 	private void setTempMaxFromStyleFemale() {
-		if ((this.style.equalsIgnoreCase("Vest"))
+		if ((this.style == ItemStyleEnum.Vest)
 				&& (this.tempMax > 70)) {
 			this.tempMax = 70;
-		} else if (((this.style.equalsIgnoreCase("Pants"))
-				|| (this.style.equalsIgnoreCase("Jeans"))
-				|| (this.style.equalsIgnoreCase("Blouse_Short_Sleeve"))
-				|| (this.style.equalsIgnoreCase("T-Shirt_Long_Sleeve"))
-				|| (this.style.equalsIgnoreCase("Pull-over"))
-				|| (this.style.equalsIgnoreCase("Cardigan"))
-				|| (this.style.equalsIgnoreCase("Sweater_And_Sweatshirt"))
-				|| (this.style.equalsIgnoreCase("Coat_And_Jacket_Light")))
+		} else if (((this.style == ItemStyleEnum.Pants)
+				|| (this.style == ItemStyleEnum.Jeans)
+				|| (this.style == ItemStyleEnum.Blouse_Short_Sleeve)
+				|| (this.style == ItemStyleEnum.T_Shirt_Long_Sleeve)
+				|| (this.style == ItemStyleEnum.Pull_Over)
+				|| (this.style == ItemStyleEnum.Cardigan)
+				|| (this.style == ItemStyleEnum.Sweater_And_Sweatshirt)
+				|| (this.style == ItemStyleEnum.Coat_And_Jacket_Light))
 				&& (this.tempMax > 65)) {
 			this.tempMax = 65;
-		} else if ((this.style.equalsIgnoreCase("Coat_And_Jacket_Heavy"))
+		} else if ((this.style == ItemStyleEnum.Coat_And_Jacket_Heavy)
 				&& (this.tempMax > 40)) {
 			this.tempMax = 40;
 		}
 	}
 	
 	private void setTempMinFromStyleFemale() {
-		if ((this.style.equalsIgnoreCase("Tank_Camisoles"))
+		if ((this.style == ItemStyleEnum.Tank_Camisoles)
 				&& (this.tempMin < 70)) {
 			this.tempMin = 70;
-		} else if (((this.style.equalsIgnoreCase("Shorts"))
-				|| (this.style.equalsIgnoreCase("Skirts"))
-				|| (this.style.equalsIgnoreCase("Blouse_Sleeveless"))
-				|| (this.style.equalsIgnoreCase("Tunic")))
+		} else if (((this.style == ItemStyleEnum.Shorts)
+				|| (this.style == ItemStyleEnum.Skirts)
+				|| (this.style == ItemStyleEnum.Blouse_Sleeveless)
+				|| (this.style == ItemStyleEnum.Tunic))
 				&& (this.tempMin < 65)) {
 			this.tempMin = 65;
-		} else if (((this.style.equalsIgnoreCase("Blouse_Long_Sleeve"))
-				|| (this.style.equalsIgnoreCase("T-Shirt_Short_Sleeve")))
+		} else if (((this.style == ItemStyleEnum.Blouse_Long_Sleeve)
+				|| (this.style == ItemStyleEnum.T_Shirt_Short_Sleeve))
 				&& (this.tempMin < 60)) {
 			this.tempMin = 60;
 		}
@@ -272,11 +272,11 @@ public class ItemData implements Parcelable {
 		this.material = material;
 	}
 	
-	public String getStyle() {
+	public ItemStyleEnum getStyle() {
 		return style;
 	}
 
-	public void setStyle(String style) {
+	public void setStyle(ItemStyleEnum style) {
 		this.style = style;
 	}
 
@@ -311,10 +311,10 @@ public class ItemData implements Parcelable {
 	}
 	
 	public void setMaxWornTimeFromStyle() {
-		if (this.style.equalsIgnoreCase("Coat and Jacket - Heavy")) {
+		if (this.style == ItemStyleEnum.Coat_And_Jacket_Heavy) {
 			this.maxWornTime = 7;
-		} else if ((this.style.equalsIgnoreCase("Coat and Jacket - Heavy")) 
-				|| (this.style.equalsIgnoreCase("Jeans"))) {
+		} else if ((this.style == ItemStyleEnum.Coat_And_Jacket_Light) 
+				|| (this.style == ItemStyleEnum.Jeans)) {
 			this.maxWornTime = 2;
 		}
 	}
@@ -427,7 +427,7 @@ public class ItemData implements Parcelable {
 		private String brand; // optional
 		private double age = 0; // optional
 		private ItemMaterialEnum material = ItemMaterialEnum.values()[0]; // optional
-		private String style = ""; // optional
+		private ItemStyleEnum style = ItemStyleEnum.values()[0]; // optional
 		private Boolean dirty = false; // optional
 		private int wornTime = 0; // optional
 		private int maxWornTime = 1; // optional
@@ -487,7 +487,7 @@ public class ItemData implements Parcelable {
 			return this;
 		}
 
-		public ItemDataBuilder style(String style) {
+		public ItemDataBuilder style(ItemStyleEnum style) {
 			this.style = style;
 			return this;
 		}
@@ -557,7 +557,7 @@ public class ItemData implements Parcelable {
 		dest.writeDouble(age);
 		dest.writeInt(material.ordinal());
 		dest.writeString(cropImageLink);
-		dest.writeString(style);
+		dest.writeInt(style.ordinal());
 		dest.writeByte((byte) (dirty ? 1 : 0)); // there's no writeBoolean(dirty)
 		dest.writeInt(wornTime);
 		dest.writeInt(maxWornTime);
@@ -595,7 +595,7 @@ public class ItemData implements Parcelable {
 		age = source.readDouble();
 		material = ItemMaterialEnum.values()[source.readInt()];
 		cropImageLink = source.readString();
-		style = source.readString();
+		style = ItemStyleEnum.values()[source.readInt()];
 		dirty = (source.readByte() != 0);
 		wornTime = source.readInt();
 		maxWornTime = source.readInt();

@@ -5,14 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PairMatchingMale extends PairMatching {
-	private ArrayList<String> topStyle = new ArrayList<String>(Arrays.asList(
-			"Dress_Shirt",
-			"Casual_Button_Down_Shirt",
-			"Polo",
-			"T-Shirt_Short_Sleeve",
-			"T-Shirt_Long_Sleeve")); 
+	private ArrayList<ItemStyleEnum> topStyle = new ArrayList<ItemStyleEnum>(Arrays.asList(
+			ItemStyleEnum.Dress_Shirt,
+			ItemStyleEnum.Casual_Button_Down_Shirt,
+			ItemStyleEnum.Polo,
+			ItemStyleEnum.T_Shirt_Short_Sleeve,
+			ItemStyleEnum.T_Shirt_Long_Sleeve)); 
 	
-	private ArrayList<String> outerStyle = new ArrayList<String>();
+	private ArrayList<ItemStyleEnum> outerStyle = new ArrayList<ItemStyleEnum>();
 	/*
 	private ArrayList<String> topStyle = new ArrayList<String>(Arrays.asList(
 			"Sweater_And_Sweatshirt",
@@ -93,18 +93,18 @@ public class PairMatchingMale extends PairMatching {
 		return result;
 	}
 	
-	private boolean isOuter(String style) {
-		for (String temp: outerStyle) {
-			if (temp.equalsIgnoreCase(style)) {
+	private boolean isOuter(ItemStyleEnum style) {
+		for (ItemStyleEnum temp: outerStyle) {
+			if (temp == style) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	private boolean isTop(String style) {
-		for (String temp: topStyle) {
-			if (temp.equalsIgnoreCase(style)) {
+	private boolean isTop(ItemStyleEnum style) {
+		for (ItemStyleEnum temp: topStyle) {
+			if (temp == style) {
 				return true;
 			}
 		}
@@ -122,21 +122,21 @@ public class PairMatchingMale extends PairMatching {
 	private void setupPerWeatherInfo() {
 		if (wi.getTempMax() > 70) {
 			for (PairMatchingRecord pmr: pairMatchingRecordTable) {
-				pmr.setOuter("No");
+				pmr.setOuter(ItemStyleEnum.No);
 			}
 		} else if (wi.getTempMax() > 40) {
 			for (PairMatchingRecord pmr: pairMatchingRecordTable) {
-				pmr.setOuter("Yes");
+				pmr.setOuter(ItemStyleEnum.Yes);
 			}
 
-			outerStyle.add("Sweater_And_Sweatshirt");
-			outerStyle.add("Coat_And_Jacket_Light");
+			outerStyle.add(ItemStyleEnum.Sweater_And_Sweatshirt);
+			outerStyle.add(ItemStyleEnum.Coat_And_Jacket_Light);
 		} else {
 			for (PairMatchingRecord pmr: pairMatchingRecordTable) {
-				pmr.setOuter("Yes");
+				pmr.setOuter(ItemStyleEnum.Yes);
 			}
 
-			outerStyle.add("Coat_And_Jacket_Heavy");
+			outerStyle.add(ItemStyleEnum.Coat_And_Jacket_Heavy);
 		}
 	}
 }

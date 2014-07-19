@@ -3,12 +3,12 @@ package com.example.closetstylist;
 public class PairMatchingRecord {
 
 	private long id;
-	private String bottom;
-	private String top;
+	private ItemStyleEnum bottom;
+	private ItemStyleEnum top;
 	private int point;
-	private String outer;
+	private ItemStyleEnum outer;
 	
-	public PairMatchingRecord(String bottom, String top, int point, String outer) {
+	public PairMatchingRecord(ItemStyleEnum bottom, ItemStyleEnum top, int point, ItemStyleEnum outer) {
 		this.bottom = bottom;
 		this.top = top;
 		this.point = point;
@@ -23,19 +23,19 @@ public class PairMatchingRecord {
 		this.id = id;
 	}
 
-	public String getBottom() {
+	public ItemStyleEnum getBottom() {
 		return bottom;
 	}
 
-	public void setBottom(String bottom) {
+	public void setBottom(ItemStyleEnum bottom) {
 		this.bottom = bottom;
 	}
 
-	public String getTop() {
+	public ItemStyleEnum getTop() {
 		return top;
 	}
 
-	public void setTop(String top) {
+	public void setTop(ItemStyleEnum top) {
 		this.top = top;
 	}
 
@@ -47,11 +47,11 @@ public class PairMatchingRecord {
 		this.point = point;
 	}
 
-	public String getOuter() {
+	public ItemStyleEnum getOuter() {
 		return outer;
 	}
 
-	public void setOuter(String outer) {
+	public void setOuter(ItemStyleEnum outer) {
 		this.outer = outer;
 	}
 }

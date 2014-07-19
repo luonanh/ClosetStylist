@@ -5,19 +5,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PairMatchingFemale extends PairMatching {
-	private ArrayList<String> topStyle = new ArrayList<String>(Arrays.asList(
-			"Collared_And_Button-down",
-			"Blouse_Short_Sleeve",
-			"Blouse_Long_Sleeve",
-			"Blouse_Sleeveless",
-			"Tee_Long_Sleeve",
-			"Tee_Short_Sleeve",
-			"Tank_Camisoles",
-			"Party_Top",
-			"Tunic",
-			"Pull-over"));
+	private ArrayList<ItemStyleEnum> topStyle = new ArrayList<ItemStyleEnum>(Arrays.asList(
+			ItemStyleEnum.Collared_And_Button_Down,
+			ItemStyleEnum.Blouse_Short_Sleeve,
+			ItemStyleEnum.Blouse_Long_Sleeve,
+			ItemStyleEnum.Blouse_Sleeveless,
+			ItemStyleEnum.T_Shirt_Long_Sleeve,
+			ItemStyleEnum.T_Shirt_Short_Sleeve,
+			ItemStyleEnum.Tank_Camisoles,
+			ItemStyleEnum.Party_Top,
+			ItemStyleEnum.Tunic,
+			ItemStyleEnum.Pull_Over));
 
-	private ArrayList<String> outerStyle = new ArrayList<String>(); 
+	private ArrayList<ItemStyleEnum> outerStyle = new ArrayList<ItemStyleEnum>(); 
 
 	public PairMatchingFemale(ItemDatabaseHelper dbHelper,
 			WeatherInfo wi, UserProfile up, OccasionEnum oe) {
@@ -92,18 +92,18 @@ public class PairMatchingFemale extends PairMatching {
 		return result;
 	}
 	
-	private boolean isOuter(String style) {
-		for (String temp: outerStyle) {
-			if (temp.equalsIgnoreCase(style)) {
+	private boolean isOuter(ItemStyleEnum style) {
+		for (ItemStyleEnum temp: outerStyle) {
+			if (temp == style) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	private boolean isTop(String style) {
-		for (String temp: topStyle) {
-			if (temp.equalsIgnoreCase(style)) {
+	private boolean isTop(ItemStyleEnum style) {
+		for (ItemStyleEnum temp: topStyle) {
+			if (temp == style) {
 				return true;
 			}
 		}
@@ -121,15 +121,15 @@ public class PairMatchingFemale extends PairMatching {
 	private void setupPerWeatherInfo() {
 		if (wi.getTempMax() > 70) {
 			for (PairMatchingRecord pmr: pairMatchingRecordTable) {
-				pmr.setOuter("No");
+				pmr.setOuter(ItemStyleEnum.No);
 			}
 		} else if (wi.getTempMax() > 40) {
-			outerStyle.add("Cardigan");
-			outerStyle.add("Sweater_And_Sweatshirt");
-			outerStyle.add("Vest");
-			outerStyle.add("Coat_And_Jacket_Light");
+			outerStyle.add(ItemStyleEnum.Cardigan);
+			outerStyle.add(ItemStyleEnum.Sweater_And_Sweatshirt);
+			outerStyle.add(ItemStyleEnum.Vest);
+			outerStyle.add(ItemStyleEnum.Coat_And_Jacket_Light);
 		} else {
-			outerStyle.add("Coat_And_Jacket_Heavy");
+			outerStyle.add(ItemStyleEnum.Coat_And_Jacket_Heavy);
 		}
 	}
 }

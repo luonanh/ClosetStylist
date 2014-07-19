@@ -23,12 +23,12 @@ public abstract class PairMatching {
 	protected Outfit getOutfitFromTopBottomOuter(ItemDataOccasion top, 
 			ItemDataOccasion bottom, ItemDataOccasion outer) {
 		Outfit outfit = null;
-		String topStyle = top.getItemData().getStyle();
-		String bottomStyle = bottom.getItemData().getStyle();
+		ItemStyleEnum topStyle = top.getItemData().getStyle();
+		ItemStyleEnum bottomStyle = bottom.getItemData().getStyle();
 		if (null == outer) {
 			for (PairMatchingRecord pmr: pairMatchingRecordTable) {
-				if ((pmr.getTop().equalsIgnoreCase(topStyle))
-						&& (pmr.getBottom().equalsIgnoreCase(bottomStyle))) {
+				if ((pmr.getTop() == topStyle)
+						&& (pmr.getBottom() == bottomStyle)) {
 					int totalScore = top.getScore() + bottom.getScore() + pmr.getPoint();
 					outfit = new Outfit.OutfitBuilder(top.getItemData())
 							.bottom(bottom.getItemData())
@@ -38,10 +38,10 @@ public abstract class PairMatching {
 			}
 		} else {
 			for (PairMatchingRecord pmr: pairMatchingRecordTable) {
-				if ((pmr.getTop().equalsIgnoreCase(topStyle))
-						&& (pmr.getBottom().equalsIgnoreCase(bottomStyle))) {
+				if ((pmr.getTop() == topStyle)
+						&& (pmr.getBottom() == bottomStyle)) {
 					int totalScore = 0;
-					if (pmr.getOuter().equalsIgnoreCase("No")) {
+					if (pmr.getOuter() == ItemStyleEnum.No) {
 						totalScore = top.getScore() + bottom.getScore() + pmr.getPoint();						
 					} else {
 						totalScore = top.getScore() + bottom.getScore() 

@@ -15,6 +15,7 @@ import com.example.closetstylist.ItemColorEnum;
 import com.example.closetstylist.ItemData;
 import com.example.closetstylist.ItemDatabaseHelper;
 import com.example.closetstylist.ItemMaterialEnum;
+import com.example.closetstylist.ItemStyleEnum;
 import com.example.closetstylist.R;
 import com.example.closetstylist.ItemData.ItemDataBuilder;
 import com.example.closetstylist.R.id;
@@ -222,7 +223,7 @@ public class AddItemActivity extends Activity {
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
 						.material(ItemMaterialEnum.valueOf((material.getSelectedItem().toString())))
-						.style(style.getSelectedItem().toString());
+						.style(ItemStyleEnum.valueOf(style.getSelectedItem().toString()));
 				
 				if (!name.getText().toString().isEmpty()) {
 					itemDataBuilder.name(name.getText().toString());
@@ -388,7 +389,7 @@ public class AddItemActivity extends Activity {
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
 						.material(ItemMaterialEnum.valueOf(material.getSelectedItem().toString()))
-						.style(style.getSelectedItem().toString());
+						.style(ItemStyleEnum.valueOf(style.getSelectedItem().toString()));
 				if (!name.getText().toString().isEmpty()) {
 					itemDataBuilder.name(name.getText().toString());
 				}
@@ -420,7 +421,7 @@ public class AddItemActivity extends Activity {
 						.brand(brand.getSelectedItem().toString())
 						.age(Double.valueOf(age.getSelectedItem().toString()))
 						.material(ItemMaterialEnum.valueOf(material.getSelectedItem().toString()))
-						.style(style.getSelectedItem().toString());
+						.style(ItemStyleEnum.valueOf(style.getSelectedItem().toString()));
 				if (!name.getText().toString().isEmpty()) {
 					itemDataBuilder.name(name.getText().toString());
 				}
