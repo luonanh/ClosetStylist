@@ -171,10 +171,4 @@ public class GeonamesLocationToPostalCodeMockFeed {
     			"</code>" +
     			"</geonames>";
     }
-    
-	public static String generateURL(String username, double lat, double lng) {
-		// http://api.geonames.org/findNearbyPostalCodes?lat=30.4883997&lng=-97.7175117&username=anhpopeye
-		return "http://api.geonames.org/findNearbyPostalCodes?lat=" + String.valueOf(lat)
-				+ "&lng=" + String.valueOf(lng) +  "&username=" + username;
-	}
 }

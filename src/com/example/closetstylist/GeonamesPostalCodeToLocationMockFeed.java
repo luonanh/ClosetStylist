@@ -57,10 +57,4 @@ public class GeonamesPostalCodeToLocationMockFeed {
     			"</code>" +
     			"</geonames>";
     }
-    
-	public static String generateURL(String username, int zip) {
-		// http://api.geonames.org/postalCodeSearch?postalcode=78758&maxRows=10&username=anhpopeye
-		return "http://api.geonames.org/postalCodeSearch?postalcode=" + zip 
-				+ "&maxRows=2" + "&username=" + username;
-	}
 }
