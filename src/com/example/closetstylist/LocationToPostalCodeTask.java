@@ -20,17 +20,15 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.example.ui.OutfitActivity;
+import com.example.ui.RegisterActivity;
+
 import android.app.ProgressDialog;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 
-import com.example.ui.RegisterActivity;
-
-/*
- * Modified based on PlaceDownloaderTask.java in iRemember
- */
-public class PostalCodeToLocationTask extends AsyncTask<Integer, Void, PlaceRecord> {
+public class LocationToPostalCodeTask extends AsyncTask<Location, Void, PlaceRecord> {
 	// Change to false if you don't have network access
 	private static final boolean HAS_NETWORK = true;
 
@@ -41,7 +39,7 @@ public class PostalCodeToLocationTask extends AsyncTask<Integer, Void, PlaceReco
 	private WeakReference<RegisterActivity> mParent;
 	private ProgressDialog dialog;
 	
-	public PostalCodeToLocationTask(RegisterActivity parent) {
+	public LocationToPostalCodeTask(RegisterActivity parent) {
 		super();
 		mParent = new WeakReference<RegisterActivity>(parent);
 		dialog = new ProgressDialog(parent);
@@ -49,17 +47,20 @@ public class PostalCodeToLocationTask extends AsyncTask<Integer, Void, PlaceReco
 
 	@Override
 	protected void onPreExecute() {
-		dialog.setMessage("Obtaining location from your zip code");
+		dialog.setMessage("Ontaining Your Current Location");
 		dialog.show();
 	}
 	
 	@Override
-	protected PlaceRecord doInBackground(Integer... zip) {
-		PlaceRecord place = getPlaceFromURL(GeonamesPostalCodeToLocationMockFeed
-				.generateURL(USERNAME, zip[0]));
+	protected PlaceRecord doInBackground(Location... params) {
+		//GeonamesLocationToPostalCodeMockFeed
+		PlaceRecord place = null;
+		String url = GeonamesLocationToPostalCodeMockFeed.generateURL(USERNAME, 
+				params[0].getLatitude(), params[0].getLongitude());
+		place = getPlaceFromURL(url);
 		return place;
 	}
-
+	
 	@Override
 	protected void onPostExecute(PlaceRecord result) {
 		if (this.dialog.isShowing()) {
@@ -70,7 +71,7 @@ public class PostalCodeToLocationTask extends AsyncTask<Integer, Void, PlaceReco
 			mParent.get().setPlaceRecord(result);
 		}
 	}
-	
+
 	private PlaceRecord getPlaceFromURL(String... params) {
 		String result = null;
 		BufferedReader in = null;
@@ -105,7 +106,7 @@ public class PostalCodeToLocationTask extends AsyncTask<Integer, Void, PlaceReco
 				mHttpUrl.disconnect();
 			}			
 		} else {
-			result = GeonamesPostalCodeToLocationMockFeed.rawText();
+			result = GeonamesLocationToPostalCodeMockFeed.rawText();
 		}
 
 		return placeDataFromXml(result);
