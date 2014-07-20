@@ -98,24 +98,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- Location Label -->
+            <!-- Zip Label -->
 
             <TextView
-                android:id="@+id/register_label_location"
+                android:id="@+id/register_label_zip"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/register_label_location"
+                android:text="@string/register_label_zip"
                 android:textColor="#372c24" />
 
             <EditText
-                android:id="@+id/register_value_location"
+                android:id="@+id/register_value_zip"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:inputType="textPostalAddress"
                 android:singleLine="true" />
 
+            <!-- Longtitude Label -->
+
+            <TextView
+                android:id="@+id/register_label_longtitude"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_label_longtitude"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/register_value_longtitude"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true" />
+
+            <!-- Latitude Label -->
+
+            <TextView
+                android:id="@+id/register_label_latitude"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_label_latitude"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/register_value_latitude"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true" />
+
             <!-- Register Button -->
+
+            <Button
+                android:id="@+id/register_btn_location_from_zip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="@string/register_btn_location_from_zip" />
+
+            <Button
+                android:id="@+id/register_btn_zip_from_location"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="@string/register_btn_zip_from_location" />
 
             <Button
                 android:id="@+id/register_btn_register"

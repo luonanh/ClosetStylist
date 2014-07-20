@@ -118,10 +118,10 @@
     
     <!-- Register Strings -->
     <string name="register_label_username">UserName</string>
-    <string name="register_label_password">UserName</string>
+    <string name="register_label_password">Password</string>
     <string name="register_label_gender">Gender</string>
     <string name="register_label_age">Age</string>
-    <string name="register_label_location">Location</string>
+    <string name="register_label_zip">ZipCode</string>
     <string name="register_label_style">Style</string>
     <string name="register_label_favorite_color">FavoriteColors</string>
     <string name="register_label_laundry_schedule">LaundrySchedule</string>
@@ -142,9 +142,13 @@
     <string name="register_label_pants">Pants</string>
     <string name="register_label_dresses">Dresses</string>
     <string name="register_label_shoes">Shoes</string>
+    <string name="register_label_longtitude">Longtitude</string>
+    <string name="register_label_latitude">Latitude</string>
     
     <string name="register_btn_register">Register</string>
     <string name="register_btn_reset">Reset</string>
+    <string name="register_btn_location_from_zip">LocationFromZip</string>
+    <string name="register_btn_zip_from_location">ZipFromLocation</string>
     
     <string-array name="register_spinner_gender">
         <item>Male</item>

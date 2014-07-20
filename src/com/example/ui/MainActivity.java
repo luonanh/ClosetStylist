@@ -83,6 +83,18 @@ public class MainActivity extends ActionBarActivity {
 			}
 			
 		});
+		
+		Button registerUserProfileBtn = (Button) findViewById(R.id.main_btn_register_user_profile);
+		registerUserProfileBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i5 = new Intent(MainActivity.this, RegisterActivity.class);
+				startActivity(i5);				
+			}
+			
+		});
+
 	}
 
 	@Override

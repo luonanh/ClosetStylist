@@ -3,20 +3,25 @@ package com.example.closetstylist;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class UserProfile implements Parcelable {
-	private long id; // once added to database, this field will be populated
+	private long id; // once added to database, this field will be populated8
 	private String usr;
 	private String pwd;
 	private Gender gender;
 	private int zip;
 	private int laundrySchedule; // 0 - weekly, 1 - biweekly, 2 - monthly, 3 - random
 	private String laundryDay;
+	private Location location; 
+	// http://www.geonames.org/findNearbyPlaceName?username=anhpopeye&style=full&lat=30.4883997&lng=-97.7175117
+	// http://api.geonames.org/postalCodeSearch?postalcode=78758&maxRows=10&username=demo
 	
-	private static ArrayList<String> laundryDayArray = new ArrayList<String>(Arrays.asList(
-			"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
+	
+	private static ArrayList<String> laundryDayArray = DayEnum.getAllDayEnumString();
 
 	private UserProfile(UserProfileBuilder builder) {
 		this.usr = builder.usr;
@@ -25,6 +30,14 @@ public class UserProfile implements Parcelable {
 		this.zip = builder.zip;
 		this.laundrySchedule = builder.laundrySchedule;
 		this.laundryDay = builder.laundryDay;
+		if (null != builder.location) {
+			this.location = builder.location;
+		} else {
+			Location defaultLocation = new Location(LocationManager.NETWORK_PROVIDER);
+			defaultLocation.setLatitude(30.4883997);
+			defaultLocation.setLongitude(-97.7175117);
+			this.location = builder.location;
+		}
 	}
 	
 	public long getId() {
@@ -83,6 +96,14 @@ public class UserProfile implements Parcelable {
 		this.laundryDay = laundryDay;
 	}
 
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
 	public static ArrayList<String> getLanndryDayArray() {
 		return laundryDayArray;
 	}
@@ -100,7 +121,8 @@ public class UserProfile implements Parcelable {
 		private Gender gender;
 		private int zip;
 		private int laundrySchedule = 0; // 0 - weekly, 1 - biweekly, 2 - monthly, 3 - random
-		private String laundryDay = "Saturday";		
+		private String laundryDay = "Saturday";
+		private Location location;
 
 		public UserProfileBuilder(String usr, String pwd, Gender gender, int zip) {
 			this.usr = usr;
@@ -121,6 +143,11 @@ public class UserProfile implements Parcelable {
 		
 		public UserProfileBuilder id(long id) {
 			this.id = id;
+			return this;
+		}
+		
+		public UserProfileBuilder location(Location loc) {
+			this.location = loc;
 			return this;
 		}
 		
