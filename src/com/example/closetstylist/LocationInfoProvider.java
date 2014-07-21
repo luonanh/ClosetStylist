@@ -32,24 +32,15 @@ public class LocationInfoProvider {
 	private static String USERNAME = "anhpopeye";
 	
 	public static PlaceRecord getPlaceFromPostalCode(Integer... zip) {
-		PlaceRecord place = getPlaceFromURL(
+		return getPlaceFromURL(
 				generateURLSearchLocationFromPostalCode(USERNAME, zip[0]));
-		return place;
 	}
 	
 	public static PlaceRecord getPlaceFromPostalCode(Location... loc) {
-		/*
-		PlaceRecord place = null;
-		String url = GeonamesLocationToPostalCodeMockFeed.generateURL(USERNAME, 
-				loc[0].getLatitude(), loc[0].getLongitude());
-		place = getPlaceFromURL(url, GeonamesLocationToPostalCodeMockFeed.rawText());
-		return place;
-		*/
-		PlaceRecord place = getPlaceFromURL(
+		return getPlaceFromURL(
 				generateURLSearchPostalCodeFromLocation(USERNAME,
 						loc[0].getLatitude(), loc[0].getLongitude()), 
 				GeonamesLocationToPostalCodeMockFeed.rawText());
-		return place;
 	}
 	
 	/*

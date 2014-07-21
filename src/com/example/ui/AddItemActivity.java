@@ -247,7 +247,7 @@ public class AddItemActivity extends Activity {
 				 * information and send it back to MyCloset activity. 
 				 */
 				Intent i1 = new Intent();
-				i1.putExtra(ItemData.INTENT, itemDataBuilder.buildByGender(up));
+				i1.putExtra(ItemData.INTENT, itemDataBuilder.buildByGender(up.getGender()));
 				
 				// Set Activity's result with result code RESULT_OK
 				setResult(Activity.RESULT_OK, i1);
@@ -396,7 +396,7 @@ public class AddItemActivity extends Activity {
 				if (!description.getText().toString().isEmpty()) {
 					itemDataBuilder.description(description.getText().toString());
 				}
-				new ImageSubSampler(context).subSampleOriginalUri(itemDataBuilder.buildByGender(up), image, context);
+				new ImageSubSampler(context).subSampleOriginalUri(itemDataBuilder.buildByGender(up.getGender()), image, context);
 
 				launchCropIntent();
 			} else if (resultCode == AddItemActivity.RESULT_CANCELED) {
@@ -428,7 +428,7 @@ public class AddItemActivity extends Activity {
 				if (!description.getText().toString().isEmpty()) {
 					itemDataBuilder.description(description.getText().toString());
 				}
-				new ImageSubSampler(context).subSampleCroppedUri(itemDataBuilder.buildByGender(up), cropImage, context);
+				new ImageSubSampler(context).subSampleCroppedUri(itemDataBuilder.buildByGender(up.getGender()), cropImage, context);
 			}
 		}
 	}

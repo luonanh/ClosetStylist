@@ -55,8 +55,7 @@ public class PostalCodeToLocationTask extends AsyncTask<Integer, Void, PlaceReco
 	
 	@Override
 	protected PlaceRecord doInBackground(Integer... zip) {
-		PlaceRecord place = LocationInfoProvider.getPlaceFromPostalCode(zip[0]);
-		return place;
+		return LocationInfoProvider.getPlaceFromPostalCode(zip[0]);
 	}
 
 	@Override

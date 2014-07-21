@@ -150,6 +150,9 @@
     <string name="register_btn_location_from_zip">LocationFromZip</string>
     <string name="register_btn_zip_from_location">ZipFromLocation</string>
     
+    <string name="register_menu_load_male">LoadMaleUserProfile</string>
+    <string name="register_menu_load_female">LoadFemaleUserProfile</string>
+    
     <string-array name="register_spinner_gender">
         <item>Male</item>
         <item>Female</item>

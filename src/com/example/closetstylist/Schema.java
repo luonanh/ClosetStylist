@@ -31,6 +31,8 @@ public class Schema {
 			public static final String ZIP = "zip";
 			public static final String LAUNDRY_SCHEDULE = "laundrySchedule";
 			public static final String LAUNDRY_DAY = "laundryDay";
+			public static final String LONGTITUDE = "longtitude";
+			public static final String LATITUDE = "latitude";
 		}
 	}
 	

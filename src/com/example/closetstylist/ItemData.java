@@ -517,9 +517,9 @@ public class ItemData implements Parcelable {
 			return itemData;
 		}
 		
-		public ItemData buildByGender(UserProfile up) {
+		public ItemData buildByGender(Gender gender) {
 			ItemData itemData = new ItemData(this);
-			switch (up.getGender()) {
+			switch (gender) {
 			case FEMALE:
 				itemData.setTempMinFromStyleFemale();
 				itemData.setTempMaxFromStyleFemale();

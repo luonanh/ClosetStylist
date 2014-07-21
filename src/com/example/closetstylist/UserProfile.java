@@ -104,7 +104,7 @@ public class UserProfile implements Parcelable {
 		this.location = location;
 	}
 
-	public static ArrayList<String> getLanndryDayArray() {
+	public static ArrayList<String> getLaundryDayArray() {
 		return laundryDayArray;
 	}
 
@@ -171,6 +171,7 @@ public class UserProfile implements Parcelable {
 		dest.writeInt(zip);
 		dest.writeInt(laundrySchedule);
 		dest.writeString(laundryDay);
+		location.writeToParcel(dest, flags);
 	}
 	
 	/*
@@ -197,5 +198,6 @@ public class UserProfile implements Parcelable {
 		zip = source.readInt();
 		laundrySchedule = source.readInt();
 		laundryDay = source.readString();
+		location = Location.CREATOR.createFromParcel(source);
 	}
 }

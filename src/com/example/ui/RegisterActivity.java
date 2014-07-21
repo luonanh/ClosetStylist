@@ -1,5 +1,6 @@
 package com.example.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -8,6 +9,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -16,12 +20,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.text.format.DateUtils;
 
+import com.example.closetstylist.Gender;
+import com.example.closetstylist.ItemColorEnum;
 import com.example.closetstylist.ItemDatabaseHelper;
 import com.example.closetstylist.LocationToPostalCodeTask;
 import com.example.closetstylist.PlaceRecord;
 import com.example.closetstylist.PostalCodeToLocationTask;
 import com.example.closetstylist.R;
 import com.example.closetstylist.MockLocationProvider;
+import com.example.closetstylist.UserProfile;
 
 /*
  * Modified PlaceViewActivity in ContentProviderLab
@@ -32,10 +39,15 @@ public class RegisterActivity extends Activity implements LocationListener {
 	private Context context = null;
 	private ItemDatabaseHelper itemDatabaseHelper = null;
 
+	private EditText usr;
+	private EditText pwd;
 	private Spinner gender;
+	private ArrayList<String> genderArray = null;
 	private EditText zip;
 	private EditText lng;
 	private EditText lat;
+	private int laundrySchedule;
+	private String laundryDay;
 	private Button buttonLocationFromZip;
 	private Button buttonLoc;
 	private Button buttonRegister;
@@ -57,16 +69,17 @@ public class RegisterActivity extends Activity implements LocationListener {
 		setContentView(R.layout.activity_register);
 		
 		context = getApplicationContext();
+		itemDatabaseHelper = new ItemDatabaseHelper(this);
 		
 		gender = (Spinner) findViewById(R.id.register_spinner_gender);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, 
-				R.array.register_spinner_gender, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		gender.setAdapter(adapter);
+
+		genderArray = Gender.getAllGenderString();
+		ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(this,
+				R.layout.gender_dropdown_item, genderArray);
+		gender.setAdapter(genderAdapter);
 		
+		usr = (EditText) findViewById(R.id.register_value_username);
+		pwd = (EditText) findViewById(R.id.register_value_password);
 		zip = (EditText) findViewById(R.id.register_value_zip);
 		lng = (EditText) findViewById(R.id.register_value_longtitude);
 		lat = (EditText) findViewById(R.id.register_value_latitude);
@@ -105,6 +118,20 @@ public class RegisterActivity extends Activity implements LocationListener {
 		buttonRegister.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Location defaultLocation = new Location(LocationManager.NETWORK_PROVIDER);
+				defaultLocation.setLatitude(Double.parseDouble(lat.getText().toString()));
+				defaultLocation.setLongitude(Double.parseDouble(lng.getText().toString()));
+				UserProfile temp = new UserProfile.UserProfileBuilder(
+						usr.getText().toString(), 
+						pwd.getText().toString(),
+						Gender.valueOf(gender.getSelectedItem().toString()),
+						Integer.parseInt(zip.getText().toString()))
+						.laundrySchedule(laundrySchedule)
+						.laundryDay(laundryDay)
+						.location(defaultLocation)
+						.build();
+				itemDatabaseHelper.saveUserProfileRecord(temp);
+				finish();
 			}
 		});
 	}
@@ -146,6 +173,52 @@ public class RegisterActivity extends Activity implements LocationListener {
 		// Unregister for location updates
 		mLocationManager.removeUpdates(this);
 		super.onPause();
+	}
+
+	/*
+	 * This is just for debugging only.
+	 * Will be deleted afterwards.
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_register, menu);
+		return true;
+	}
+
+	/*
+	 * This is just for debugging only.
+	 * Will be deleted afterwards.
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		UserProfile up;
+		switch (item.getItemId()) {
+		case R.id.register_menu_load_male:
+			up = itemDatabaseHelper.getDefaultMaleUserProfile();
+			usr.setText(up.getUsr());
+			pwd.setText(up.getPwd());
+			gender.setSelection(genderArray.indexOf(up.getGender()));
+			zip.setText(String.valueOf(up.getZip()));
+			laundrySchedule = up.getLaundrySchedule();
+			laundryDay = up.getLaundryDay();
+			new PostalCodeToLocationTask(RegisterActivity.this)
+					.execute(Integer.parseInt(zip.getText().toString()));
+			return true;
+		case R.id.register_menu_load_female:
+			up = itemDatabaseHelper.getDefaultFemaleUserProfile();
+			usr.setText(up.getUsr());
+			pwd.setText(up.getPwd());
+			gender.setSelection(genderArray.indexOf(up.getGender()));
+			zip.setText(String.valueOf(up.getZip()));
+			laundrySchedule = up.getLaundrySchedule();
+			laundryDay = up.getLaundryDay();
+			new PostalCodeToLocationTask(RegisterActivity.this)
+					.execute(Integer.parseInt(zip.getText().toString()));
+			return true;			
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
