@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -67,9 +68,8 @@ public class OutfitActivity extends Activity {
 	private TextView temperature = null;
 	private TextView score = null;
 	private TextView rank = null;
+	private Button wear = null;
 	private WeatherInfo weatherInfo = null;
-	private ArrayList<ItemData> topList = null;
-	private ArrayList<ItemData> bottomList = null;
 	private UserProfile up = null;
 	List<Outfit> outfit;
 	int outfitIndex;
@@ -148,24 +148,6 @@ public class OutfitActivity extends Activity {
 			}
 		};
 		
-		/*
-		// Get all the "top" items from our database
-		topList = itemDatabaseHelper.getAllTop();
-		if (0 == topList.size()) {
-			Toast.makeText(context, R.string.outfit_message_no_top, 
-					Toast.LENGTH_SHORT).show();						
-		} else {
-			// Haven't created an algorithm to pick a "top" item yet.
-			// Temporarily pick a random item
-			int indexTop = 0;
-			if (topList.size() > 1) {
-				indexTop = new Random().nextInt(topList.size());
-			}
-			topItem = topList.get(indexTop);
-			new ImageSubSampler(context).subSampleCroppedUri(topItem, top, context);
-		}
-		*/
-		
 		// obtain WeatherInfo from OpenWeatherMap.
 		// Can change to another provider like Yahoo by passing another instance
 		// to WeatherServiceTask. 
@@ -173,24 +155,6 @@ public class OutfitActivity extends Activity {
 		task.execute(String.valueOf(mBestReading.getLatitude()), 
 				String.valueOf(mBestReading.getLongitude()));
 
-		/*
-		// Get all the "bottom" items from our database
-		bottomList = itemDatabaseHelper.getAllBottom();
-		if (0 == bottomList.size()) {
-			Toast.makeText(context, R.string.outfit_message_no_bottom, 
-					Toast.LENGTH_SHORT).show();
-		} else {
-			// Haven't created an algorithm to pick a "bottom" item yet.
-			// Temporarily pick a random item
-			int indexbottom = 0;
-			if (bottomList.size() > 1) {
-				indexbottom = new Random().nextInt(bottomList.size());
-			}
-			bottomItem = bottomList.get(indexbottom);
-			new ImageSubSampler(context).subSampleCroppedUri(bottomItem, bottom, context);
-		}
-		*/
-		
 		buttonPrev = (ImageButton) findViewById(R.id.outfit_btn_prev);
 		buttonPrev.setOnClickListener(new OnClickListener() {
 			@Override
@@ -246,6 +210,33 @@ public class OutfitActivity extends Activity {
 					}
 				}
 			}			
+		});
+		
+		wear = (Button) findViewById(R.id.outfit_btn_wear);
+		wear.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				if (null != outfit) {
+					if (null != outfit.get(outfitIndex).getTop()) {
+						ItemData temp = outfit.get(outfitIndex).getTop();
+						temp.setDirty(true);
+						itemDatabaseHelper.updateItemDataRecord(temp);
+					}
+					
+					if (null != outfit.get(outfitIndex).getBottom()) {
+						ItemData temp = outfit.get(outfitIndex).getBottom();
+						temp.setDirty(true);
+						itemDatabaseHelper.updateItemDataRecord(temp);
+					}
+
+					if (null != outfit.get(outfitIndex).getOuter()) {
+						ItemData temp = outfit.get(outfitIndex).getOuter();
+						temp.setDirty(true);
+						itemDatabaseHelper.updateItemDataRecord(temp);
+					}
+				}
+			}
 		});
 	}
 	

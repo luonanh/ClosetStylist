@@ -136,6 +136,11 @@ public class ViewUserProfileActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		// If mBestReading is null, then use the default location from UserProfile
+		if (null == mBestReading) {
+			mBestReading = up.getLocation();
+		}
 
 		// Determine whether initial reading is
 		// "good enough"
