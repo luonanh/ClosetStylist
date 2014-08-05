@@ -1,32 +1,14 @@
 package com.example.closetstylist;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import com.example.ui.OutfitActivity;
-import com.example.ui.RegisterActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
+
+import com.example.ui.PlaceRecordContainerInterface;
 
 public class LocationToPostalCodeTask extends AsyncTask<Location, Void, PlaceRecord> {
 	// Change to false if you don't have network access
@@ -36,13 +18,15 @@ public class LocationToPostalCodeTask extends AsyncTask<Location, Void, PlaceRec
     private static String USERNAME = "anhpopeye";
 
 	private HttpURLConnection mHttpUrl;
-	private WeakReference<RegisterActivity> mParent;
+	private WeakReference<PlaceRecordContainerInterface> mParent;
+	private Context context;
 	private ProgressDialog dialog;
 	
-	public LocationToPostalCodeTask(RegisterActivity parent) {
+	public LocationToPostalCodeTask(PlaceRecordContainerInterface parent, Context context) {
 		super();
-		mParent = new WeakReference<RegisterActivity>(parent);
-		dialog = new ProgressDialog(parent);
+		this.mParent = new WeakReference<PlaceRecordContainerInterface>(parent);
+		this.dialog = new ProgressDialog(context);
+		this.context = context;
 	}
 
 	@Override

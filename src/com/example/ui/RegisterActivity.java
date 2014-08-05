@@ -33,7 +33,7 @@ import com.example.closetstylist.UserProfile;
 /*
  * Modified PlaceViewActivity in ContentProviderLab
  */
-public class RegisterActivity extends Activity implements LocationListener {
+public class RegisterActivity extends Activity implements LocationListener, PlaceRecordContainerInterface {
 	private final static String LOG_TAG = RegisterActivity.class.getCanonicalName();
 	
 	private Context context = null;
@@ -93,7 +93,7 @@ public class RegisterActivity extends Activity implements LocationListener {
 				if (zipCode.equalsIgnoreCase("")) {
 					zipCode = "78758";
 				}
-				new PostalCodeToLocationTask(RegisterActivity.this)
+				new PostalCodeToLocationTask(RegisterActivity.this, RegisterActivity.this)
 						.execute(Integer.parseInt(zip.getText().toString()));
 			}
 		});
@@ -108,8 +108,8 @@ public class RegisterActivity extends Activity implements LocationListener {
 					zipCode = "78758";
 				}
 				if (null != mLastLocationReading) {
-					new LocationToPostalCodeTask(RegisterActivity.this)
-					.execute(mLastLocationReading);					
+					new LocationToPostalCodeTask(RegisterActivity.this, RegisterActivity.this)
+							.execute(mLastLocationReading);					
 				}
 			}
 		});
@@ -202,7 +202,7 @@ public class RegisterActivity extends Activity implements LocationListener {
 			zip.setText(String.valueOf(up.getZip()));
 			laundrySchedule = up.getLaundrySchedule();
 			laundryDay = up.getLaundryDay();
-			new PostalCodeToLocationTask(RegisterActivity.this)
+			new PostalCodeToLocationTask(RegisterActivity.this, RegisterActivity.this)
 					.execute(Integer.parseInt(zip.getText().toString()));
 			return true;
 		case R.id.register_menu_load_female:
@@ -213,7 +213,7 @@ public class RegisterActivity extends Activity implements LocationListener {
 			zip.setText(String.valueOf(up.getZip()));
 			laundrySchedule = up.getLaundrySchedule();
 			laundryDay = up.getLaundryDay();
-			new PostalCodeToLocationTask(RegisterActivity.this)
+			new PostalCodeToLocationTask(RegisterActivity.this, RegisterActivity.this)
 					.execute(Integer.parseInt(zip.getText().toString()));
 			return true;			
 		default:

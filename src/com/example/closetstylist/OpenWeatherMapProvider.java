@@ -119,12 +119,13 @@ public class OpenWeatherMapProvider implements WeatherProviderInterface {
 	}
 
 	@Override
-	public String getWeatherDataFromLatLong(double lat, double lon) {
-		return new OpenWeatherMapHttpClient().getWeatherData(lat, lon);
+	public String getWeatherDataFromLatLong(PlaceRecord place) {
+		return new OpenWeatherMapHttpClient().getWeatherData(
+				place.getLocation().getLatitude(), place.getLocation().getLongitude());
 	}
 
 	@Override
-	public WeatherInfo getWeatherInfoFromWeatherData(String data) {
+	public WeatherInfo getWeatherInfoFromWeatherData(String data, PlaceRecord place) {
 		try {
 			OpenWeatherMapWeather w = getWeather(data);
 			Log.i(LOG_TAG, "w.temperature.getTemp() - " 
@@ -132,7 +133,8 @@ public class OpenWeatherMapProvider implements WeatherProviderInterface {
 			WeatherInfo wi = new WeatherInfo(
 					kelvinToFahrenheit(w.temperature.getMaxTemp()), 
 					kelvinToFahrenheit(w.temperature.getMinTemp()), 
-					kelvinToFahrenheit(w.temperature.getTemp()));
+					kelvinToFahrenheit(w.temperature.getTemp()),
+					place);
 			Log.i(LOG_TAG, "kelvinToFahrenheit(w.temperature.getMaxTemp()) - " 
 					+ String.valueOf(kelvinToFahrenheit(w.temperature.getMaxTemp())));
 			if (w.rain.getAmmount() > 0) {

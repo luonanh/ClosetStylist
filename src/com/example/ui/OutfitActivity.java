@@ -12,9 +12,11 @@ import com.example.closetstylist.ClothesMatchingFactoryMale;
 import com.example.closetstylist.ImageSubSampler;
 import com.example.closetstylist.ItemData;
 import com.example.closetstylist.ItemDatabaseHelper;
+import com.example.closetstylist.LocationToPostalCodeTask;
 import com.example.closetstylist.OccasionEnum;
 import com.example.closetstylist.OpenWeatherMapProvider;
 import com.example.closetstylist.Outfit;
+import com.example.closetstylist.PlaceRecord;
 import com.example.closetstylist.R;
 import com.example.closetstylist.UserProfile;
 import com.example.closetstylist.WeatherInfo;
@@ -41,7 +43,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class OutfitActivity extends Activity {
+public class OutfitActivity extends Activity implements PlaceRecordContainerInterface {
 	private final static String LOG_TAG = OutfitActivity.class.getCanonicalName();
 	
 	// Location constants
@@ -73,6 +75,7 @@ public class OutfitActivity extends Activity {
 	private UserProfile up = null;
 	List<Outfit> outfit;
 	int outfitIndex;
+	private PlaceRecord place;
 	
 	// Current best location estimate
 	private Location mBestReading;
@@ -148,12 +151,8 @@ public class OutfitActivity extends Activity {
 			}
 		};
 		
-		// obtain WeatherInfo from OpenWeatherMap.
-		// Can change to another provider like Yahoo by passing another instance
-		// to WeatherServiceTask. 
-		WeatherServiceTask task = new WeatherServiceTask(new OpenWeatherMapProvider());
-		task.execute(String.valueOf(mBestReading.getLatitude()), 
-				String.valueOf(mBestReading.getLongitude()));
+		new LocationToPostalCodeTask(OutfitActivity.this, OutfitActivity.this)
+				.execute(mBestReading);	
 
 		buttonPrev = (ImageButton) findViewById(R.id.outfit_btn_prev);
 		buttonPrev.setOnClickListener(new OnClickListener() {
@@ -316,7 +315,7 @@ public class OutfitActivity extends Activity {
 	private void updateDisplay(Location location) {
 	}
 	
-	public class WeatherServiceTask extends AsyncTask<String, Void, WeatherInfo>{
+	public class WeatherServiceTask extends AsyncTask<PlaceRecord, Void, WeatherInfo>{
 		private WeatherProviderInterface weatherProvider; // an interface can be swapped at run time
 		private ProgressDialog dialog;
 		
@@ -337,11 +336,9 @@ public class OutfitActivity extends Activity {
 		}
 
 		@Override
-		protected WeatherInfo doInBackground(String... params) {
-			double lat = Double.parseDouble(params[0]);
-			double lon = Double.parseDouble(params[1]);
-			String data = weatherProvider.getWeatherDataFromLatLong(lat, lon);
-			return weatherProvider.getWeatherInfoFromWeatherData(data);
+		protected WeatherInfo doInBackground(PlaceRecord... params) {
+			String data = weatherProvider.getWeatherDataFromLatLong(params[0]);
+			return weatherProvider.getWeatherInfoFromWeatherData(data, place);
 			// use mock to avoid reaching the query limit of OpenWeatherMap 
 			//return weatherProvider.getWeatherInfoFromWeatherData(OpenWeatherMapMockFeed.rawText());
 		}
@@ -398,6 +395,19 @@ public class OutfitActivity extends Activity {
 				Toast.makeText(context, R.string.outfit_message_no_weather_info, 
 						Toast.LENGTH_SHORT).show();
 			}
+		}
+	}
+
+	@Override
+	public void setPlaceRecord(PlaceRecord place) {
+		if (null != place) {
+			this.place = place;
+			// obtain WeatherInfo from OpenWeatherMap.
+			// Can change to another provider like Yahoo by passing another instance
+			// to WeatherServiceTask. 
+			WeatherServiceTask task = new WeatherServiceTask(new OpenWeatherMapProvider());
+			task.execute(this.place);
+
 		}
 	}
 

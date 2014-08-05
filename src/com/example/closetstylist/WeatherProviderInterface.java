@@ -4,6 +4,6 @@ import java.io.InputStream;
 
 public interface WeatherProviderInterface {
 
-	public String getWeatherDataFromLatLong(double lat, double lon);
-	public WeatherInfo getWeatherInfoFromWeatherData(String data);
+	public String getWeatherDataFromLatLong(PlaceRecord place);
+	public WeatherInfo getWeatherInfoFromWeatherData(String data, PlaceRecord place);
 }

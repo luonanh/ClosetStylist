@@ -6,11 +6,13 @@ public class WeatherInfo {
 	private int tempCurrent = 50;
 	private float rainAmount = 0;
 	private float windSpeed = 0;
+	private PlaceRecord placeRecord = null;
 
-	public WeatherInfo(int min, int max, int current) {
+	public WeatherInfo(int min, int max, int current, PlaceRecord place) {
 		tempMin = min;
 		tempMax = max;
 		tempCurrent = current;
+		placeRecord = place;
 	}
 
 	public int getTempMin() {
